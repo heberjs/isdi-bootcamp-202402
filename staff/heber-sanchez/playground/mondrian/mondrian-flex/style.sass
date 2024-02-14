@@ -3,26 +3,41 @@
 .mondrian
     position: absolute
     background-color: rgb(195, 195, 195)
-    @include utils.size(60vw, 50vw)
+    @include utils.size(70vw, 80vw)
     @include utils.location(5vw, 10vw)
     display: flex
+    border: 2vw solid black
 
     &__column-left
         background-color: rgb(0, 0, 0)
-        @include utils.size(20vw, 50vw)
+        @include utils.size(25vw, 80vw)
+        display: flex
+        flex-direction: column
+    &__column-right
+        background-color: rgb(255, 255, 255)
+        @include utils.size(60vw, 80vw)
         display: flex
         flex-direction: column
 .column-left__box--yellow
-    @include utils.size(18vw, 28vw)
+    @include utils.size(25vw, 55vw)
     background-color: yellow
+    border-right: 2vw solid black
+    border-bottom: 2vw solid black
 .column-left__box--white
-    @include utils.size( 8vw, 16vw )
+    @include utils.size( 25vw, 22vw )
     background-color: white
+    border-bottom: 2vw solid black
 .column-left__box--blue
-    @include utils.size(4vw, 18vw)
+    @include utils.size(25vw, 14vw)
     background-color: blue
 
-    &__column-right
-        background-color: rgb(136, 80, 80)
-        @include utils.size(80vw, 50vw)
-        display: flex
+.column__right__box--red
+    background-color: red
+    @include utils.size(44vw, 68vw)
+    border-left: 2vw solid black
+    border-bottom: 2vw solid black
+.column__right__box--white-one
+    background-color: white
+    @include utils.size(30vw, 12vw)
+    border-left: 2vw solid black
+    border-right: 2vw solid black
