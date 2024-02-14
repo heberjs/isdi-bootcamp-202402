@@ -1,0 +1,140 @@
+body {
+  background-color: rgb(255, 255, 255);
+}
+
+.pig {
+  position: relative;
+  top: 100px;
+  left: 400px;
+}
+.pig__head {
+  position: relative;
+  background-color: #ffb1be;
+  width: 200px;
+  height: 170px;
+  border-radius: 45%;
+  border-bottom: 2px solid black;
+}
+
+.eye--right {
+  left: 120px;
+}
+
+.eye--left {
+  left: 40px;
+}
+
+.pig__eye {
+  position: absolute;
+  width: 9px;
+  height: 15px;
+  background-color: black;
+  border-radius: 40%;
+  top: 62px;
+  animation: eyes-movement 2s infinite;
+  z-index: 1;
+}
+
+.pig__nose {
+  position: absolute;
+  width: 70px;
+  height: 55px;
+  background-color: rgb(121, 82, 89);
+  border-radius: 70%;
+  top: 80px;
+  left: 65px;
+  z-index: 1;
+  border-bottom: 2px solid black;
+  border-top: 1px solid black;
+}
+
+.nose__hole {
+  position: absolute;
+  width: 7px;
+  height: 28px;
+  background-color: black;
+  border-radius: 70%;
+  top: 15.5px;
+}
+
+.hole--left {
+  left: 27px;
+}
+
+.hole--right {
+  left: 35px;
+}
+
+.pig__mouth {
+  position: absolute;
+  width: 15px;
+  height: 3px;
+  background-color: rgb(213, 19, 19);
+  top: 131px;
+  left: 87px;
+  border: 6px solid black;
+  border-radius: 70px;
+}
+
+.pig__ear {
+  position: absolute;
+  width: 80px;
+  height: 57px;
+  top: -4px;
+  -moz-border-radius: 0 50%/0 100%;
+  -webkit-border-radius: 0 50%/0 100%;
+  border-radius: 0 50%/0 100%;
+  background-color: #ffb1be;
+}
+
+.ear--right {
+  left: 174px;
+  transform: rotate(120deg);
+}
+
+.ear--left {
+  left: -50px;
+}
+
+.pig__body {
+  width: 272px;
+  height: 290px;
+  top: 125px;
+  left: -41px;
+  position: absolute;
+  background-color: pink;
+  border-radius: 40%;
+  z-index: -1;
+}
+
+.pig__leg {
+  width: 50px;
+  height: 82px;
+  top: 313px;
+  position: absolute;
+  background-color: #ffacba;
+  border-radius: 60%;
+  border-bottom: 2px solid black;
+  border-top: 1px solid black;
+}
+
+.pig__leg--right {
+  left: 140px;
+}
+
+@keyframes eyes-movement {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-15px, -15px);
+  }
+  50% {
+    transform: translate(0, -20px);
+  }
+  75% {
+    transform: translate(15px, -15px);
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

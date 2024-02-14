@@ -1,0 +1,78 @@
+body {
+  background-color: rgb(215, 215, 215);
+}
+
+.building {
+  position: absolute;
+  left: 300px;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.building__floor {
+  width: 415px;
+  height: 65px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(10, 6, 4);
+  background-image: url(./images/ladrillo.jpg);
+}
+.building__window {
+  width: 25px;
+  height: 15px;
+  background-color: rgb(8, 153, 210);
+  transform: rotate(90deg);
+  background-image: url(./images/ventana.png);
+}
+.building--entrance {
+  width: 670px;
+  height: 76px;
+  background-color: rgb(22, 15, 10);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.building__door {
+  width: 70px;
+  height: 50px;
+  background-color: rgb(21, 8, 8);
+  position: relative;
+  top: 12px;
+  background-image: url(./images/entrance.jpg);
+}
+.building__window--entrance {
+  width: 130px;
+  height: 20px;
+  background-color: rgb(8, 153, 210);
+}
+
+.sun {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(255, 206, 12);
+  position: absolute;
+  left: 100px;
+  top: 100px;
+}
+
+.sun--rotate {
+  transform: rotate(45deg);
+}
+
+@keyframes windows-light {
+  0%, 100% {
+    background-color: rgb(8, 153, 210);
+  }
+  50% {
+    background-color: rgb(255, 206, 12);
+  }
+}
+.window--night {
+  background-color: rgb(8, 153, 210);
+  animation: windows-light 3s steps(1) infinite;
+}
+
+/*# sourceMappingURL=style.css.map */

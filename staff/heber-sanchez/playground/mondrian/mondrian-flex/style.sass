@@ -1,0 +1,19 @@
+@use '../../utils/utils'
+
+.mondrian
+    position: absolute
+    background-color: rgb(195, 195, 195)
+    @include utils.size(60vw, 50vw)
+    @include utils.location(5vw, 10vw)
+    display: flex
+
+    &__column-left
+        background-color: rgb(0, 0, 0)
+        @include utils.size(20vw, 50vw)
+        &__box--white
+            background-color: yellow
+            @include utils.size(20vw, 30vw)
+
+    &__column-right
+        background-color: rgb(52, 14, 14)
+        @include utils.size(80vw, 50vw)

@@ -1,0 +1,105 @@
+@use '../utils/utils'
+body
+    background-color: rgb(255, 255, 255)
+.pig
+    position: relative
+    @include utils.location(100px, 400px)
+
+    &__head
+        position: relative
+        background-color: darken(pink, 3)
+        @include utils.size(200px, 170px)
+        border-radius: 45%
+        border-bottom: 2px solid black
+
+.eye--right
+    left: 120px
+
+.eye--left
+    left: 40px
+
+.pig__eye
+    position: absolute
+    @include utils.size(9px, 15px)
+    background-color: black
+    border-radius: 40%
+    top: 62px
+    animation: eyes-movement 2s infinite
+    z-index: 1
+
+.pig__nose
+    position: absolute
+    @include utils.size(70px, 55px)
+    background-color: rgb(121, 82, 89)
+    border-radius: 70%
+    @include utils.location(80px, 65px)
+    z-index: 1
+    border-bottom: 2px solid black
+    border-top: 1px solid black
+
+.nose__hole
+    position: absolute
+    @include utils.size(7px, 28px)
+    background-color: black
+    border-radius: 70%
+    top: 15.5px
+
+.hole--left
+    left: 27px
+
+.hole--right
+    left: 35px
+
+.pig__mouth
+    position: absolute
+    @include utils.size(15px, 3px)
+    background-color: rgb(213, 19, 19)
+    @include utils.location(131px, 87px)
+    border: 6px solid black
+    border-radius: 70px
+
+.pig__ear
+    position: absolute
+    @include utils.size(80px, 57px)
+    top: -4px
+    -moz-border-radius: 0 50% / 0 100%
+    -webkit-border-radius: 0 50% / 0 100%
+    border-radius: 0 50% / 0 100%
+    background-color: darken(pink, 3)
+
+.ear--right
+    left: 174px
+    transform: rotate(120deg)
+.ear--left
+    left: -50px
+
+.pig__body
+    @include utils.size(272px, 290px)
+    @include utils.location(125px, -41px )
+    position: absolute
+    background-color: pink
+    border-radius: 40%
+    z-index: -1
+.pig__leg
+    @include utils.size(50px, 82px)
+    top: 313px
+    position: absolute
+    background-color: darken(pink, 4)
+    border-radius: 60%
+    border-bottom: 2px solid black
+    border-top: 1px solid black
+.pig__leg--right
+    left: 140px
+
+@keyframes eyes-movement
+    0%, 100%
+        transform: translate(0, 0)
+
+    25%
+        transform: translate(-15px, -15px)
+
+    50%
+        transform: translate(0, -20px)
+
+    75%
+        transform: translate(15px, -15px)

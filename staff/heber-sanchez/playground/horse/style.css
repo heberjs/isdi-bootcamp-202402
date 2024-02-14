@@ -1,0 +1,109 @@
+body {
+  box-sizing: border-box;
+}
+
+.horse {
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}
+.horse__head {
+  position: absolute;
+  width: 328px;
+  height: 144px;
+  background-color: rgb(102, 14, 14);
+  border-radius: 28%;
+  border: 2px solid black;
+  transform: rotate(-38deg);
+  top: 18px;
+  left: -130px;
+}
+.horse .head__nose {
+  width: 161px;
+  height: 60px;
+  background-color: black;
+  position: absolute;
+  top: 1px;
+  left: -1px;
+  border-radius: 33%;
+}
+.horse .nose__hole {
+  position: absolute;
+  width: 9px;
+  height: 27px;
+  background-color: #8a4747;
+  top: 13px;
+  left: 7px;
+}
+.horse__head-neck {
+  width: 186px;
+  height: 374px;
+  background-color: rgb(102, 14, 14);
+  border-radius: 34%;
+  position: absolute;
+  top: -62px;
+  left: 97px;
+  transform: rotate(-29deg);
+}
+.horse__eyes {
+  position: absolute;
+  width: 42px;
+  height: 18px;
+  background-color: white;
+  /* transform: rotate(0deg); */
+  z-index: 1;
+  top: 25px;
+  left: 64px;
+  border-radius: 423%;
+}
+.horse .eyes__pupil {
+  width: 19px;
+  height: 17px;
+  background-color: black;
+  position: absolute;
+  border-radius: 108%;
+  top: 2px;
+  left: 0px;
+}
+.horse__ears {
+  width: 0px;
+  height: 0px;
+  border-right: 13px solid transparent;
+  border-top: 49px solid transparent;
+  border-left: 45px solid #f0ad4e;
+  border-bottom: 40px solid #f0ad4e;
+  position: absolute;
+  top: -98px;
+  left: 93px;
+  z-index: 1;
+  transform: rotate(20deg);
+}
+.horse__body {
+  width: 665px;
+  height: 301px;
+  background-color: rgb(102, 14, 14);
+  position: absolute;
+  top: 160px;
+  left: 150px;
+  border-radius: 36%;
+}
+.horse__legs {
+  width: 113px;
+  height: 212px;
+  background-color: rgb(102, 14, 14);
+  position: absolute;
+  border-top-left-radius: 60%;
+  border-top-right-radius: 66%;
+  border-bottom-left-radius: 151%;
+  border-bottom-right-radius: 40%;
+  transform: rotate(-16deg);
+  top: 355px;
+}
+.horse .legs--left {
+  left: 267px;
+}
+.horse .legs--right {
+  left: 663px;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,41 @@
+html
+    box-sizing: border-box
+
+.car
+    position: absolute
+    top: 300px
+    left: 50px
+
+    &__cabin
+        position: absolute
+        width: 300px
+        height: 0px
+        border-right: 80px solid transparent
+        border-left: 100px solid transparent
+        border-bottom: 100px solid rgb(215, 214, 214)
+        bottom: -24px
+        left: 110px
+
+    &__chasis
+        position: absolute
+        width: 700px
+        height: 90px
+        background-color: rgb(79, 79, 96)
+        border-radius: 20%
+        border: 1px solid black
+
+    &__wheels
+        position: absolute
+        width: 80px
+        height: 70px
+        border-radius: 45%
+        background-color: black
+        border: 10px solid brown
+        top: 60px
+        z-index: -1
+
+    &__wheels--left
+        left: 100px
+
+    &__wheels--right
+        left: 490px

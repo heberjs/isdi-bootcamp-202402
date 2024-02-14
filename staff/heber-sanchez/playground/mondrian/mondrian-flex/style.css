@@ -1,0 +1,26 @@
+.mondrian {
+  position: absolute;
+  background-color: rgb(195, 195, 195);
+  width: 60vw;
+  height: 50vw;
+  top: 5vw;
+  left: 10vw;
+  display: flex;
+}
+.mondrian__column-left {
+  background-color: rgb(0, 0, 0);
+  width: 20vw;
+  height: 50vw;
+}
+.mondrian__column-left__box--white {
+  background-color: yellow;
+  width: 20vw;
+  height: 30vw;
+}
+.mondrian__column-right {
+  background-color: rgb(52, 14, 14);
+  width: 80vw;
+  height: 50vw;
+}
+
+/*# sourceMappingURL=style.css.map */

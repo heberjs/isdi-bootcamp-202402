@@ -1,0 +1,87 @@
+@use '../utils/utils'
+
+body
+    box-sizing: border-box
+
+.horse
+    position: absolute
+    @include utils.location(200px, 200px )
+
+    &__head
+        position: absolute
+        @include utils.size(328px, 144px)
+        background-color: rgb(102, 14, 14)
+        border-radius: 28%
+        border: 2px solid black
+        transform: rotate(-38deg)
+        @include utils.location(18px, -130px)
+
+    .head__nose
+        @include utils.size(161px, 60px)
+        background-color: black
+        position: absolute
+        @include utils.location(1px, -1px)
+        border-radius: 33%
+
+    .nose__hole
+        position: absolute
+        @include utils.size(9px, 27px)
+        background-color: #8a4747
+        @include utils.location(13px, 7px)
+
+    &__head-neck
+        @include utils.size(186px, 374px)
+        background-color: rgb(102, 14, 14)
+        border-radius: 34%
+        position: absolute
+        @include utils.location(-62px, 97px)
+        transform: rotate(-29deg)
+
+    &__eyes
+        position: absolute
+        @include utils.size(42px, 18px)
+        background-color: white
+        /* transform: rotate(0deg); */
+        z-index: 1
+        @include utils.location(25px, 64px)
+        border-radius: 423%
+    .eyes__pupil
+        @include utils.size(19px, 17px)
+        background-color: black
+        position: absolute
+        border-radius: 108%
+        @include utils.location(2px, 0px)
+
+    &__ears
+        @include utils.size(0px, 0px)
+        border-right: 13px solid transparent
+        border-top: 49px solid transparent
+        border-left: 45px solid #f0ad4e
+        border-bottom: 40px solid #f0ad4e
+        position: absolute
+        @include utils.location(-98px, 93px)
+        z-index: 1
+        transform: rotate(20deg)
+
+    &__body
+        @include utils.size(665px, 301px)
+        background-color: rgb(102, 14, 14)
+        position: absolute
+        @include utils.location(160px, 150px)
+        border-radius: 36%
+
+    &__legs
+        @include utils.size(113px, 212px)
+        background-color: rgb(102, 14, 14)
+        position: absolute
+        border-top-left-radius: 60%
+        border-top-right-radius: 66%
+        border-bottom-left-radius: 151%
+        border-bottom-right-radius: 40%
+        transform: rotate(-16deg)
+        top: 355px
+    .legs--left
+        left: 267px
+
+    .legs--right
+        left: 663px

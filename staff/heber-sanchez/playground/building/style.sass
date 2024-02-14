@@ -1,0 +1,60 @@
+@use '../utils/utils'
+
+body
+    background-color: rgb(215, 215, 215)
+
+.building
+    position: absolute
+    left: 300px
+    top: 50px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    &__floor
+        @include utils.size(415px, 65px)
+        display: flex
+        justify-content: space-around
+        align-items: center
+        background-color: rgb(10, 6, 4)
+        background-image: url(./images/ladrillo.jpg)
+    &__window
+        @include utils.size(25px, 15px)
+        background-color: rgb(8, 153, 210)
+        transform: rotate(90deg)
+        background-image: url(./images/ventana.png)
+    &--entrance
+        @include utils.size(670px, 76px)
+        background-color: rgb(22, 15, 10)
+        display: flex
+        justify-content: space-around
+        align-items: center
+    &__door
+        @include utils.size(70px, 50px)
+        background-color: rgb(21, 8, 8)
+        position: relative
+        top: 12px
+        background-image: url(./images/entrance.jpg)
+    &__window--entrance
+        @include utils.size(130px, 20px)
+        background-color: rgb(8, 153, 210)
+.sun
+    @include utils.size(100px, 100px)
+    background-color: rgb(255, 206, 12)
+    position: absolute
+    left: 100px
+    top: 100px
+.sun--rotate
+    transform: rotate(45deg)
+
+@keyframes windows-light
+
+    0%, 100%
+        background-color: rgb(8, 153, 210)
+
+    50%
+        background-color: rgb(255, 206, 12)
+
+.window--night
+    background-color: rgb(8, 153, 210)
+    animation: windows-light 3s steps(1) infinite
