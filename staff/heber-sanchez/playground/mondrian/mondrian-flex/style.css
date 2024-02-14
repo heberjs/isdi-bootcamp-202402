@@ -11,16 +11,32 @@
   background-color: rgb(0, 0, 0);
   width: 20vw;
   height: 50vw;
+  display: flex;
+  flex-direction: column;
 }
-.mondrian__column-left__box--white {
+
+.column-left__box--yellow {
+  width: 18vw;
+  height: 28vw;
   background-color: yellow;
-  width: 20vw;
-  height: 30vw;
 }
-.mondrian__column-right {
-  background-color: rgb(52, 14, 14);
+
+.column-left__box--white {
+  width: 8vw;
+  height: 16vw;
+  background-color: white;
+}
+
+.column-left__box--blue {
+  width: 4vw;
+  height: 18vw;
+  background-color: blue;
+}
+.column-left__box--blue__column-right {
+  background-color: rgb(136, 80, 80);
   width: 80vw;
   height: 50vw;
+  display: flex;
 }
 
 /*# sourceMappingURL=style.css.map */

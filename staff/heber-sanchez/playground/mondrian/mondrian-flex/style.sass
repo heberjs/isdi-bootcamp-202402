@@ -10,10 +10,19 @@
     &__column-left
         background-color: rgb(0, 0, 0)
         @include utils.size(20vw, 50vw)
-        &__box--white
-            background-color: yellow
-            @include utils.size(20vw, 30vw)
+        display: flex
+        flex-direction: column
+.column-left__box--yellow
+    @include utils.size(18vw, 28vw)
+    background-color: yellow
+.column-left__box--white
+    @include utils.size( 8vw, 16vw )
+    background-color: white
+.column-left__box--blue
+    @include utils.size(4vw, 18vw)
+    background-color: blue
 
     &__column-right
-        background-color: rgb(52, 14, 14)
+        background-color: rgb(136, 80, 80)
         @include utils.size(80vw, 50vw)
+        display: flex
