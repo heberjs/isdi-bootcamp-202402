@@ -1,0 +1,41 @@
+$ship-height: 10vh
+$ovni-height: 10vh
+$ship-size-ratio: 1.38
+
+body
+    margin: 0
+    box-sizing: border-box
+.enemies
+    position: absolute
+    width: 46vw
+    height: 30vh
+    display: flex
+    flex-wrap: wrap
+    left: 26vw
+    top: 10vh
+#ovni
+    height: $ovni-height
+    transform: rotate(10deg)
+    animation: moving-ufos 2s infinite
+#space
+    background-color: rgb(0, 0, 0)
+    width: 100vw
+    height: 100vh
+#ship
+    height: $ship-height
+    position: absolute
+    top: 90vh
+    left: 45vw
+@keyframes moving-ufos
+    0%
+        transform: rotate(10deg)
+
+    25%
+        transform: rotate(45deg)
+
+    50%
+        transform: rotate(10deg)
+    75%
+        transform: rotate(-28deg)
+    100%
+        transform: rotate(10deg)
