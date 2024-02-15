@@ -5,7 +5,6 @@
 ```sh
 $ pwd
 /Users/pepitos
-
 ```
 
 ## ls (list files and folders)
@@ -21,7 +20,6 @@ applications
 
 ```sh
 $ ls -l
-
  ```
 
 ## ls -a (list all hidden files)
@@ -32,14 +30,12 @@ $ ls -a
 .config
 .deno
 .expo
-
 ```
 
 ## mkdir ( creates a directory)
 
 ```sh
 $ mkdir workspace
-
 ```
 
 ## cd (change directory)
@@ -52,7 +48,6 @@ $ cd workspace
 
 ```sh
 mv hello.world folder-a / folder-b / folder-c
-
 ```
 
 ```sh
