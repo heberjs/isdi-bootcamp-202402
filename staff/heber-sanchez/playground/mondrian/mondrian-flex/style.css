@@ -1,8 +1,8 @@
 .mondrian {
   position: absolute;
   background-color: rgb(195, 195, 195);
-  width: 59vw;
-  height: 43vw;
+  width: 54vw;
+  height: 37vw;
   top: 5vw;
   left: 10vw;
   display: flex;
@@ -10,22 +10,22 @@
 }
 .mondrian__column-left {
   background-color: rgb(0, 0, 0);
-  width: 21vw;
-  height: 43vw;
+  width: 23vw;
+  height: 37vw;
   display: flex;
   flex-direction: column;
 }
 .mondrian__column-right {
   background-color: rgb(255, 255, 255);
   width: 42vw;
-  height: 43vw;
+  height: 37vw;
   display: flex;
   flex-direction: column;
 }
 
 .column-left__box--yellow {
-  width: 25vw;
-  height: 55vw;
+  width: 24vw;
+  height: 60vw;
   background-color: yellow;
   border-right: 2vw solid black;
   border-bottom: 2vw solid black;
@@ -46,15 +46,15 @@
 
 .column__right__box--red {
   background-color: red;
-  width: 36.3vw;
-  height: 71vw;
+  width: 29.1vw;
+  height: 77vw;
   border-left: 2vw solid black;
   border-bottom: 2vw solid black;
 }
 
 .column__right__box--white-one {
   background-color: white;
-  width: 25vw;
+  width: 17vw;
   height: 12vw;
   border-left: 2vw solid black;
   border-right: 2vw solid black;
