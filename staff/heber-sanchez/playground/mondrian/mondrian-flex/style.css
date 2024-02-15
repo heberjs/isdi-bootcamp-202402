@@ -2,7 +2,7 @@
   position: absolute;
   background-color: rgb(195, 195, 195);
   width: 70vw;
-  height: 80vw;
+  height: 65vw;
   top: 5vw;
   left: 10vw;
   display: flex;
@@ -11,14 +11,14 @@
 .mondrian__column-left {
   background-color: rgb(0, 0, 0);
   width: 25vw;
-  height: 80vw;
+  height: 65vw;
   display: flex;
   flex-direction: column;
 }
 .mondrian__column-right {
   background-color: rgb(255, 255, 255);
-  width: 60vw;
-  height: 80vw;
+  width: 45vw;
+  height: 65vw;
   display: flex;
   flex-direction: column;
 }
@@ -46,7 +46,7 @@
 
 .column__right__box--red {
   background-color: red;
-  width: 44vw;
+  width: 43vw;
   height: 68vw;
   border-left: 2vw solid black;
   border-bottom: 2vw solid black;

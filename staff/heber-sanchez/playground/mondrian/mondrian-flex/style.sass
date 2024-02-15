@@ -3,19 +3,19 @@
 .mondrian
     position: absolute
     background-color: rgb(195, 195, 195)
-    @include utils.size(70vw, 80vw)
+    @include utils.size(70vw, 65vw)
     @include utils.location(5vw, 10vw)
     display: flex
     border: 2vw solid black
 
     &__column-left
         background-color: rgb(0, 0, 0)
-        @include utils.size(25vw, 80vw)
+        @include utils.size(25vw, 65vw)
         display: flex
         flex-direction: column
     &__column-right
         background-color: rgb(255, 255, 255)
-        @include utils.size(60vw, 80vw)
+        @include utils.size(45vw, 65vw)
         display: flex
         flex-direction: column
 .column-left__box--yellow
@@ -33,7 +33,7 @@
 
 .column__right__box--red
     background-color: red
-    @include utils.size(44vw, 68vw)
+    @include utils.size(43vw, 68vw)
     border-left: 2vw solid black
     border-bottom: 2vw solid black
 .column__right__box--white-one
