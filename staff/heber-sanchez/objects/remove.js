@@ -7,9 +7,22 @@
  * @throws {TypeError} When object is not an object, or when index is not a number.
  */
 function remove(object, index) {
-  // TODO
   if (!(object instanceof Object))
     throw new TypeError(object + " is not an Object");
+  if (!(typeof index === "number"))
+    throw new TypeError(index + " is not a number");
+
+  var removedElem = object[index];
+
+  for (var i = index; i < object.length - 1; i++) {
+    object[i] = object[i + 1];
+  }
+
+  delete object[object.length - 1];
+
+  object.length--;
+
+  return removedElem;
 }
 
 console.log("CASE 1: remove blue from index 1");

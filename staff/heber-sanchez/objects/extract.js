@@ -18,11 +18,14 @@ function extract(object, callback) {
   }
 
   if (deleteIndex !== -1) {
-    for (let j = deleteIndex; j < object.length; j++) {
+    for (var j = deleteIndex; j < object.length; j++) {
       object[j] = object[j + 1];
     }
   }
+
   object.length--;
+  delete object[object.length];
+
   return extract;
 }
 

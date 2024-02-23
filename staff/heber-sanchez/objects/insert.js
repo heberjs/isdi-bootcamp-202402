@@ -7,26 +7,24 @@
  *
  * @throws {TypeError} When object is not an object, or when index is not a number.
  */
-function insertMany(object, index, ...values) {
-  if (!(object instanceof Object) || arguments.length < 1) {
+
+function insertMany(object, index, values) {
+  if (!(object instanceof Object) || arguments.length < 1)
     throw new TypeError(object + " is not an Object");
-  } else if (!(typeof index === "number")) {
+
+  if (!(typeof index === "number"))
     throw new TypeError(index + " is not a Number");
 
-    // }else if (arguments.length < 3){}
-  } else {
-    for (var i = object.length - 1 + values.length; i > index; i--) {
-      object[i] = object[i - values.length];
-    }
-    for (let i = 0; i < values.length; i++) {
-      object[i + index] = values[i];
-    }
-  }
+  var argValues = arguments.length - 2;
+
+  for (var i = object.length - 1 + argValues; i > index; i--)
+    object[i] = object[i - argValues];
+
+  for (var j = index; j < argValues; j++)
+    object[j] = values[arguments.length - 2];
 
   return (object.length = object.length + values.length);
 }
-
-// console.log('CASE 1: insert skyblue in index 1')
 
 var colors = {
   0: "red",
@@ -34,21 +32,20 @@ var colors = {
   2: "green",
   3: "brown",
   4: "grey",
-  5: "white",
-  6: "black",
-  length: 7,
+  length: 5,
 };
 
-// console.log(colors)
-// console.log(insertMany(colors, 5, 'skyblue'))
-// console.log(colors)
+console.log(colors);
+
+console.log(insertMany(colors, 1, "roto", "quema", "kilo"));
+
+console.log(colors);
 
 console.log("CASE 2");
 
 console.log(colors);
 console.log(insertMany(colors, 1, "skyblue", "violet", "pink"));
 console.log(colors);
-
 /*
 red , blue, skyblue, violet, pink, green, brown, grey, white, black
 */
