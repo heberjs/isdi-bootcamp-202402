@@ -25,59 +25,76 @@ function insertMany(object, index, values) {
 
   return (object.length = object.length + values.length);
 }
+{
+  console.log("CASE 1: insert roto, quema, kilo in position 1");
 
-var colors = {
-  0: "red",
-  1: "blue",
-  2: "green",
-  3: "brown",
-  4: "grey",
-  length: 5,
-};
+  var colors = {
+    0: "red",
+    1: "blue",
+    2: "green",
+    3: "brown",
+    4: "grey",
+    length: 5,
+  };
 
-console.log(colors);
+  console.log(colors);
 
-console.log(insertMany(colors, 1, "roto", "quema", "kilo"));
+  console.log(insertMany(colors, 1, "roto", "quema", "kilo"));
 
-console.log(colors);
+  console.log(colors);
+}
+{
+  console.log("CASE 2");
 
-console.log("CASE 2");
+  var colors = {
+    0: "red",
+    1: "blue",
+    2: "green",
+    3: "brown",
+    4: "grey",
+    length: 5,
+  };
 
-console.log(colors);
-console.log(insertMany(colors, 1, "skyblue", "violet", "pink"));
-console.log(colors);
-/*
+  console.log(colors);
+  console.log(insertMany(colors, 3, "skyblue", "violet", "pink"));
+  console.log(colors);
+  /*
 red , blue, skyblue, violet, pink, green, brown, grey, white, black
 */
-
-try {
-  insertMany();
-} catch (error) {
-  console.log(error);
-  // TypeError: undefined is not an Object
 }
-
-console.log("CASE 4: fails on 1 as an object parameter");
-
-try {
-  insertMany(1);
-} catch (error) {
-  console.log(error);
-  // TypeError: 1 is not an Object
+{
+  console.log("CASE 3 - error, undefined is not an object");
+  try {
+    insertMany();
+  } catch (error) {
+    console.log(error);
+    // TypeError: undefined is not an Object
+  }
 }
+{
+  console.log("CASE 4: fails on 1 as an object parameter");
 
-console.log("CASE 5: fails on undefined as index parameter");
+  try {
+    insertMany(1);
+  } catch (error) {
+    console.log(error);
+    // TypeError: 1 is not an Object
+  }
+}
+{
+  console.log("CASE 5: fails on undefined as index parameter");
 
-var colors = {
-  0: "red",
-  1: "blue",
-  2: "green",
-  length: 3,
-};
+  var colors = {
+    0: "red",
+    1: "blue",
+    2: "green",
+    length: 3,
+  };
 
-try {
-  insertMany(colors);
-} catch (error) {
-  console.log(error);
-  // TypeError: undefined is not a Number
+  try {
+    insertMany(colors);
+  } catch (error) {
+    console.log(error);
+    // TypeError: undefined is not a Number
+  }
 }
