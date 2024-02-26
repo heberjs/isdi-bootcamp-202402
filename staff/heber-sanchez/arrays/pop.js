@@ -1,7 +1,6 @@
 delete Array.prototype.pop;
 
 function pop(array) {
-  debugger;
   var popUp;
   if (array.length > 0) {
     popUp = array[array.length - 1];

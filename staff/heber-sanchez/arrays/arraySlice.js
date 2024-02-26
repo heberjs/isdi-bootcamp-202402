@@ -3,11 +3,16 @@ delete Array.prototype.slice;
 function slice(array, indexStart, indexEnd) {
   var newArray = [];
 
-  if (arguments.length < 3 && indexStart > 0 && indexStart < array.length) {
+  if (arguments.length < 3 && indexStart > -1 && indexStart < array.length) {
     for (let i = indexStart; i < array.length; i++) {
       newArray[newArray.length] = array[i];
     }
-  } else if (arguments.length < 3 && indexStart < 0) {
+  } else if (
+    indexStart > -1 &&
+    indexStart < array.length &&
+    indexEnd > -1 &&
+    indexEnd < array.length
+  ) {
     for (let i = indexStart + array.length; i < array.length; i++) {
       newArray[newArray.length] = array[i];
     }
@@ -28,28 +33,95 @@ function slice(array, indexStart, indexEnd) {
   return newArray;
 }
 
-const animals = ["ant", "bison", "camel", "duck", "elephant"];
+{
+  console.log("CASE 1: without indexEnd");
 
-console.log("CASE 1");
-console.log(slice(animals, 2));
-// Expected output: Array ["camel", "duck", "elephant"]
+  var animals = ["ant", "bison", "camel", "duck", "elephant"];
 
-console.log("CASE 2");
-console.log(slice(animals, 2, 4));
-// Expected output: Array ["camel", "duck"]
+  var result = slice(animals, 2);
 
-console.log("CASE 3");
-console.log(slice(animals, 1, 5));
-// Expected output: Array ["bison", "camel", "duck", "elephant"]
+  var expectedOutput = ["camel", "duck", "elephant"];
 
-console.log("CASE 4");
-console.log(slice(animals, -2));
-// // Expected output: Array ["duck", "elephant"]
+  var copyAnimals = ["ant", "bison", "camel", "duck", "elephant"];
 
-console.log("CASE 5");
-console.log(slice(animals, 2, -1));
-// Expected output: Array ["camel", "duck"]
+  arrAssertTesting(animals, copyAnimals, copyAnimals);
 
-console.log("CASE 6");
-console.log(slice(animals));
-// Expected output: Array ["ant", "bison", "camel", "duck", "elephant"]
+  arrAssertTesting(expectedOutput, result, expectedOutput);
+
+  {
+    console.log("CASE 2");
+    var animals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    var result = slice(animals, 2, 4);
+
+    var expectedOutput = ["camel", "duck"];
+
+    var copyAnimals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    arrAssertTesting(animals, copyAnimals, copyAnimals);
+    arrAssertTesting(expectedOutput, result, expectedOutput);
+  }
+  {
+    console.log("CASE 3");
+    var animals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    var result = slice(animals, 1, 5);
+
+    var expectedOutput = ["bison", "camel", "duck", "elephant"];
+
+    var copyAnimals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    arrAssertTesting(animals, copyAnimals, copyAnimals);
+    arrAssertTesting(expectedOutput, result, expectedOutput);
+  }
+  {
+    console.log("CASE 4");
+    var animals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    var result = slice(animals, -2);
+
+    var expectedOutput = ["duck", "elephant"];
+
+    var copyAnimals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    arrAssertTesting(animals, copyAnimals, copyAnimals);
+    arrAssertTesting(expectedOutput, result, expectedOutput);
+  }
+  {
+    console.log("CASE 5");
+    var animals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    var result = slice(animals, 2, -1);
+
+    var expectedOutput = ["camel", "duck"];
+
+    var copyAnimals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    arrAssertTesting(animals, copyAnimals, copyAnimals);
+    arrAssertTesting(expectedOutput, result, expectedOutput);
+  }
+  {
+    console.log("CASE 6");
+    var animals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    var result = slice(animals);
+
+    var expectedOutput = ["ant", "bison", "camel", "duck", "elephant"];
+
+    var copyAnimals = ["ant", "bison", "camel", "duck", "elephant"];
+
+    arrAssertTesting(animals, copyAnimals, copyAnimals);
+    arrAssertTesting(expectedOutput, result, expectedOutput);
+  }
+
+  function arrAssertTesting(originArr, callbackArray, expectedResult) {
+    console.assert(
+      originArr.length === callbackArray.length,
+      expectedResult.length
+    );
+
+    for (var i = 0; i < originArr.length; i++) {
+      console.assert(originArr[i] === callbackArray[i], expectedResult[i]);
+    }
+  }
+}
