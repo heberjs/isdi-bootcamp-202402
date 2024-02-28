@@ -22,7 +22,7 @@ function extract(object, callback) {
     object[j] = object[j + 1];
   }
 
-  object.length = object.length--;
+  object.length--;
 
   return extract;
 }
