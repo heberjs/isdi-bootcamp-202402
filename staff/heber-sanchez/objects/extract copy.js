@@ -8,21 +8,23 @@
  */
 function extract(object, callback) {
   var extract = {};
-  var index;
-
-  for (var i = 0; i < object.length - 1; i++) {
-    var elem = object[i];
-    if (callback(elem)) {
-      extract = elem;
-      index = i;
-      break;
+  var deleteIndex = -1;
+  debugger;
+  for (var i = object.length - 1; i > -1; i--) {
+    if (callback(object[i]) === true) {
+      extract = object[i];
+      deleteIndex = i;
     }
   }
-  for (var j = index; j < object.length; i++) {
-    object[j] = object[j + 1];
+
+  if (deleteIndex !== -1) {
+    for (var j = deleteIndex; j < object.length; j++) {
+      object[j] = object[j + 1];
+    }
   }
 
-  object.length = object.length--;
+  object.length--;
+  delete object[object.length];
 
   return extract;
 }

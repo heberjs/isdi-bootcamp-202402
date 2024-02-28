@@ -24,14 +24,15 @@ var colors = {
   2: "green",
   length: 3,
 };
-console.log("CASE 1");
+{
+  console.log("CASE 1: add violet");
 
-var length = add(colors);
+  var length = add(colors, "violet");
 
-console.log(length);
-// 4
-console.log(colors);
-/*
+  console.log(length);
+  // 4
+  console.log(colors);
+  /*
 {
     0: 'red',
     1: 'blue',
@@ -40,8 +41,12 @@ console.log(colors);
     length: 4
 }
 */
-try {
-  add("string", "violet");
-} catch (error) {
-  console.log(error);
+}
+{
+  ("CASE 2: error - string is not an object");
+  try {
+    add("string", "violet");
+  } catch (error) {
+    console.log(error);
+  }
 }
