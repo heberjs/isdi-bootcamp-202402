@@ -48,15 +48,17 @@ Car.prototype.fuel = function (load) {
 Car.prototype.changeGear = function (gear) {
   if (typeof gear !== "number") {
     throw new TypeError(gear + " is not a number");
-  } else if (gear < -2 || gear > 7) {
-    throw new RangeError(gear + " is out of range");
+  } else if (gear < -2 || gear > this.gear) {
+    throw new RangeError("gear greater than 4");
   }
 
   this.gear = gear;
   if (gear > 0) {
     this.direction = "forward";
-  } else {
+  } else if (gear < 0) {
     this.direction = "backward";
+  } else {
+    this.direction = "non";
   }
 };
 
