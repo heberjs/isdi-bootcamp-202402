@@ -572,14 +572,77 @@ matcha.describe("Arroz", function () {
         matcha.expect(!!a.includes).toBe(true);
 
         matcha.expect(value).toBe(true);
-
         var value2 = a.includes("maria", -20);
-        matcha.expect(value2).toBe(true);
+        matcha.expect(value2).toBe(false);
 
         matcha.expect(a[0]).toBe("cat");
         matcha.expect(a[1]).toBe("dog");
         matcha.expect(a[2]).toBe("donkey");
         matcha.expect(a[3]).toBe("horse");
+      }
+    );
+    matcha.it(
+      "Should return false if fromIndex is greater than or equal to the length of the array.",
+      function () {
+        var a = new Arroz("cat", "dog", "donkey", "horse");
+        matcha.expect(a).toBeInstanceOf(Arroz);
+
+        var value = a.includes("donkey", 4);
+        matcha.expect(!!a.includes).toBe(true);
+
+        matcha.expect(value).toBe(false);
+
+        matcha.expect(a[0]).toBe("cat");
+        matcha.expect(a[1]).toBe("dog");
+        matcha.expect(a[2]).toBe("donkey");
+        matcha.expect(a[3]).toBe("horse");
+      }
+    );
+  });
+  matcha.describe("> findIndex", function () {
+    matcha.it(
+      "returns the index of the first element in an array if not find anyone -1 is returned.",
+      function () {
+        var a = new Arroz(2, 4, 14, 16);
+
+        matcha.expect(a).toBeInstanceOf(Arroz);
+        var result = a.findIndex(function (elem) {
+          return elem > 13;
+        });
+        matcha.expect(!!a.findIndex).toBe(true);
+        matcha.expect(result).toBe(2);
+      }
+    );
+  });
+  matcha.describe("> join", function () {
+    matcha.it("", function () {
+      var a = new Arroz("fire", "air", "water");
+      matcha.expect(a).toBeInstanceOf(Arroz);
+
+      var result = a.join(", ");
+      matcha.expect(!!a.join).toBe(true);
+      matcha.expect(result).toBe("fire, air, water");
+      for (var i = 0; i < a.length; i++) matcha.expect(a[i]).toBe(a[i]);
+    });
+  });
+  matcha.describe("> map", function () {
+    matcha.it(
+      "should  creates a new arra with the results of calling a provided function on every element in the calling array",
+      function () {
+        var a = new Arroz(1, 4, 9, 16);
+        matcha.expect(a).toBeInstanceOf(Arroz);
+        var i = 0;
+        var result = a.map(function (elem, index, Arroz) {
+          matcha.expect(index).toBe(i++);
+          matcha.expect(Arroz).toBe(elem ** 2);
+        });
+
+        matcha.expect(!!a.map).toBe(true);
+        matcha.expect(result.length).toBe(4);
+
+        // for(var i = 0; i < result.length; i ++){
+        //   matcha.expect(result[i]).toBe(a[i])
+        // }
       }
     );
   });

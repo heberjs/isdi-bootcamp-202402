@@ -258,3 +258,43 @@ Arroz.prototype.includes = function (searchElement, indexFrom) {
     }
   return false;
 };
+
+Arroz.prototype.findIndex = function (callback) {
+  if (typeof callback !== "function") {
+    throw new TypeError("undefined is not a function");
+  }
+
+  for (var i = 0; i < this.length; i++) {
+    var elem = this[i];
+    var match = callback(elem);
+    if (match) {
+      return i;
+    }
+  }
+
+  return -1;
+};
+
+Arroz.prototype.join = function (separator) {
+  var separator = separator;
+  var string = "";
+
+  for (var i = 0; i < this.length; i++) {
+    var elem = this[i];
+    string += elem;
+    if (i < this.length - 1) string += separator;
+  }
+
+  return string;
+};
+
+Arroz.prototype.map = function (callback) {
+  var newArroz = new Arroz();
+
+  for (var i = 0; i < this.length; i++) {
+    var elem = this[i];
+    var mappedObject = callback(elem, i, this);
+    newArroz[newArroz.length++] = mappedObject;
+  }
+  return newArroz;
+};
