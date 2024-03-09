@@ -60,6 +60,17 @@ img {
   color: rgb(164, 2, 2);
 }
 
+#edit-post-section {
+  display: none;
+  margin-bottom: 50px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  padding: 5vw;
+}
+
 #menu-nav {
   display: flex;
 }

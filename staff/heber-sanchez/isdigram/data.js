@@ -84,6 +84,17 @@ var data = (function () {
     return post;
   }
 
+  function updatePost(post) {
+    var posts = loadPosts();
+    var index = posts.findIndex(function (postDb) {
+      return postDb.id === post.id;
+    });
+    if (index > -1) {
+      posts.splice(index, 1, post);
+      savePosts(posts);
+    }
+  }
+
   function deletePost(callback) {
     var posts = loadPosts();
 
@@ -103,6 +114,7 @@ var data = (function () {
     insertPost: insertPost,
     getAllPosts: getAllPosts,
     findPost: findPost,
+    updatePost: updatePost,
     deletePost: deletePost,
   };
 })();

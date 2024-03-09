@@ -8,12 +8,18 @@
   var title = document.querySelector("h1");
   var createPostSection = document.querySelector("#create-post-section");
   var createPostForm = createPostSection.querySelector("form");
+
   var createPostCancelButton = createPostSection.querySelector(
     "#create-post-cancel-button"
   );
 
+  //edit post section
+  var editPostSection = document.querySelector("#edit-post-section");
+  var editPostForm = editPostSection.querySelector("form");
+
   //posts
   var postListSection = document.querySelector("#post-list-section");
+  var cancelEditButton = document.querySelector("#editExit");
 
   //nav
   var homeButton = document.querySelector("#home-button");
@@ -23,11 +29,14 @@
   //chat
   var chatSection = document.querySelector("#chat-section");
 
+  //chat-box
+  var chatBox = document.querySelector("#chat-box");
+
   //footer
   var footer = document.querySelector("#footer");
   var createPostButton = document.querySelector("#create-post-button");
 
-  //saludar al usuraio al entrar
+  //saludar al usuario al entrar
   try {
     var user = logic.retrieveUser();
 
@@ -75,6 +84,10 @@
     createPostSection.style.display = "none";
   };
 
+  cancelEditButton.onclick = function () {
+    editPostSection.style.display = "none";
+  };
+
   function renderPosts() {
     try {
       var posts = logic.retrievePosts();
@@ -112,7 +125,36 @@
                 alert(error.message);
               }
           };
-          article.appendChild(deleteButton);
+
+          var editButton = document.createElement("button");
+          editButton.innerText = "Edit";
+
+          editButton.onclick = function () {
+            editPostSection.style.display = "block";
+          };
+
+          //edit text post
+          editPostForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var textInput = editPostForm.querySelector("#edit-text");
+            var text = textInput.value;
+
+            try {
+              logic.editPost(post.author.id, text);
+
+              editPostForm.reset();
+
+              editPostSection.style.display = "none";
+
+              renderPosts();
+            } catch (error) {
+              console.error(error);
+              console.log(error.message);
+            }
+          });
+
+          article.append(editButton, deleteButton);
         }
 
         postListSection.appendChild(article);
@@ -124,6 +166,7 @@
 
   renderPosts();
 
+  //CHAT SECTION
   chatButton.onclick = function () {
     postListSection.style.display = "none";
     footer.style.display = "none";
@@ -156,6 +199,7 @@
     }
   };
 
+  //HOME SECTION
   homeButton.onclick = function () {
     homeButton.style.display = "none";
     chatSection.style.display = "none";

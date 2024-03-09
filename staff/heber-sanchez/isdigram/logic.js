@@ -150,6 +150,18 @@ var logic = (function () {
     data.insertPost(post);
   }
 
+  function editPost(postId, text) {
+    validateText(text, "text");
+    validateText(postId, "postId", true);
+
+    var post = data.findPost(function (post) {
+      return post.id === postId;
+    });
+
+    post.text = text;
+    data.updatePost(post);
+  }
+
   function retrievePosts() {
     var posts = data.getAllPosts();
 
@@ -187,6 +199,7 @@ var logic = (function () {
     isUserLoggedIn: isUserLoggedIn,
     retrieveUsers: retrieveUsers,
     createPost: createPost,
+    editPost: editPost,
     retrievePosts: retrievePosts,
     removePost: removePost,
   };
