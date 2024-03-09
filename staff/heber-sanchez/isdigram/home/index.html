@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <main>
+      <h1>Hello, World</h1>
+
+      <nav id="menu-nav">
+        <button id="home-button">'🛖'</button>
+        <button id="chat-button">'💬'</button>
+        <button id="logout-button">'🚪'</button>
+      </nav>
+
+      <section id="post-list-section"></section>
+
+      <section id="chat-section">
+        <ul id="user-list"></ul>
+      </section>
+
+      <section id="create-post-section">
+        <h2>Create Post</h2>
+
+        <form>
+          <label for="image">Image</label>
+          <input type="text" id="image" />
+
+          <label for="text">Text</label>
+          <input type="text" id="text" />
+
+          <button id="submit">Create</button>
+        </form>
+
+        <button id="create-post-cancel-button">Cancel</button>
+      </section>
+    </main>
+
+    <footer id="footer">
+      <button id="create-post-button">+</button>
+    </footer>
+
+    <script src="../data.js"></script>
+    <script src="../logic.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

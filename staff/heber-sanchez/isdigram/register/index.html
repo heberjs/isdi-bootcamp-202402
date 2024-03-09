@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>register</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../index.css" />
   </head>
   <body>
     <main>
@@ -14,7 +14,7 @@
         <input type="text" id="name" />
 
         <label for="birthdate">Birthdate</label>
-        <input type="date" id="birthdate" />
+        <input type="date" min="01/01/1929" max="01/01/2018" id="birthdate" />
 
         <label for="email">E-mail</label>
         <input type="email" id="email" />
@@ -27,11 +27,11 @@
 
         <button type="submit">Register</button>
       </form>
-      <a href="login.html">Login</a>
+      <a href="../login/index.html">Login</a>
     </main>
 
-    <script src="data.js"></script>
-    <script src="logic.js"></script>
-    <script src="register.js"></script>
+    <script src="../data.js"></script>
+    <script src="../logic.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

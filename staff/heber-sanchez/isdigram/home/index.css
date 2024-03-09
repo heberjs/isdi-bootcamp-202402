@@ -1,0 +1,75 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.8;
+}
+
+main {
+  margin: 0;
+  padding: 0 5vw;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: white;
+}
+
+img {
+  max-width: 100%;
+}
+
+#create-post-section {
+  display: none;
+  margin-bottom: 50px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  padding: 5vw;
+}
+
+#post-list-section {
+  margin-bottom: 50px;
+}
+
+.user-list__item--online::marker {
+  color: limegreen;
+}
+
+.user-list__item--offline::marker {
+  color: rgb(164, 2, 2);
+}
+
+#menu-nav {
+  display: flex;
+}
+
+#home-button {
+  display: none;
+}
+
+#chat-section {
+  display: none;
+}
+
+/*# sourceMappingURL=index.css.map */
