@@ -16,10 +16,10 @@
   //edit post section
   var editPostSection = document.querySelector("#edit-post-section");
   var editPostForm = editPostSection.querySelector("form");
+  var cancelEditButton = document.querySelector("#editExit");
 
   //posts
   var postListSection = document.querySelector("#post-list-section");
-  var cancelEditButton = document.querySelector("#editExit");
 
   //nav
   var homeButton = document.querySelector("#home-button");
@@ -141,7 +141,7 @@
             var text = textInput.value;
 
             try {
-              logic.editPost(post.author.id, text);
+              logic.editPost(post.id, text);
 
               editPostForm.reset();
 
