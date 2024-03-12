@@ -1,17 +1,21 @@
-//presentation
+// presentation
+
 (function () {
   if (logic.isUserLoggedIn()) {
     location.href = "../home";
+
     return;
   }
+
   var form = document.querySelector("form");
 
   form.addEventListener("submit", function (event) {
     console.log("form submit");
+
     event.preventDefault();
 
-    var nameIpunt = document.getElementById("name");
-    var name = nameIpunt.value;
+    var nameInput = document.getElementById("name");
+    var name = nameInput.value;
 
     var birthdateInput = document.getElementById("birthdate");
     var birthdate = birthdateInput.value;
