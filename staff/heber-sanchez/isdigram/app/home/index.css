@@ -30,7 +30,11 @@ form {
   flex-direction: column;
 }
 
-footer {
+.main {
+  margin-bottom: 50px;
+}
+
+.footer {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -47,8 +51,7 @@ img {
   max-width: 100%;
 }
 
-#create-post-section {
-  display: none;
+.create-post {
   margin-bottom: 50px;
   position: fixed;
   bottom: 0;
@@ -60,7 +63,6 @@ img {
 }
 
 #edit-post-section {
-  display: none;
   margin-bottom: 50px;
   position: fixed;
   bottom: 0;

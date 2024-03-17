@@ -1,15 +1,10 @@
-// presentation
+import logic from "../logic.mjs";
 
-(function () {
-  if (logic.isUserLoggedIn()) {
-    location.href = "../home";
-
-    return;
-  }
-
+if (logic.isUserLoggedIn()) location.href = "../home";
+else {
   var form = document.querySelector("form");
 
-  form.addEventListener("submit", function (event) {
+  form.onsubmit = (event) => {
     console.log("form submit");
 
     event.preventDefault();
@@ -38,5 +33,5 @@
     } catch (error) {
       alert(error.message);
     }
-  });
-})();
+  };
+}
