@@ -10,5 +10,9 @@ class Form extends Component {
       throw new TypeError("callback is not a function");
     this._container.onsubmit = callback;
   }
+
+  reset() {
+    this._container.reset();
+  }
 }
 export default Form;

@@ -65,8 +65,8 @@ class Collection {
   updateOne(document) {
     const documents = this._loadDocuments();
 
-    const index = documents.findIndex((document2) => {
-      document2.id === document.id;
+    const index = documents.findIndex(function (document2) {
+      return document2.id === document.id;
     });
 
     if (index > -1) {

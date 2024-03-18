@@ -1,5 +1,6 @@
 import utils from "../../utils.mjs";
 import logic from "../../logic.mjs";
+
 import Form from "../../core/Form.mjs";
 import Component from "../../core/Component.mjs";
 import Label from "../../core/Label.mjs";
@@ -47,24 +48,40 @@ class EditPost extends Component {
 
       try {
         logic.modifyPost(post.id, text);
+
+        this._onPostEditedCallback();
       } catch (error) {
         utils.showFeedback(error);
       }
     });
+
+    this._onPostEditedCallback = null;
+
+    EditPost.active = true;
   }
+
+  static active = false;
 
   onCancelEditClick(callback) {
     if (typeof callback !== "function")
       throw new TypeError("callback is not a function");
 
-    this._cancelButton.onClick(callback);
+    this._cancelButton.onClick(() => {
+      EditPost.active = false;
+
+      callback();
+    });
   }
 
   onPostEdited(callback) {
     if (typeof callback !== "function")
       throw new TypeError("callback is not a function");
 
-    this._onEditPostCallback = callback;
+    this._onPostEditedCallback = () => {
+      EditPost.active = false;
+
+      callback();
+    };
   }
 }
 

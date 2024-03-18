@@ -16,7 +16,7 @@ class Input extends Component {
   }
 
   setValue(value) {
-    this._container.value = value;
+    return (this._container.value = value);
   }
 }
 

@@ -32,6 +32,8 @@ class Post extends Component {
         if (confirm("delete post?"))
           try {
             logic.removePost(post.id);
+
+            this._onDeletedCallback();
           } catch (error) {
             utils.showFeedback(error);
           }
@@ -41,13 +43,36 @@ class Post extends Component {
       editButton.setText("📝");
 
       editButton.onClick(() => {
-        const editPost = new EditPost(post);
+        if (!EditPost.active) {
+          const editPost = new EditPost(post);
 
-        this.add(editPost);
+          editPost.onCancelEditClick(() => this.remove(editPost));
+
+          editPost.onPostEdited(() => this._onEditedCallback());
+
+          this.add(editPost);
+        }
       });
 
       this.add(editButton, deleteButton);
     }
+
+    this._onDeletedCallback = null;
+    this._onEditedCallback = null;
+  }
+
+  onDeleted(callback) {
+    if (typeof callback !== "function")
+      throw new TypeError("callback is not a function");
+
+    this._onDeletedCallback = callback;
+  }
+
+  onEdited(callback) {
+    if (typeof callback !== "function")
+      throw new TypeError("callback is not a function");
+
+    this._onEditedCallback = callback;
   }
 }
 
