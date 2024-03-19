@@ -9,11 +9,11 @@ class SendMessageForm extends Component {
     this.addClass("form");
 
     const textLabel = new Label();
-    textLabel.setFor("text");
+    textLabel.setFor("text-chat");
     textLabel.setText("text");
 
     const textInput = new Input();
-    textInput.setId("text");
+    textInput.setId("text-chat");
 
     const sendButton = new Button();
     sendButton.setType("submit");
