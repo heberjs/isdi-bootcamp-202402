@@ -149,7 +149,7 @@ function sendMessageToUser(userId, text) {
   // update or insert chat in chats
   // save chats
 
-  const chat = db.chats.findOne(
+  let chat = db.chats.findOne(
     (chat) =>
       chat.users.includes(userId) && chat.users.includes(sessionStorage.userId)
   );
