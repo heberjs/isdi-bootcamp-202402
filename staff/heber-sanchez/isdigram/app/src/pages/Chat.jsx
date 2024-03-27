@@ -1,5 +1,6 @@
+import {showFeedback} from '../utils'
+
 import logic from "../logic.mjs";
-import utils from "../utils.mjs";
 
 import { Component } from "react";
 
@@ -15,7 +16,7 @@ class Chat extends Component {
 
 
         } catch (error) {
-            utils.showFeedback(error)
+            showFeedback(error)
         }
 
 

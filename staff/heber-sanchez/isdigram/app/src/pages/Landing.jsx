@@ -1,23 +1,31 @@
+import {logger} from '../utils'
+
 import { Component } from "react";
 
 class Landing extends Component {
     constructor(){
-        super()
+        logger.debug('Landing')
 
+        super()
     }
+
+    handleLoginClick = event=> {
+        event.preventDefault()
+        this.props.onLoginClick()
+    }
+
+    handleRegisterClick = event=> {
+        event.preventDefault()
+        this.props.onRegisterClick()
+    }
+
 
     render(){
         
         return <main>
             <h1>Landing</h1>
 
-            <a href="" onClick={event=> {
-                event.preventDefault()
-                this.props.onLoginClick()
-            }}>Login</a> or <a href="" onClick={event=> {
-                event.preventDefault()
-                this.props.onRegisterClick()
-            }}>Register</a>
+            <a href="" onClick={this.handleLoginClick}>Login</a> or <a href="" onClick={this.handleRegisterClick}>Register</a>
         </main>
 
     }

@@ -1,51 +1,58 @@
+import {logger, showFeedback} from '../utils'
+
 import logic from "../logic.mjs"
-import utils from "../utils.mjs"
 
 import { Component } from "react"
+import Post from './Post'
 
 class PostList extends Component {
     constructor(){
+        logger.debug('PostList')
+
         super()
-        try {
-            const posts = logic.retrievePosts()
 
-            this.state = { posts }
-
-        } catch (error) {
-            utils.showFeedback(error)
-        }
+        this.state = {posts: []}
     }
+     
+    loadPosts(){
+        logger.debug('PostList -> loadPosts')
 
-     componentWillReceiveProps(newProps){
-        console.log(this.props, newProps);
-
-        if(newProps.refreshStamp !== this.props.stamp){
             try {
                 const posts = logic.retrievePosts()
 
                 this.setState({posts})
+                
             } catch (error) {
-                utils.showFeedback(error)
+                showFeedback(error)
+
             }
         }
+
+     componentWillReceiveProps(newProps){
+        logger.debug('PostList -> componentWillReceiveProps', JSON.stringify(this.props), JSON.stringify(newProps))
+
+        newProps.stamp !== this.props.stamp && this.loadPosts()
      }
 
+     componentDidMount(){
+        logger.debug('PostList -> componentDidMount')
+
+        this.loadPosts()
+     }
+
+     handlePostDeleted = ()=> this.loadPosts()
+
+     handleEditClick = post => this.props.onEditPostClick(post)
+
+
     render(){
+        logger.debug('PostList -> render')
 
         return <section>
-            {this.state.posts.map((post)=> <article key={post.id}>
-                
-                <h3>{post.author.username}</h3>
-                
-                <img src={post.image}/>
-
-                <p>{post.text}</p>
-
-                <time>{post.date}</time>
-
-            </article>)}
+            {this.state.posts.map(post=> <Post key={post.id} item = {post} onEditClick={this.handleEditClick} onDeleted={this.handlePostDeleted} />)}
         </section>
     }
 }
+
 
 export default PostList
