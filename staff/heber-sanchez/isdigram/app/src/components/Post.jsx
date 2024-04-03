@@ -35,6 +35,7 @@ class Post extends Component {
 
             {logic.getLoggedInUserId() === post.author.id && <>
                 <button onClick={()=> this.handleDeleteClick(post.id)}>🗑️</button>
+                
                 <button onClick={()=> this.handleEditClick(post)}>📝</button>
             </>}
         </article>

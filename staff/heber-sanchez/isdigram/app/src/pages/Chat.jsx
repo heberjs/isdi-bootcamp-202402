@@ -1,4 +1,4 @@
-import {showFeedback} from '../utils'
+import {logger, showFeedback} from '../utils'
 
 import logic from "../logic.mjs";
 
@@ -7,6 +7,7 @@ import { Component } from "react";
 
 class Chat extends Component {
     constructor(){
+        logger.debug('Chat')
         super()
         try {
             const userList = logic.retrieveUsersWithStatus()
@@ -19,14 +20,23 @@ class Chat extends Component {
             showFeedback(error)
         }
 
-
     }
 
-    render(){
+   handleOnHomeButtonClick = ()=> this.props.onHomeClick()
 
-        return <ul>
+
+    render(){
+        logger.debug('Chat -> render')
+        return <main>
+        <nav>
+
+            <h1>Chat</h1>
+            <button onClick={this.handleOnHomeButtonClick}>🏠</button>
+        </nav>
+        <ul>
             {this.state.userList.map((user)=> <li key={user.id}>{user.username}</li>)}
         </ul>
+        </main>
     }
 }
 

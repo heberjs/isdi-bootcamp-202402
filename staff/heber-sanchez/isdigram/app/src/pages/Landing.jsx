@@ -21,7 +21,7 @@ class Landing extends Component {
 
 
     render(){
-        
+        logger.debug('Landing -> render')
         return <main>
             <h1>Landing</h1>
 

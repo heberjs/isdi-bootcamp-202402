@@ -22,7 +22,7 @@ class Home extends Component {
             showFeedback(error)
         }
 
-        this.state = {view: null, stamp: null, post: null}
+        this.state = {view: null, stamp: null, post: null, chat: null}
     }
 
     setState(state){
@@ -48,7 +48,7 @@ class Home extends Component {
 
     handleCreatePostCancelClick = ()=> this.clearView()
 
-    handlePostCreated = ()=> {this.setState({view : null, stamp: Date.now()})}
+    handlePostCreated = ()=> this.setState({view : null, stamp: Date.now()})
 
     handleEditPostCancelClick = ()=> this.clearView()
 
@@ -70,7 +70,7 @@ class Home extends Component {
                     onClick={this.handleLogoutClick}>🚪</button>
             </nav>
 
-            <PostList stamp= {this.state.stamp} onEditPostClick={this.handleEditPostclick} />
+            <PostList stamp= {this.state.stamp} onEditPostClick={this.handleEditPostClick} />
 
             {this.state.view === 'create-post' && <CreatePost onCancelClick ={this.handleCreatePostCancelClick} onPostCreated = {this.handlePostCreated} />}
 

@@ -18,8 +18,8 @@ class CreatePost extends Component {
         logger.debug('CreatePost -> componentDidMount')
     }
 
-    componentWillMount(){
-        logger.debug('CreatePost -> componentWillMount')
+    componentWillUnMount(){
+        logger.debug('CreatePost -> componentWillUnMount')
     }
 
     handleSubmit = event=>{
@@ -41,9 +41,9 @@ class CreatePost extends Component {
             showFeedback()
         }
 
-        handleCancelClick = ()=> this.props.onCancelClick()
-
     }
+
+    handleCancelClick = ()=> this.props.onCancelClick()
 
     render(){
         logger.debug('CreatePost -> render')

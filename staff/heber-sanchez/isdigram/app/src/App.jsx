@@ -19,12 +19,15 @@ class App extends Component {
     this.state = {view: logic.isUserLoggedIn() ? 'home': 'landing'}
   }
 
+  //over riding para ver cuando se setea el state - interpone un callback para ver cuando se setea
   setState(state){
+    //al state lo convertimos a json, es un objeto
     logger.debug('App -> setState', JSON.stringify(state))
-
+//llama  al padre ' component
     super.setState(state)
   }
 
+  //sirve para hacer algo cuadno este montada toda la app, se suele usar para llamar a apis o servidor
   componentDidMount() {
     logger.debug('App -> componentDidMount')
   }
@@ -40,6 +43,8 @@ class App extends Component {
   handleUserLoggedOut = ()=> this.goTologin()
 
   handleChatClick = ()=> this.setState({view: 'chat'})
+
+  handleHomeClick = ()=> this.setState({view: 'home'}) 
 
   render(){
     logger.debug('App -> render')
@@ -59,7 +64,7 @@ class App extends Component {
      onUserLoggedOut={this.handleUserLoggedOut}/>
 
      else if(this.state.view === 'chat')
-     return <Chat/>
+     return <Chat onHomeClick={this.handleHomeClick}/>
     
      else
      return <h1>🤨</h1>

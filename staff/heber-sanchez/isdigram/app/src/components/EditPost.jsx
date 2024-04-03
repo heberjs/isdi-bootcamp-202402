@@ -28,7 +28,7 @@ class EditPost extends Component {
         logger.debug('EditPost -> handleSubmit', text)
 
         try {
-            logic.modifyPost(this.props.id, text)
+            logic.modifyPost(this.props.post.id, text)
 
             form.reset()
 
@@ -44,9 +44,12 @@ class EditPost extends Component {
         logger.debug('EditPost -> render')
 
         return <section className="edit-post">
+
             <form onSubmit={this.handleSubmit}>
+
                 <label htmlFor="text">Text</label>
                 <input type="text" id='text' defaultValue={this.props.post.text} />
+
                 <button className="round-button submit-button" type='submit'>Edit</button>
             </form>
 

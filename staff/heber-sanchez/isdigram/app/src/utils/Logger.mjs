@@ -31,7 +31,7 @@ class Logger {
   }
 
   fatal(...messages) {
-    console.error(
+    console.fatal(
       `%c${messages.join(" ")}`,
       `background-color: red; color: white; padding: 0 .5rem`
     );

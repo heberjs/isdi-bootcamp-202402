@@ -27,7 +27,7 @@ class PostList extends Component {
 
             }
         }
-
+        //metodo q te permite detectar diferentes ciclos de vida del componente desde q nace hasta q se destruye
      componentWillReceiveProps(newProps){
         logger.debug('PostList -> componentWillReceiveProps', JSON.stringify(this.props), JSON.stringify(newProps))
 

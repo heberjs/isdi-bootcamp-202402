@@ -39,6 +39,8 @@ class Register extends Component {
     }
 
     render(){
+
+        logger.debug('register -> render')
         return <main>
             <h1>Register</h1>
             <form onSubmit={this.handleSubmit}>

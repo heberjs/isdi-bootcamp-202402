@@ -6,7 +6,7 @@ import { Component } from "react";
 
 class Login extends Component {
     constructor(){
-        logger.debug()
+        logger.debug('Login')
         super()
     }
 

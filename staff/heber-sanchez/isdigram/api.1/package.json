@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node .",
     "test": "npx mocha logic",
     "test-inspect": "npx mocha --inspect-brk data logic"
   },
@@ -15,8 +13,5 @@
   "devDependencies": {
     "chai": "^5.1.0",
     "mocha": "^10.4.0"
-  },
-  "dependencies": {
-    "express": "^4.19.2"
   }
 }

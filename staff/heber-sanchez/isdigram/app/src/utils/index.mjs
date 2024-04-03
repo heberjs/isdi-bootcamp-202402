@@ -3,7 +3,7 @@ import Logger from "./Logger.mjs";
 const logger = new Logger();
 
 function showFeedback(error) {
-  console.error(error);
+  logger.error(error);
 
   alert(error.message);
 }
