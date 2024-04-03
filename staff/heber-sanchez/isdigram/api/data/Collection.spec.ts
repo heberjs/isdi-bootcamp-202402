@@ -1,6 +1,7 @@
-import fs from "fs";
+import {readFile, writeFile} from "fs";
 
-import Collection from "./Collection.mjs";
+//esto cambiar siempre manual porque no transpila solo.
+import Collection from "./Collection.js";
 
 import { expect } from "chai";
 
@@ -31,7 +32,8 @@ describe("Collection", () => {
     });
     describe("_loadDocuments", () => {
       it("loads empty array on new collection", (done) => {
-        fs.writeFile("./data/cars.json", "[]", (error) => {
+        
+        writeFile("./data/cars.json", "[]", (error) => {
           if (error) {
             console.error(error);
 
@@ -57,7 +59,8 @@ describe("Collection", () => {
         });
       });
       it("loads data on non-empty collection", (done) => {
-        fs.writeFile(
+        
+        writeFile(
           "./data/cars.json",
           '[{"brand":"porsche","model":"911"},{"brand":"fiat","model":"500"}]',
           (error) => {
@@ -99,7 +102,8 @@ describe("Collection", () => {
 
     describe("_saveDocuments", () => {
       it("saves a collection", (done) => {
-        fs.writeFile("./data/cars.json", "[]", (error) => {
+        
+        writeFile("./data/cars.json", "[]", (error) => {
           if (error) {
             console.error(error);
 
@@ -121,7 +125,7 @@ describe("Collection", () => {
 
             expect(error).to.be.null;
 
-            fs.readFile("./data/cars.json", "utf8", (error, documentsJSON) => {
+            readFile("./data/cars.json", "utf8", (error, documentsJSON) => {
               if (error) {
                 console.error(error);
 
@@ -180,7 +184,7 @@ describe("Collection", () => {
   describe("> CRUD", () => {
     describe("findOne", () => {
       it("find an existing document", (done) => {
-        fs.writeFile(
+        writeFile(
           "./data/cars.json",
           '[{"brand":"porsche","model":"911"},{"brand":"fiat","model":"500"}]',
           (error) => {
@@ -214,7 +218,7 @@ describe("Collection", () => {
         );
       });
       it("returns null on non-existing document", (done) => {
-        fs.writeFile(
+        writeFile(
           "./data/cars.json",
           '[{"brand":"porsche","model":"911"},{"brand":"fiat","model":"500"}]',
           (error) => {
@@ -251,6 +255,7 @@ describe("Collection", () => {
         let errorThrown;
 
         try {
+          //@ts-ignore
           cars.findOne();
         } catch (error) {
           errorThrown = error;
@@ -267,6 +272,7 @@ describe("Collection", () => {
         let errorThrown;
 
         try {
+          //@ts-ignore
           cars.findOne(123);
         } catch (error) {
           errorThrown = error;
@@ -285,7 +291,7 @@ describe("Collection", () => {
         ];
         const documentsJSON = JSON.stringify(documents);
 
-        fs.writeFile("./data/cars.json", documentsJSON, (error) => {
+        writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
 
@@ -304,7 +310,7 @@ describe("Collection", () => {
             }
             expect(insertedId).to.be.a.string;
 
-            fs.readFile("./data/cars.json", "utf8", (error, documentsJSON) => {
+            readFile("./data/cars.json", "utf8", (error, documentsJSON) => {
               if (error) {
                 done(error);
 
@@ -328,6 +334,7 @@ describe("Collection", () => {
         let errorThrown;
 
         try {
+          //@ts-ignore
           cars.insertOne();
         } catch (error) {
           errorThrown = error;
@@ -343,6 +350,7 @@ describe("Collection", () => {
         let errorThrown;
 
         try {
+          //@ts-ignore
           cars.insertOne({});
         } catch (error) {
           errorThrown = error;
@@ -362,7 +370,8 @@ describe("Collection", () => {
 
         const documentsJSON = JSON.stringify(documents);
 
-        fs.writeFile("./data/cars.json", documentsJSON, (error) => {
+        
+        writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
 
@@ -383,7 +392,8 @@ describe("Collection", () => {
               }
               expect(updated).to.be.true;
 
-              fs.readFile(
+              
+              readFile(
                 "./data/cars.json",
                 "utf-8",
                 (error, documentsJSON) => {
@@ -412,7 +422,8 @@ describe("Collection", () => {
         ];
         const documentsJSON = JSON.stringify(documents);
 
-        fs.writeFile("./data/cars.json", documentsJSON, (error) => {
+        
+        writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
 
@@ -448,6 +459,7 @@ describe("Collection", () => {
         let errorThrown;
 
         try {
+          //@ts-ignore
           cars.updateOne();
         } catch (error) {
           errorThrown = error;
@@ -464,6 +476,7 @@ describe("Collection", () => {
         let errorThrown;
 
         try {
+          //@ts-ignore
           cars.updateOne(() => {}, {});
         } catch (error) {
           errorThrown = error;
@@ -481,7 +494,8 @@ describe("Collection", () => {
         ];
         const documentsJSON = JSON.stringify(documents);
 
-        fs.writeFile("./data/cars.json", documentsJSON, (error) => {
+        
+        writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
           }
@@ -498,7 +512,8 @@ describe("Collection", () => {
               }
               expect(deleted).to.be.true;
 
-              fs.readFile(
+              
+              readFile(
                 "./data/cars.json",
                 "utf-8",
                 (error, documentsJSON) => {
@@ -527,7 +542,8 @@ describe("Collection", () => {
 
         const documentsJSON = JSON.stringify(documents);
 
-        fs.writeFile("./data/cars.json", documentsJSON, (error) => {
+        
+        writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
 
@@ -547,7 +563,8 @@ describe("Collection", () => {
 
               expect(deleted).to.be.false;
 
-              fs.readFile(
+              
+              readFile(
                 "./data/cars.json",
                 "utf-8",
                 (error, documentsJSON) => {
@@ -573,6 +590,7 @@ describe("Collection", () => {
         let errorThrown;
 
         try {
+          //@ts-ignore
           cars.deleteOne();
         } catch (error) {
           errorThrown = error;
@@ -589,6 +607,7 @@ describe("Collection", () => {
         let errorThrown;
 
         try {
+          //@ts-ignore
           cars.deleteOne(() => {});
         } catch (error) {
           errorThrown = error;
@@ -606,7 +625,8 @@ describe("Collection", () => {
         ];
         const documentsJSON = JSON.stringify(documents);
 
-        fs.writeFile("./data/cars.json", documentsJSON, (error) => {
+        
+        writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
 
@@ -634,6 +654,7 @@ describe("Collection", () => {
         let errorThrown;
 
         try {
+          //@ts-ignore
           cars.getAll();
         } catch (error) {
           errorThrown = error;

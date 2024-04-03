@@ -10,3 +10,13 @@
 ```
 
 - login user
+
+
+
+-logout user
+
+```sh
+curl -X PATCH -H "Content-Type: application/json" -d '{"status":"offline"}' http://localhost:8080/users/ojcfb9ylqi9 -v
+
+```
+

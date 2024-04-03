@@ -7,6 +7,7 @@ const api = express();
 
 const jsonBodyPaser = express.json();
 
+//REGISTER USER CON EXPRESS
 api.post("/users", jsonBodyPaser, (req, res) => {
   try {
     const { name, birthdate, email, username, password } = req.body;
@@ -27,7 +28,7 @@ api.post("/users", jsonBodyPaser, (req, res) => {
       .json({ error: error.constructor.name, message: error.message });
   }
 });
-
+/// LOGIN CON EXPRESS.JS
 api.post("/login", jsonBodyPaser, (req, res) => {
   try {
     const { username, password } = req.body;
@@ -49,7 +50,7 @@ api.post("/login", jsonBodyPaser, (req, res) => {
       .json({ error: error.constructor.name, message: error.message });
   }
 });
-///método get
+///método get - retrieve user CON EXPRESS
 api.get("/users/:userId", jsonBodyPaser, (req, res) => {
   logic.retrieveUser(req.params.userId, (error, user) => {
     if (error) {
@@ -63,25 +64,24 @@ api.get("/users/:userId", jsonBodyPaser, (req, res) => {
     if (!user) {
       res.status(404);
     } else {
-      res.status(201).send(
-        `<!DOCTYPE html>
-                    <html lang="en">
-    
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>API</title>
-                    </head>
-    
-                    <body>
-                        <h1>User found</h1>
-    
-                        <p>${user.username}</p>
-    
-                    </body>
-    
-                    </html>`
-      );
+      res.status(201).json(user);
+    }
+  });
+});
+
+api.patch("/users/:userId", jsonBodyPaser, (req, res) => {
+  logic.logoutUser(req.params.userId, (error, user) => {
+    if (error) {
+      res
+        .status(400)
+        .json({ error: error.constructor.name, message: error.message });
+
+      return;
+    }
+    if (!user) {
+      res.status(404);
+    } else {
+      res.status(200).json(user.status);
     }
   });
 });
