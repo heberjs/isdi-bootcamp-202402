@@ -1,5 +1,5 @@
 import express from "express";
-import logic from "./logic/index.mjs";
+import logic from "./logic/index.ts";
 
 //index para trabajar con express,
 
@@ -33,7 +33,7 @@ api.post("/login", jsonBodyPaser, (req, res) => {
   try {
     const { username, password } = req.body;
 
-    logic.loginUser(username, password, (error) => {
+    logic.loginUser(username, password, (error, userId) => {
       if (error) {
         res
           .status(400)
@@ -42,7 +42,7 @@ api.post("/login", jsonBodyPaser, (req, res) => {
         return;
       }
 
-      res.status(201).send();
+      res.json(userId)
     });
   } catch (error) {
     res
@@ -68,7 +68,7 @@ api.get("/users/:userId", jsonBodyPaser, (req, res) => {
     }
   });
 });
-
+//logout user express
 api.patch("/users/:userId", jsonBodyPaser, (req, res) => {
   logic.logoutUser(req.params.userId, (error, user) => {
     if (error) {

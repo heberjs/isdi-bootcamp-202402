@@ -49,7 +49,7 @@ class PostList extends Component {
         logger.debug('PostList -> render')
 
         return <section>
-            {this.state.posts.map(post=> <Post item={post} onEditClick={this.handleEditClick} onDeleted={this.handlePostDeleted} />)}
+            {this.state.posts.map(post=> <Post key={post.id} item = {post} onEditClick={this.handleEditClick} onDeleted={this.handlePostDeleted} />)}
         </section>
     }
 }

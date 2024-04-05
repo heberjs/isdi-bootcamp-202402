@@ -1,4 +1,4 @@
-import db from "../data/index.mjs";
+import db from "../data/index.ts";
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 const EMAIL_REGEX =
@@ -8,7 +8,7 @@ const URL_REGEX = /^(http|https):\/\//;
 
 // helpers
 
-function validateText(text, explain, checkEmptySpaceInside) {
+function validateText(text, explain, checkEmptySpaceInside?) {
   if (typeof text !== "string")
     throw new TypeError(`${explain} ${text} is not a string`);
   if (!text.trim().length)
@@ -31,7 +31,7 @@ function validateEmail(email, explain) {
     throw new Error(`${explain} ${email} is not a email`);
 }
 
-function validatePassword(password, explain) {
+function validatePassword(password, explain?) {
   if (!PASSWORD_REGEX.test(password))
     throw new Error(explain + " " + password + " is not acceptable");
 }

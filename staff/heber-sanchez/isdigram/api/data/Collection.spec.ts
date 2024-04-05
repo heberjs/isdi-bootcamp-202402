@@ -1,7 +1,7 @@
 import {readFile, writeFile} from "fs";
 
 //esto cambiar siempre manual porque no transpila solo.
-import Collection from "./Collection.js";
+import Collection from "./Collection.ts";
 
 import { expect } from "chai";
 

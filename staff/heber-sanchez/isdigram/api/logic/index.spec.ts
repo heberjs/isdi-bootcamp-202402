@@ -1,5 +1,5 @@
-import db from "../data/index.mjs";
-import logic from "./logic.mjs";
+import db from "../data/index.ts";
+import logic from "./index.ts";
 
 import { expect } from "chai";
 
@@ -486,19 +486,7 @@ describe("logic", () => {
       );
     });
   });
-  describe("getLoggedInUserId", () => {
-    it("get user logged in properly", (done) => {
-      db.users.deleteOne(
-        (user) => user.username === "peperoni",
-        (error) => {
-          if (error) {
-            done(error);
-            return;
-          }
-        }
-      );
-    });
-  });
+
 
   // TODO test all methods
 });

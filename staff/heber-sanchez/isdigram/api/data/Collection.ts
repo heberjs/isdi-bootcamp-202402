@@ -1,8 +1,7 @@
 import { readFile, writeFile } from "fs";
 
 class Collection {
-
-name : string //typamos para recibir un string,
+  name: string; //typamos para recibir un string,
 
   constructor(name) {
     this.name = name;
@@ -11,7 +10,6 @@ name : string //typamos para recibir un string,
   // helpers
 
   _generateId() {
-    
     //@ts-ignore
     return (+parseInt(Math.random() * 10 ** 17).toString()).toString(36);
   }

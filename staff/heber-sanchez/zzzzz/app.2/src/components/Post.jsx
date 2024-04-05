@@ -2,13 +2,15 @@ import {logger, showFeedback} from '../utils'
 
 import logic from '../logic.mjs'
 
+import { Component } from 'react'
 
-
-function Post(props) {
-    
+class Post extends Component {
+    constructor(){
         logger.debug('Post')
+        super()
+    }
 
-    const handleDeleteClick = postId => {
+    handleDeleteClick = postId => {
         if(confirm('delete post?'))
             try {
                 logic.removePost(postId)
@@ -17,11 +19,12 @@ function Post(props) {
             }
     }
 
-    const handleEditClick = post => props.onEditClick(post)
+    handleEditClick = post => this.props.onEditClick(post)
 
-    const { item: post} = props
+    render(){
+        const { item: post} = this.props
 
-        return <article key= {post.id}>
+        return <article>
             <h3>{post.author.username}</h3>
 
             <img src={post.image}/>
@@ -31,11 +34,12 @@ function Post(props) {
             <time>{post.date}</time>
 
             {logic.getLoggedInUserId() === post.author.id && <>
-                <button onClick={()=> handleDeleteClick(post.id)}>🗑️</button>
+                <button onClick={()=> this.handleDeleteClick(post.id)}>🗑️</button>
                 
-                <button onClick={()=> handleEditClick(post)}>📝</button>
+                <button onClick={()=> this.handleEditClick(post)}>📝</button>
             </>}
         </article>
     }
+}
 
 export default Post

@@ -2,11 +2,15 @@ import {logger, showFeedback} from '../utils'
 
 import logic from "../logic.mjs";
 
-function Login(props) {
+import { Component } from "react";
 
+class Login extends Component {
+    constructor(){
         logger.debug('Login')
+        super()
+    }
 
-    const handleSubmit = event=>{
+    handleSubmit = event=>{
         event.preventDefault();
 
         const form = event.target
@@ -20,24 +24,25 @@ function Login(props) {
 
             form.reset()
 
-            props.onUserLoggedIn()
-
+            this.props.onUserLoggedIn()
         } catch (error) {
             showFeedback(error)
         }
     }
 
-    const handleRegisterClick = event=> {
+    handleRegisterClick = event=> {
         event.preventDefault()
-        props.onRegisterClick()
+        this.props.onRegisterClick()
     }
+
+    render(){
 
         logger.debug('Login -> render')
 
         return <main>
             <h1>Login</h1>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <label htmlFor="username">Username</label>
                 <input type="text" id="username"/>
 
@@ -47,8 +52,9 @@ function Login(props) {
                 <button className="round-button" type="submit">Login</button>
             </form>
 
-            <a href="" onClick={handleRegisterClick}>Register</a>
+            <a href="" onClick={this.handleRegisterClick}>Register</a>
         </main>
     }
+}
 
 export default Login

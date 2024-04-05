@@ -2,17 +2,27 @@ import {logger, showFeedback} from '../utils'
 
 import logic from "../logic.mjs";
 
-import CancelButton from './library/CancelButton';
-import SubmitButton from './library/SubmitButton';
 
-import './CreatePost.sass'
+import { Component } from "react";
 
 
-function CreatePost (props) {
+class CreatePost extends Component {
+    constructor(){
         logger.debug('CreatePost')
+        
+        super()
 
+    }
 
-    const handleSubmit = event=>{
+    componentDidMount(){
+        logger.debug('CreatePost -> componentDidMount')
+    }
+
+    componentWillUnMount(){
+        logger.debug('CreatePost -> componentWillUnMount')
+    }
+
+    handleSubmit = event=>{
         event.preventDefault()
 
         const form = event.target
@@ -25,7 +35,7 @@ function CreatePost (props) {
 
             form.reset()
 
-            props.onPostCreated()
+            this.props.onPostCreated()
 
         } catch (error) {
             showFeedback()
@@ -33,13 +43,14 @@ function CreatePost (props) {
 
     }
 
-    const handleCancelClick = ()=> props.onCancelClick()
+    handleCancelClick = ()=> this.props.onCancelClick()
 
+    render(){
         logger.debug('CreatePost -> render')
 
         return <section className="create-post">
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
 
             <label htmlFor="image">Image</label>
             <input type="text" id="image" />
@@ -47,11 +58,12 @@ function CreatePost (props) {
             <label htmlFor="text">Text</label>
             <input type="text" id="text" />
 
-            <SubmitButton>Create</SubmitButton>
+            <button className="round-button submit-button" type="submit">Create</button>
         </form>
 
-        <CancelButton onClick={handleCancelClick}/>
+        <button className="round-button cancel-button" onClick={this.handleCancelClick}>Cancel</button>
         </section>
     }
+}
 
 export default CreatePost

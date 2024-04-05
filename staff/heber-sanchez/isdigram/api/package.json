@@ -5,10 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "test": "npx mocha logic",
-    "test-inspect": "npx mocha --inspect-brk data logic",
-    "build": "tsc"
+    "start": "npx tsx index.ts",
+    "test": "npx mocha",
+    "test-inspect": "npx mocha --inspect-brk"
   },
   "keywords": [],
   "author": "",

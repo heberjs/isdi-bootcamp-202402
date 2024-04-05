@@ -1,6 +1,4 @@
-//cambiar a manija cuando hagamos test compilation para typescript
-import Collection from "./Collection.js";
-
+import Collection from "./Collection.mjs";
 const db = {
   users: new Collection("users"),
   posts: new Collection("posts"),

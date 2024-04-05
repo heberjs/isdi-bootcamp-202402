@@ -1,7 +1,8 @@
 import {logger, showFeedback} from '../utils'
 
 import logic from "../logic.mjs";
-import { Component } from 'react';
+
+import { Component } from "react";
 import PostList from "../components/PostList";
 import CreatePost from "../components/CreatePost";
 import EditPost from '../components/EditPost'
@@ -9,7 +10,7 @@ import EditPost from '../components/EditPost'
 
 class Home extends Component {
     constructor(){
-        logger.debug('Home Constructor')
+        logger.debug('Home')
         super()
 
         try {

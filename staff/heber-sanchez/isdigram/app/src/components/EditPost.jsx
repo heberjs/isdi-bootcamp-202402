@@ -2,23 +2,16 @@ import {logger, showFeedback} from '../utils'
 
 import logic from '../logic.mjs'
 
-import { Component } from 'react'
+import SubmitButton from './library/SubmitButton'
+import CancelButton from './library/CancelButton'
 
-class EditPost extends Component {
-    constructor(){
-        logger.debug('EditPost')
-        super()
-    }
+import './EditPost.sass'
 
-    componentDidMount(){
-        logger.debug('EditPost -> componentDidMount')
-    }
+function EditPost(props) {
+    logger.debug('EditPost')
 
-    componentWillUnmount(){
-        logger.debug('EditPost -> componentWillUnmount')
-    }
 
-    handleSubmit = event => {
+    const handleSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -28,34 +21,33 @@ class EditPost extends Component {
         logger.debug('EditPost -> handleSubmit', text)
 
         try {
-            logic.modifyPost(this.props.post.id, text)
+            logic.modifyPost(props.post.id, text)
 
             form.reset()
 
-            this.props.onPostEdited()
+            props.onPostEdited()
         } catch (error) {
             showFeedback(error)
         }
-
-        handleCancelClick = ()=> this.props.onCancelClick()
     }
+     const  handleCancelClick = ()=> props.onCancelClick()
+    
 
-    render(){
         logger.debug('EditPost -> render')
 
         return <section className="edit-post">
 
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={handleSubmit}>
 
                 <label htmlFor="text">Text</label>
-                <input type="text" id='text' defaultValue={this.props.post.text} />
+                <input type="text" id='text' defaultValue={props.post.text} />
 
-                <button className="round-button submit-button" type='submit'>Edit</button>
+                <SubmitButton>Save</SubmitButton>
             </form>
 
-            <button className="round-button cancel-button" onClick={this.handleCancelClick}>Cancel</button>
+            <CancelButton onClick={handleCancelClick}/>
         </section>
     }
-}
+
 
 export default EditPost
