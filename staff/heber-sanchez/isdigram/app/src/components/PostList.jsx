@@ -7,7 +7,7 @@ import Post from './Post'
 
 class PostList extends Component {
     constructor(){
-        logger.debug('PostList')
+        logger.debug('PostList -> constructor')
 
         super()
 
@@ -17,16 +17,22 @@ class PostList extends Component {
     loadPosts(){
         logger.debug('PostList -> loadPosts')
 
-            try {
-                const posts = logic.retrievePosts()
+        try {
+            logic.retrievePosts((error, posts)=>{
+                if (error) {
+                    showFeedback(error)
+                    return
+                }
+                
 
                 this.setState({posts})
-                
-            } catch (error) {
-                showFeedback(error)
+            })
+            
+        } catch (error) {
+            showFeedback(error)
 
-            }
         }
+    }
         //metodo q te permite detectar diferentes ciclos de vida del componente desde q nace hasta q se destruye
      componentWillReceiveProps(newProps){
         logger.debug('PostList -> componentWillReceiveProps', JSON.stringify(this.props), JSON.stringify(newProps))

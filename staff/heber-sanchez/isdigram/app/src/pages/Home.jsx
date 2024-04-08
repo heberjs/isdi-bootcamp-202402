@@ -12,16 +12,24 @@ class Home extends Component {
         logger.debug('Home Constructor')
         super()
 
-        try {
-            const user = logic.retrieveUser()
+        this.state = {user: null, view: null, stamp: null, post: null, chat: null}
 
-            this.user = user
-            
+    }
+
+    componentDidMount() {
+        try {
+            logic.retrieveUser((error, user)=>{
+                if (error) {
+                    showFeedback(error)
+
+                    return
+                }
+
+                this.setState({user})
+            })
         } catch (error) {
             showFeedback(error)
         }
-
-        this.state = {view: null, stamp: null, post: null, chat: null}
     }
 
     setState(state){
@@ -61,7 +69,8 @@ class Home extends Component {
         logger.debug('Home -> render')
 
         return <main className="main">
-            <h1>Hello, {this.user.name}!</h1>
+            {this.state.user && <h1>Hello, {this.state.user.name}!</h1>}
+
             <nav>
                 <button 
                     onClick = {this.handleChatButtonClick}>💬</button>

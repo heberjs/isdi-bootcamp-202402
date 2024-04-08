@@ -7,17 +7,20 @@
   "scripts": {
     "start": "npx tsx index.ts",
     "test": "npx mocha",
-    "test-inspect": "npx mocha --inspect-brk"
+    "test-inspect": "npx mocha --inspect-brk",
+    "inspect": "npx tsx --inspect-brk index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.3.14",
+    "@types/express": "^4.17.21",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.3",
     "chai": "^5.1.0",
-    "mocha": "^10.4.0"
+    "mocha": "^10.4.0",
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "express": "^4.19.2"

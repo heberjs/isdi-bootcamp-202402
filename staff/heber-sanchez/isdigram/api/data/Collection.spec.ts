@@ -35,7 +35,7 @@ describe("Collection", () => {
         
         writeFile("./data/cars.json", "[]", (error) => {
           if (error) {
-            console.error(error);
+            done(error);
 
             return;
           }
@@ -44,7 +44,7 @@ describe("Collection", () => {
 
           cars._loadDocuments((error, documents) => {
             if (error) {
-              console.error(error);
+              done(error);
 
               return;
             }
@@ -65,7 +65,7 @@ describe("Collection", () => {
           '[{"brand":"porsche","model":"911"},{"brand":"fiat","model":"500"}]',
           (error) => {
             if (error) {
-              console.error(error);
+              done(error);
 
               return;
             }
@@ -74,7 +74,7 @@ describe("Collection", () => {
 
             cars._loadDocuments((error, documents) => {
               if (error) {
-                console.error(error);
+                done(error);
 
                 return;
               }
@@ -105,7 +105,7 @@ describe("Collection", () => {
         
         writeFile("./data/cars.json", "[]", (error) => {
           if (error) {
-            console.error(error);
+            done(error);
 
             return;
           }
@@ -118,7 +118,7 @@ describe("Collection", () => {
 
           cars._saveDocuments(documents, (error) => {
             if (error) {
-              console.error(error);
+              done(error);
 
               return;
             }
@@ -127,7 +127,7 @@ describe("Collection", () => {
 
             readFile("./data/cars.json", "utf8", (error, documentsJSON) => {
               if (error) {
-                console.error(error);
+                done(error);
 
                 return;
               }
@@ -189,7 +189,7 @@ describe("Collection", () => {
           '[{"brand":"porsche","model":"911"},{"brand":"fiat","model":"500"}]',
           (error) => {
             if (error) {
-              console.error(error);
+              done(error);
 
               return;
             }
@@ -200,7 +200,7 @@ describe("Collection", () => {
               (car) => car.brand === "fiat",
               (error, car) => {
                 if (error) {
-                  console.error(error);
+                  done(error);
 
                   return;
                 }
@@ -664,5 +664,56 @@ describe("Collection", () => {
         expect(errorThrown.message).to.equal("callback is not a function");
       });
     });
+    
+   describe('delete All', ()=>{
+    it('deletes all documents', done=>{
+      const documents = [{ id: '123', brand: 'porsche', model: '911' }, { id: '345', brand: 'fiat', model: '500' }]
+      const documentsJSON = JSON.stringify(documents)
+
+      writeFile('./data/cars.json', documentsJSON, error =>{
+        if (error) {
+          done(error)
+
+          return
+        }
+        const cars = new Collection('cars')
+
+        cars.deleteAll(error=>{
+          if (error) {
+            done(error)
+            return
+          }
+
+          readFile('./data/cars.json', 'utf8', (error, json)=>{
+            if (error) {
+              done(error)
+
+              return
+            }
+
+            expect(json).to.equal('[]')
+
+            done()
+          })
+        })
+      })
+    })
+    it('fails on no callback', ()=>{
+      const cars = new Collection('cars')
+
+      let errorThrown
+
+      try {
+        //@ts-ignore
+        cars.deleteAll()
+      } catch (error) {
+        
+        errorThrown = error
+      }
+
+      expect(errorThrown).to.be.instanceOf(TypeError)
+      expect(errorThrown.message).to.equal('callback is not a function')
+    })
+   })
   });
 });
