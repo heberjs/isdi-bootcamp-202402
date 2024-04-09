@@ -11,14 +11,14 @@ const api = express();
 const jsonBodyParser = express.json();
 
 //se utiliza antes para solicitar los headers
-api.use((_, res, next)=>{
-  debugger
-  res.setHeader('Access-control-Allow-Origin', '*')
-  res.setHeader('Access-control-Allow-Methods', '*')
-  res.setHeader('Access-control-Allow-Headers', '*')
+api.use((_, res, next) => {
+  debugger;
+  res.setHeader("Access-control-Allow-Origin", "*");
+  res.setHeader("Access-control-Allow-Methods", "*");
+  res.setHeader("Access-control-Allow-Headers", "*");
 
-  next()
-})
+  next();
+});
 
 //REGISTER USER CON EXPRESS
 api.post("/users", jsonBodyParser, (req, res) => {
@@ -55,7 +55,7 @@ api.post("/users/auth", jsonBodyParser, (req, res) => {
         return;
       }
 
-      res.json(userId)
+      res.json(userId);
     });
   } catch (error) {
     res
@@ -65,44 +65,75 @@ api.post("/users/auth", jsonBodyParser, (req, res) => {
 });
 ///método get - retrieve user CON EXPRESS
 api.get("/users/:userId", (req, res) => {
-
   try {
-    const {userId} = req.params
+    const { userId } = req.params;
 
-    logic.retrieveUser(userId, (error, user)=>{
+    logic.retrieveUser(userId, (error, user) => {
       if (error) {
-        res.status(400).json({error: error.constructor.name, message: error.message})
-        return
+        res
+          .status(400)
+          .json({ error: error.constructor.name, message: error.message });
+        return;
       }
 
-      res.json(user)
-    })
+      res.json(user);
+    });
   } catch (error) {
-    res.status(400).json({error: error.constructor.name, message: error.message})
+    res
+      .status(400)
+      .json({ error: error.constructor.name, message: error.message });
   }
 });
 
 //retrieve post con express
 
-api.get('/posts', (req, res)=>{
+api.get("/posts", (req, res) => {
   try {
-    const { authorization: userId} = req.headers
+    const { authorization: userId } = req.headers;
 
-    logic.retrievePosts(userId, (error, posts)=>{
+    logic.retrievePosts(userId, (error, posts) => {
       if (error) {
-        res.status(400).json({error: error.constructor.name, message: error.message})
+        res
+          .status(400)
+          .json({ error: error.constructor.name, message: error.message });
 
-        return
+        return;
       }
 
-      res.json(posts)
-    })
+      res.json(posts);
+    });
   } catch (error) {
-    res.status(400).json({error: error.constructor.name, message: error.message})
+    res
+      .status(400)
+      .json({ error: error.constructor.name, message: error.message });
   }
+});
 
-})
+//Create post con express
 
+api.post("/posts", jsonBodyParser, (req, res) => {
+  try {
+    const { authorization: userId } = req.headers;
+
+    const { image, text } = req.body;
+
+    logic.createPost(userId, image, text, (error) => {
+      if (error) {
+        res
+          .status(400)
+          .json({ error: error.constructor.name, message: error.message });
+
+        return;
+      }
+
+      res.status(201).send();
+    });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ error: error.constructor.name, message: error.message });
+  }
+});
 
 //logout user express
 api.patch("/users/:userId", jsonBodyParser, (req, res) => {
@@ -122,4 +153,4 @@ api.patch("/users/:userId", jsonBodyParser, (req, res) => {
   });
 });
 
-api.listen(8080, ()=>console.log('API listening on port 8080'))
+api.listen(8080, () => console.log("API listening on port 8080"));

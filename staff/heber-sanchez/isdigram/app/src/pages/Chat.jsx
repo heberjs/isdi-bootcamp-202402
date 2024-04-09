@@ -1,43 +1,40 @@
-import {logger, showFeedback} from '../utils'
+import { logger, showFeedback } from "../utils";
 
 import logic from "../logic.mjs";
 
-import { Component } from "react";
+import { useEffect, useState } from "react";
 
+function Chat(props) {
+  logger.debug("Chat");
 
-class Chat extends Component {
-    constructor(){
-        logger.debug('Chat')
-        super()
-        try {
-            const userList = logic.retrieveUsersWithStatus()
+  const [userList, setUserList] = useState([]);
 
-            this.state = {userList}
-
-
-
-        } catch (error) {
-            showFeedback(error)
-        }
-
+  useEffect(() => {
+    try {
+      const fetchedUserList = logic.retrieveUsersWithStatus();
+      setUserList(fetchedUserList);
+    } catch (error) {
+      showFeedback(error);
     }
+    showFeedback(error);
+  }, []);
 
-   handleOnHomeButtonClick = ()=> this.props.onHomeClick()
+  const handleOnHomeButtonClick = () => props.onHomeClick();
 
-
-    render(){
-        logger.debug('Chat -> render')
-        return <main>
-        <nav>
-
-            <h1>Chat</h1>
-            <button onClick={this.handleOnHomeButtonClick}>🏠</button>
-        </nav>
-        <ul>
-            {this.state.userList.map((user)=> <li key={user.id}>{user.username}</li>)}
-        </ul>
-        </main>
-    }
+  logger.debug("Chat -> render");
+  return (
+    <main>
+      <nav>
+        <h1>Chat</h1>
+        <button onClick={handleOnHomeButtonClick}>🏠</button>
+      </nav>
+      <ul>
+        {userList.map((user) => (
+          <li key={user.id}>{user.username}</li>
+        ))}
+      </ul>
+    </main>
+  );
 }
 
-export default Chat
+export default Chat;

@@ -1,3 +1,4 @@
+import { error } from "console";
 import db from "../data/index.ts";
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
@@ -8,35 +9,34 @@ const URL_REGEX = /^(http|https):\/\//;
 
 // helpers
 
-function validateText(text, explain = 'text', checkEmptySpaceInside?) {
+function validateText(text, explain = "text", checkEmptySpaceInside?) {
   if (typeof text !== "string")
     throw new TypeError(`${explain} ${text} is not a string`);
   if (!text.trim().length)
     throw new Error(`${explain} >${text}< is empty or blank`);
 
   if (checkEmptySpaceInside)
-    if (text.includes(" "))
-      throw new Error(`${explain} has empty spaces`);
+    if (text.includes(" ")) throw new Error(`${explain} has empty spaces`);
 }
 
-function validateDate(date, explain = 'date') {
+function validateDate(date, explain = "date") {
   if (typeof date !== "string")
     throw new TypeError(`${explain} ${date} is not a string`);
   if (!DATE_REGEX.test(date))
     throw new Error(`${explain} ${date} does not have a valid format`);
 }
 
-function validateEmail(email, explain = 'email') {
+function validateEmail(email, explain = "email") {
   if (!EMAIL_REGEX.test(email))
     throw new Error(`${explain} ${email} is not am email`);
 }
 
-function validatePassword(password, explain = 'password') {
+function validatePassword(password, explain = "password") {
   if (!PASSWORD_REGEX.test(password))
     throw new Error(`${explain} is not valid`);
 }
 
-function validateUrl(url, explain = 'url') {
+function validateUrl(url, explain = "url") {
   if (!URL_REGEX.test(url)) throw new Error(`${explain} is not an url`);
 }
 
@@ -45,111 +45,124 @@ function validateCallback(callback, explain = "callback") {
     throw new TypeError(`${explain} is not a function`);
 }
 
-// API LOGIC  
+// API LOGIC
 
 function registerUser(name, birthdate, email, username, password, callback) {
-  validateText(name, 'name')
-  validateDate(birthdate, 'birthdate')
-  validateEmail(email)
-  validateText(username, 'username', true)
-  validatePassword(password)
-  validateCallback(callback)
+  validateText(name, "name");
+  validateDate(birthdate, "birthdate");
+  validateEmail(email);
+  validateText(username, "username", true);
+  validatePassword(password);
+  validateCallback(callback);
 
-  db.users.findOne(user => user.email === email || user.username === username, (error, user) => {
+  db.users.findOne(
+    (user) => user.email === email || user.username === username,
+    (error, user) => {
       if (error) {
-          callback(error)
+        callback(error);
 
-          return
+        return;
       }
 
       if (user) {
-          callback(new Error('user already exists'))
+        callback(new Error("user already exists"));
 
-          return
+        return;
       }
 
       user = {
-          name: name.trim(),
-          birthdate: birthdate,
-          email: email,
-          username: username,
-          password: password,
-          status: 'offline',
-      }
+        name: name.trim(),
+        birthdate: birthdate,
+        email: email,
+        username: username,
+        password: password,
+        status: "offline",
+      };
 
-      db.users.insertOne(user, error => {
-          if (error) {
-              callback(error)
+      db.users.insertOne(user, (error) => {
+        if (error) {
+          callback(error);
 
-              return
-          }
+          return;
+        }
 
-          callback(null)
-      })
-  })
+        callback(null);
+      });
+    }
+  );
 }
 
 function loginUser(username, password, callback) {
-  validateText(username, 'username', true)
-  validatePassword(password)
-  validateCallback(callback)
+  validateText(username, "username", true);
+  validatePassword(password);
+  validateCallback(callback);
 
-  db.users.findOne(user => user.username === username, (error, user) => {
+  db.users.findOne(
+    (user) => user.username === username,
+    (error, user) => {
       if (error) {
-          callback(error)
+        callback(error);
 
-          return
+        return;
       }
 
       if (!user) {
-          callback(new Error('user not found'))
+        callback(new Error("user not found"));
 
-          return
+        return;
       }
 
       if (user.password !== password) {
-          callback(new Error('wrong password'))
+        callback(new Error("wrong password"));
 
-          return
+        return;
       }
 
-      user.status = 'online'
+      user.status = "online";
 
-      db.users.updateOne(user2 => user2.id === user.id, user, error => {
+      db.users.updateOne(
+        (user2) => user2.id === user.id,
+        user,
+        (error) => {
           if (error) {
-              callback(error)
+            callback(error);
 
-              return
+            return;
           }
 
-          callback(null, user.id)
-      })
-  })
+          callback(null, user.id);
+        }
+      );
+    }
+  );
 }
 
 function retrieveUser(userId, callback) {
-  validateText(userId, 'userId', true)
-  validateCallback(callback)
+  validateText(userId, "userId", true);
+  validateCallback(callback);
 
-  db.users.findOne(user => user.id === userId, (error, user) => {
+  db.users.findOne(
+    (user) => user.id === userId,
+    (error, user) => {
       if (error) {
-          callback(error)
+        callback(error);
 
-          return
+        return;
       }
 
       if (!user) {
-          callback(new Error('user not found'))
+        callback(new Error("user not found"));
 
-          return
+        return;
       }
 
-      delete user.id
-      delete user.password
-      delete user.status
+      delete user.id;
+      delete user.password;
+      delete user.status;
 
-      callback(null, user)
-  })
+      callback(null, user);
+    }
+  );
 }
 
 // TODO next ...
@@ -207,7 +220,6 @@ function logoutUser(userId, callback) {
 //       return a.status > b.status ? -1 : 1
 //   })
 
-
 //   return users
 // }
 
@@ -215,13 +227,13 @@ function logoutUser(userId, callback) {
 //   validateText(userId, 'userId', true)
 //   validateText(text, 'text')
 
-  // { id, users: [id, id], messages: [{ from: id, text, date }, { from: id, text, date }, ...] }
+// { id, users: [id, id], messages: [{ from: id, text, date }, { from: id, text, date }, ...] }
 
-  // find chat in chats (by user ids)
-  // if no chat yet, then create it
-  // add message in chat
-  // update or insert chat in chats
-  // save chats
+// find chat in chats (by user ids)
+// if no chat yet, then create it
+// add message in chat
+// update or insert chat in chats
+// save chats
 
 //   let chat = db.chats.findOne(chat => chat.users.includes(userId) && chat.users.includes(sessionStorage.userId))
 
@@ -249,69 +261,91 @@ function logoutUser(userId, callback) {
 //   return []
 // }
 
-// function createPost(image, text) {
-//   validateUrl(image, 'image')
+function createPost(userId, image, text, callback) {
+  validateUrl(image, "image");
+  validateText(userId, "userId", true);
+  if (text) validateText(text, "text");
+  validateCallback(callback);
 
-//   if (text)
-//       validateText(text, 'text')
+  const post = {
+    author: userId,
+    image: image,
+    text: text,
+    date: new Date().toLocaleDateString("en-CA"),
+  };
 
-//   const post = {
-//       author: sessionStorage.userId,
-//       image: image,
-//       text: text,
-//       date: new Date().toLocaleDateString('en-CA')
-//   }
+  db.posts.insertOne(post, (error) => {
+    if (error) {
+      callback(error);
 
-//   db.posts.insertOne(post)
-// }
+      return;
+    }
+
+    callback(null);
+  });
+}
 
 function retrievePosts(userId, callback) {
-  validateText(userId, 'userId', true)
-  validateCallback(callback)
+  validateText(userId, "userId", true);
+  validateCallback(callback);
 
-  db.users.findOne(user => user.id === userId, (error, user) => {
+  db.users.findOne(
+    (user) => user.id === userId,
+    (error, user) => {
       if (error) {
-          callback(error)
+        callback(error);
 
-          return
+        return;
       }
 
       if (!user) {
-          callback(new Error('user not found'))
+        callback(new Error("user not found"));
 
-          return
+        return;
       }
 
       db.posts.getAll((error, posts) => {
-          if (error) {
-              callback(error)
+        if (error) {
+          callback(error);
 
-              return
-          }
+          return;
+        }
 
-          let count = 0
+        let count = 0;
+        let errorDetected = false;
 
-          posts.forEach(post => {
-              db.users.findOne(user => user.id === post.author, (error, user) => {
-                  if (error) {
-                      callback(error)
+        posts.forEach((post) => {
+          db.users.findOne(
+            (user) => user.id === post.author,
+            (error, user) => {
+              if (error) {
+                callback(error);
 
-                      return
-                  }
+                return;
+              }
+              if (!user) {
+                callback(new Error("post owner not found"));
 
-                  post.author = {
-                      id: user.id,
-                      username: user.username
-                  }
+                errorDetected = true;
 
-                  count++
+                return;
+              }
 
-                  if (count === posts.length)
-                      callback(null, posts.reverse())
-              })
-          })
-      })
-  })
+              post.author = {
+                id: user.id,
+                username: user.username,
+              };
+
+              count++;
+
+              if (!errorDetected && count === posts.length)
+                callback(null, posts.reverse());
+            }
+          );
+        });
+      });
+    }
+  );
 }
 
 // function removePost(postId) {
@@ -351,10 +385,10 @@ const logic = {
   // sendMessageToUser,
   // retrieveMessagesWithUser,
 
-  // createPost,
+  createPost,
   retrievePosts,
   // removePost,
   // modifyPost
-}
+};
 
-export default logic
+export default logic;

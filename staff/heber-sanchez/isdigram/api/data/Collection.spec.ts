@@ -1,4 +1,4 @@
-import {readFile, writeFile} from "fs";
+import { readFile, writeFile } from "fs";
 
 //esto cambiar siempre manual porque no transpila solo.
 import Collection from "./Collection.ts";
@@ -32,7 +32,6 @@ describe("Collection", () => {
     });
     describe("_loadDocuments", () => {
       it("loads empty array on new collection", (done) => {
-        
         writeFile("./data/cars.json", "[]", (error) => {
           if (error) {
             done(error);
@@ -59,7 +58,6 @@ describe("Collection", () => {
         });
       });
       it("loads data on non-empty collection", (done) => {
-        
         writeFile(
           "./data/cars.json",
           '[{"brand":"porsche","model":"911"},{"brand":"fiat","model":"500"}]',
@@ -102,7 +100,6 @@ describe("Collection", () => {
 
     describe("_saveDocuments", () => {
       it("saves a collection", (done) => {
-        
         writeFile("./data/cars.json", "[]", (error) => {
           if (error) {
             done(error);
@@ -370,7 +367,6 @@ describe("Collection", () => {
 
         const documentsJSON = JSON.stringify(documents);
 
-        
         writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
@@ -392,25 +388,20 @@ describe("Collection", () => {
               }
               expect(updated).to.be.true;
 
-              
-              readFile(
-                "./data/cars.json",
-                "utf-8",
-                (error, documentsJSON) => {
-                  if (error) {
-                    done(error);
+              readFile("./data/cars.json", "utf-8", (error, documentsJSON) => {
+                if (error) {
+                  done(error);
 
-                    return;
-                  }
-                  const documents = JSON.parse(documentsJSON);
-
-                  expect(documents).to.have.lengthOf(2);
-
-                  expect(documents[0]).to.deep.equal(document);
-
-                  done();
+                  return;
                 }
-              );
+                const documents = JSON.parse(documentsJSON);
+
+                expect(documents).to.have.lengthOf(2);
+
+                expect(documents[0]).to.deep.equal(document);
+
+                done();
+              });
             }
           );
         });
@@ -422,7 +413,6 @@ describe("Collection", () => {
         ];
         const documentsJSON = JSON.stringify(documents);
 
-        
         writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
@@ -494,7 +484,6 @@ describe("Collection", () => {
         ];
         const documentsJSON = JSON.stringify(documents);
 
-        
         writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
@@ -512,24 +501,19 @@ describe("Collection", () => {
               }
               expect(deleted).to.be.true;
 
-              
-              readFile(
-                "./data/cars.json",
-                "utf-8",
-                (error, documentsJSON) => {
-                  if (error) {
-                    done(error);
+              readFile("./data/cars.json", "utf-8", (error, documentsJSON) => {
+                if (error) {
+                  done(error);
 
-                    return;
-                  }
-                  const documents2 = JSON.parse(documentsJSON);
-
-                  expect(documents2).to.have.lengthOf(1);
-                  expect(documents2[0]).to.deep.equal(documents[1]);
-
-                  done();
+                  return;
                 }
-              );
+                const documents2 = JSON.parse(documentsJSON);
+
+                expect(documents2).to.have.lengthOf(1);
+                expect(documents2[0]).to.deep.equal(documents[1]);
+
+                done();
+              });
             }
           );
         });
@@ -542,7 +526,6 @@ describe("Collection", () => {
 
         const documentsJSON = JSON.stringify(documents);
 
-        
         writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
@@ -563,23 +546,18 @@ describe("Collection", () => {
 
               expect(deleted).to.be.false;
 
-              
-              readFile(
-                "./data/cars.json",
-                "utf-8",
-                (error, documentsJSON) => {
-                  if (error) {
-                    done(error);
+              readFile("./data/cars.json", "utf-8", (error, documentsJSON) => {
+                if (error) {
+                  done(error);
 
-                    return;
-                  }
-
-                  const documents2 = JSON.parse(documentsJSON);
-                  expect(documents2).to.deep.equal(documents);
-
-                  done();
+                  return;
                 }
-              );
+
+                const documents2 = JSON.parse(documentsJSON);
+                expect(documents2).to.deep.equal(documents);
+
+                done();
+              });
             }
           );
         });
@@ -625,7 +603,6 @@ describe("Collection", () => {
         ];
         const documentsJSON = JSON.stringify(documents);
 
-        
         writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
             done(error);
@@ -664,56 +641,58 @@ describe("Collection", () => {
         expect(errorThrown.message).to.equal("callback is not a function");
       });
     });
-    
-   describe('delete All', ()=>{
-    it('deletes all documents', done=>{
-      const documents = [{ id: '123', brand: 'porsche', model: '911' }, { id: '345', brand: 'fiat', model: '500' }]
-      const documentsJSON = JSON.stringify(documents)
 
-      writeFile('./data/cars.json', documentsJSON, error =>{
-        if (error) {
-          done(error)
+    describe("delete All", () => {
+      it("deletes all documents", (done) => {
+        const documents = [
+          { id: "123", brand: "porsche", model: "911" },
+          { id: "345", brand: "fiat", model: "500" },
+        ];
+        const documentsJSON = JSON.stringify(documents);
 
-          return
-        }
-        const cars = new Collection('cars')
-
-        cars.deleteAll(error=>{
+        writeFile("./data/cars.json", documentsJSON, (error) => {
           if (error) {
-            done(error)
-            return
+            done(error);
+
+            return;
           }
+          const cars = new Collection("cars");
 
-          readFile('./data/cars.json', 'utf8', (error, json)=>{
+          cars.deleteAll((error) => {
             if (error) {
-              done(error)
-
-              return
+              done(error);
+              return;
             }
 
-            expect(json).to.equal('[]')
+            readFile("./data/cars.json", "utf8", (error, json) => {
+              if (error) {
+                done(error);
 
-            done()
-          })
-        })
-      })
-    })
-    it('fails on no callback', ()=>{
-      const cars = new Collection('cars')
+                return;
+              }
 
-      let errorThrown
+              expect(json).to.equal("[]");
 
-      try {
-        //@ts-ignore
-        cars.deleteAll()
-      } catch (error) {
-        
-        errorThrown = error
-      }
+              done();
+            });
+          });
+        });
+      });
+      it("fails on no callback", () => {
+        const cars = new Collection("cars");
 
-      expect(errorThrown).to.be.instanceOf(TypeError)
-      expect(errorThrown.message).to.equal('callback is not a function')
-    })
-   })
+        let errorThrown;
+
+        try {
+          //@ts-ignore
+          cars.deleteAll();
+        } catch (error) {
+          errorThrown = error;
+        }
+
+        expect(errorThrown).to.be.instanceOf(TypeError);
+        expect(errorThrown.message).to.equal("callback is not a function");
+      });
+    });
   });
 });

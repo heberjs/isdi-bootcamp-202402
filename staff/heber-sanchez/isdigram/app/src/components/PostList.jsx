@@ -2,19 +2,17 @@ import {logger, showFeedback} from '../utils'
 
 import logic from "../logic.mjs"
 
-import { Component } from "react"
+import {useState, useEffect} from "react"
 import Post from './Post'
 
-class PostList extends Component {
-    constructor(){
+function PostList(props) {
+    
         logger.debug('PostList -> constructor')
 
-        super()
-
-        this.state = {posts: []}
-    }
+        const [posts, setPosts] = useState([])
      
-    loadPosts(){
+    const loadPosts = ()=> {
+
         logger.debug('PostList -> loadPosts')
 
         try {
@@ -25,7 +23,7 @@ class PostList extends Component {
                 }
                 
 
-                this.setState({posts})
+                setPosts(posts)
             })
             
         } catch (error) {
@@ -33,31 +31,22 @@ class PostList extends Component {
 
         }
     }
-        //metodo q te permite detectar diferentes ciclos de vida del componente desde q nace hasta q se destruye
-     componentWillReceiveProps(newProps){
-        logger.debug('PostList -> componentWillReceiveProps', JSON.stringify(this.props), JSON.stringify(newProps))
 
-        newProps.stamp !== this.props.stamp && this.loadPosts()
-     }
+    useEffect(()=> {
+        loadPosts()
+    }, [props.stamp])
 
-     componentDidMount(){
-        logger.debug('PostList -> componentDidMount')
+    const handlePostDeleted = ()=> loadPosts()
 
-        this.loadPosts()
-     }
-
-     handlePostDeleted = ()=> this.loadPosts()
-
-     handleEditClick = post => this.props.onEditPostClick(post)
+    const handleEditClick = post => props.onEditPostClick(post)
 
 
-    render(){
         logger.debug('PostList -> render')
 
         return <section>
-            {this.state.posts.map(post=> <Post item={post} onEditClick={this.handleEditClick} onDeleted={this.handlePostDeleted} />)}
+            {posts.map(post=> <Post key={post.id} item={post} onEditClick={handleEditClick} onDeleted={handlePostDeleted} />)}
         </section>
-    }
+    
 }
 
 

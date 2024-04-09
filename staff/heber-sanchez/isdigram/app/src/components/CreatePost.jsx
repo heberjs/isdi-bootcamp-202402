@@ -1,57 +1,59 @@
-import {logger, showFeedback} from '../utils'
+import { logger, showFeedback } from "../utils";
 
 import logic from "../logic.mjs";
 
-import CancelButton from './library/CancelButton';
-import SubmitButton from './library/SubmitButton';
+import CancelButton from "./library/CancelButton";
+import SubmitButton from "./library/SubmitButton";
 
-import './CreatePost.sass'
+import "./CreatePost.sass";
 
+function CreatePost(props) {
+  logger.debug("CreatePost");
 
-function CreatePost (props) {
-        logger.debug('CreatePost')
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
+    const form = event.target;
 
-    const handleSubmit = event=>{
-        event.preventDefault()
+    const image = form.image.value;
+    const text = form.text.value;
 
-        const form = event.target
+    try {
+      logic.createPost(image, text, (error) => {
+        if (error) {
+          showFeedback(error);
 
-        const image = form.image.value
-        const text = form.text.value
-
-        try {
-            logic.createPost(image, text)
-
-            form.reset()
-
-            props.onPostCreated()
-
-        } catch (error) {
-            showFeedback()
+          return;
         }
 
+        form.reset();
+
+        props.onPostCreated();
+      });
+    } catch (error) {
+      showFeedback(error);
     }
+  };
 
-    const handleCancelClick = ()=> props.onCancelClick()
+  const handleCancelClick = () => props.onCancelClick();
 
-        logger.debug('CreatePost -> render')
+  logger.debug("CreatePost -> render");
 
-        return <section className="create-post">
+  return (
+    <section className="create-post">
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="image">Image</label>
+        <input type="text" id="image" />
 
-            <form onSubmit={handleSubmit}>
+        <label htmlFor="text">Text</label>
+        <input type="text" id="text" />
 
-            <label htmlFor="image">Image</label>
-            <input type="text" id="image" />
+        <SubmitButton>Create</SubmitButton>
+      </form>
 
-            <label htmlFor="text">Text</label>
-            <input type="text" id="text" />
+      <CancelButton onClick={handleCancelClick} />
+    </section>
+  );
+}
 
-            <SubmitButton>Create</SubmitButton>
-        </form>
-
-        <CancelButton onClick={handleCancelClick}/>
-        </section>
-    }
-
-export default CreatePost
+export default CreatePost;

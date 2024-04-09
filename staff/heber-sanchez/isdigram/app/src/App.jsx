@@ -2,7 +2,7 @@ import {logger} from './utils'
 
 import logic from './logic.mjs'
 
-import { Component } from 'react'
+import { useState } from 'react'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -10,65 +10,43 @@ import Home from './pages/Home'
 import Chat from './pages/Chat'
 
 
-class App extends Component {
-  constructor(){
+function App() {
     logger.debug('App')
 
-    super()
+    const [view, setView] = useState(logic.isUserLoggedIn()? 'home' : 'landing')
 
-    this.state = {view: logic.isUserLoggedIn() ? 'home': 'landing'}
-  }
 
-  //over riding para ver cuando se setea el state - interpone un callback para ver cuando se setea
-  setState(state){
-    //al state lo convertimos a json, es un objeto
-    logger.debug('App -> setState', JSON.stringify(state))
-//llama  al padre ' component
-    super.setState(state)
-  }
 
-  //sirve para hacer algo cuadno este montada toda la app, se suele usar para llamar a apis o servidor
-  componentDidMount() {
-    logger.debug('App -> componentDidMount')
-  }
+  const goTologin = () => setView('login')
 
-  goTologin = () => this.setState({view: 'login'})
+  const handleLoginClick = ()=> goTologin()
 
-  handleLoginClick = ()=> this.goTologin()
+  const handleRegisterClick = ()=> setView('register')
 
-  handleRegisterClick = ()=> this.setState({view: 'register'})
+  const handleUserLoggedIn = ()=> setView('home')
 
-  handleUserLoggedIn = ()=> this.setState({view: 'home'})
+  const handleUserLoggedOut = ()=> goTologin()
 
-  handleUserLoggedOut = ()=> this.goTologin()
+  const handleChatClick = ()=> setView('chat')
 
-  handleChatClick = ()=> this.setState({view: 'chat'})
+  const handleHomeClick = ()=> setView('home') 
 
-  handleHomeClick = ()=> this.setState({view: 'home'}) 
 
-  render(){
     logger.debug('App -> render')
 
-    if(this.state.view === 'landing')
-    return <Landing onLoginClick={this.handleLoginClick} onRegisterClick={this.handleRegisterClick}/>
+  return <>
+    {view === 'landing' && <Landing onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick}/>}
 
-    else if(this.state.view === 'login')
-    return <Login onRegisterClick={this.handleRegisterClick}
-     onUserLoggedIn={this.handleUserLoggedIn}/>
+    {view === 'login' && <Login onRegisterClick={handleRegisterClick}
+     onUserLoggedIn={handleUserLoggedIn}/>}
     
-     else if(this.state.view === 'register')
-     return <Register onLoginClick={this.handleLoginClick} onUserRegistered={this.handleLoginClick} />
+    {view === 'register' && <Register onLoginClick={handleLoginClick} onUserRegistered={handleLoginClick}/>}
     
-     else if(this.state.view === 'home') //new Home().render(...)
-     return <Home onChatClick={this.handleChatClick}
-     onUserLoggedOut={this.handleUserLoggedOut}/>
+     {view === 'home' && <Home onChatClick={handleChatClick}
+     onUserLoggedOut={handleUserLoggedOut}/>}
 
-     else if(this.state.view === 'chat')
-     return <Chat onHomeClick={this.handleHomeClick}/>
-    
-     else
-     return <h1>🤨</h1>
-  }
+     {view === 'chat' && <Chat onHomeClick={handleHomeClick}/>}
+     </>   
 }
 
 export default App
