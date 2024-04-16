@@ -1,6 +1,6 @@
 import { logger, showFeedback } from "../utils";
 
-import logic from "../logic.mjs";
+import logic from "../logic.js";
 
 import CancelButton from "./library/CancelButton";
 import SubmitButton from "./library/SubmitButton";

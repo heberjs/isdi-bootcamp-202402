@@ -1,6 +1,6 @@
 import {logger, showFeedback} from '../utils'
 
-import logic from "../logic.mjs";
+import logic from "../logic.js";
 import { useState, useEffect } from 'react';
 import PostList from "../components/PostList";
 import CreatePost from "../components/CreatePost";
