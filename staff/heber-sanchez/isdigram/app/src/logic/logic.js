@@ -89,13 +89,6 @@ import removePost from './removePost'
 // }
 
 
-
-
-
-
-
-
-
 const logic = {
   registerUser,
   loginUser,

@@ -1,6 +1,6 @@
 import {logger, showFeedback} from '../utils'
 
-import logic from '../logic.js'
+import logic from '../logic/logic'
 
 function Register(props) {
     
@@ -19,16 +19,17 @@ function Register(props) {
         const password = form.password.value
 
         try {
-            logic.registerUser(name, birthdate, email, username, password, error=>{
-                if (error) {
-                    showFeedback(error)
-                    return
-                }
+            logic.registerUser(name, birthdate, email, username, password)
 
-                form.reset()
+        .then(()=> {
+            form.reset()
 
-                props.onUserRegistered()
-            })
+            props.onUserRegistered()
+
+        })
+
+        .catch(showFeedback)
+ 
         } catch (error) {
             showFeedback(error)
         }

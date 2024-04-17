@@ -1,6 +1,6 @@
 import {logger, showFeedback} from '../utils'
 
-import logic from "../logic.js"
+import logic from "../logic/logic"
 
 import {useState, useEffect} from "react"
 import Post from './Post'
@@ -16,16 +16,11 @@ function PostList(props) {
         logger.debug('PostList -> loadPosts')
 
         try {
-            logic.retrievePosts((error, posts)=>{
-                if (error) {
-                    showFeedback(error)
-                    return
-                }
-                
+            logic.retrievePosts()
+            .then(setPosts)
+            .catch(showFeedback)
 
-                setPosts(posts)
-            })
-            
+
         } catch (error) {
             showFeedback(error)
 

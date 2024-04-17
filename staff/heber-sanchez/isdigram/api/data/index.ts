@@ -2,7 +2,6 @@ import mongoose, { ObjectId } from 'mongoose'
 
 const { Schema, model } = mongoose
 
-//const ObjectId = Schema.types.ObjectId
 const { Types: { ObjectId } } = Schema
 
 type UserType = {
@@ -13,15 +12,15 @@ type UserType = {
     password: string
 }
 
+
 const user = new Schema({
     name: {
         type: String,
-        require: true
+        required: true
     },
     birthdate: {
         type: Date,
         required: true
-
     },
     email: {
         type: String,
@@ -65,10 +64,8 @@ const post = new Schema({
     }
 })
 
-
-const Post = model<PostType>('Post', post)
-
 const User = model<UserType>('User', user)
+const Post = model<PostType>('Post', post)
 
 export {
     UserType,

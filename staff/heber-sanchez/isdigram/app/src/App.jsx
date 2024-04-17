@@ -1,13 +1,13 @@
 import {logger} from './utils'
 
-import logic from './logic.js'
 
 import { useState } from 'react'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
-import Chat from './pages/Chat'
+import logic from './logic/logic'
+// import Chat from './pages/Chat'
 
 
 function App() {

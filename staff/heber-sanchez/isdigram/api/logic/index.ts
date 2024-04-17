@@ -86,8 +86,6 @@ import retrievePosts from './retrievePosts.ts'
 
 const logic = {
 
-  users: null,
-  posts: null,
 
   registerUser,
   authenticateUser,

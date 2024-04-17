@@ -1,14 +1,25 @@
+import { Schema } from "mongoose"
 
-// function removePost(postId) {
-//     //   validateText(postId, 'postId', true)
+const { Types: { ObjectId } } = Schema
 
-//     //   const post = this.posts.findOne(post => post.id === postId)
+import { PostType, Post } from "../data/index.ts"
 
-//     //   if (!post) throw new Error('post not found')
+import { validate, errors } from "com"
 
-//     //   if (post.author !== sessionStorage.userId) throw new Error('post does not belong to user')
+const { NotFoundError, SystemError } = errors
 
-//     //   this.posts.deleteOne(post => post.id === postId)
-// }
+function removePost(postId: string) {
+    validate.text(postId, 'postId', true)
 
-// export default removePost
+    return Post.findById(postId)
+        .catch(error => { throw new SystemError(error.message) })
+        .then(post => {
+
+            if (!post) throw new NotFoundError('post not found')
+
+            return Post.deleteOne({ _id: postId })
+        })
+
+}
+
+export default removePost

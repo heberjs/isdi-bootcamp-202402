@@ -1,10 +1,11 @@
 import {logger, showFeedback} from '../utils'
 
-import logic from "../logic.js";
+
 import { useState, useEffect } from 'react';
 import PostList from "../components/PostList";
 import CreatePost from "../components/CreatePost";
 import EditPost from '../components/EditPost'
+import logic from '../logic/logic';
 
 
 function Home(props) {
@@ -18,20 +19,16 @@ function Home(props) {
     useEffect(()=>{
         
         try {
-        logic.retrieveUser((error, user)=>{
-            if (error) {
-                showFeedback(error)
+        logic.retrieveUser()
+        //.then(user=> setUser(user))
 
-                return
-            }
+        .then(setUser)
+        .catch(showFeedback)
 
-            setUser(user)
-        })
     } catch (error) {
         showFeedback(error)
     }
-}, [])
-
+    },[])
 
     const clearView = ()=> setView(null)
 
