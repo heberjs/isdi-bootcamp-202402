@@ -1,4 +1,4 @@
-import {logger, showFeedback} from '../utils'
+import {logger} from '../utils'
 
 import logic from '../logic/logic'
 
@@ -7,8 +7,12 @@ import CancelButton from './library/CancelButton'
 
 import './EditPost.sass'
 
+import { useContext } from '../context'
+
 function EditPost(props) {
     logger.debug('EditPost')
+
+    const { showFeedback } = useContext()
 
 
     const handleSubmit = event => {

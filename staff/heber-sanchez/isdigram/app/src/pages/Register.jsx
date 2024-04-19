@@ -1,9 +1,11 @@
-import {logger, showFeedback} from '../utils'
+import {logger} from '../utils'
 
 import logic from '../logic/logic'
 
-function Register(props) {
-    
+import { useContext } from '../context'
+
+function Register({onUserRegistered, onLoginClick}) {
+    const {showFeedback } = useContext()
         logger.debug('Register')
         
 
@@ -24,21 +26,21 @@ function Register(props) {
         .then(()=> {
             form.reset()
 
-            props.onUserRegistered()
+            onUserRegistered()
 
         })
 
-        .catch(showFeedback)
+        .catch(error=>showFeedback(error.message, 'error'))
  
         } catch (error) {
-            showFeedback(error)
+            showFeedback(error.message)
         }
     }
 
     const handleLoginClick = event=>{
         event.preventDefault()
 
-        props.onLoginClick()
+        onLoginClick()
     }
 
 

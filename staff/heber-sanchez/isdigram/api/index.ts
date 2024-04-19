@@ -29,14 +29,6 @@ const { ContentError, SystemError, DuplicityError, NotFoundError, CredentialsErr
 
 mongoose.connect('mongodb://localhost:27017/isdigram')
   .then(() => {
-    const db = mongoose.connection.db
-
-    const users = db.collection('users')
-    const posts = db.collection('posts')
-
-    logic.users = users
-    logic.posts = posts
-
     const api = express()
 
     const jsonBodyParser = express.json()
@@ -49,8 +41,6 @@ mongoose.connect('mongodb://localhost:27017/isdigram')
 
       next()
     })
-
-
 
     //REGISTER USER CON EXPRESS// endpoint combinacion de ruta y metodo get post patch
     api.post('/users', jsonBodyParser, (req, res) => {

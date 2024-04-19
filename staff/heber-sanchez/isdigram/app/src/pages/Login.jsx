@@ -1,10 +1,13 @@
-import {logger, showFeedback} from '../utils'
+import {logger} from '../utils'
 
-import logic from "../logic/logic";
+import logic from '../logic/logic'
 
-function Login(props) {
+import { useContext } from '../context'
 
+function Login({onUserLoggedIn, onRegisterClick}) {
         logger.debug('Login')
+
+        const {showFeedback} = useContext
 
     const handleSubmit = event=>{
         event.preventDefault();
@@ -20,18 +23,18 @@ function Login(props) {
             .then(()=>{
                 form.reset()
 
-                props.onUserLoggedIn()
+                onUserLoggedIn()
             })
-            .catch(showFeedback)
+            .catch(error=> showFeedback(error.message, 'error'))
                 
         } catch (error) {
-            showFeedback(error)
+            showFeedback(error.message)
         }
     }
 
     const handleRegisterClick = event=> {
         event.preventDefault()
-        props.onRegisterClick()
+        onRegisterClick()
     }
 
         logger.debug('Login -> render')
