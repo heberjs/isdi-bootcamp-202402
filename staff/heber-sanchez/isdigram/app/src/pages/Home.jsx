@@ -17,22 +17,21 @@ import { useContext } from '../context'
 function Home({onUserLoggedOut}) {
     logger.debug('Home Constructor')
 
-    const [view, setView] = useState(null)
     const [user, setUser] = useState(null)
+    const [view, setView] = useState(null)
     const [stamp, setStamp] = useState(null)
     const [post, setPost] = useState(null)  
     
     const { showFeedback } = useContext()
 
     useEffect(()=>{
-        
         try {
         logic.retrieveUser()
         //.then(user=> setUser(user))
         .then(setUser)
-        .catch(error=> showFeedback(error.message, 'error'))
+        .catch(error=> showFeedback(error, 'error'))
     } catch (error) {
-        showFeedback(error.message)
+        showFeedback(error)
     }
     },[])
 

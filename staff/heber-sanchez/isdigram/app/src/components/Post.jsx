@@ -20,10 +20,10 @@ function Post({item: post, onEditClick, onDeleted}) {
             try {
                 logic.removePost(postId)
                 .then(()=> onDeleted())
-                .catch(error=> showFeedback(error.message, 'error'))
+                .catch(error=> showFeedback(error, 'error'))
 
             } catch (error) {
-                showFeedback(error.message)
+                showFeedback(error)
             }
         })
 

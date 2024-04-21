@@ -1,11 +1,9 @@
+import { util, validate } from 'com'
+
 function getLoggedInUserId() {
-    const [, payloadB64] = sessionStorage.token.split('.')
+    validate.token(sessionStorage.token)
 
-    const payloadJSON = atob(payloadB64)
-
-    const payload = JSON.parse(payloadJSON)
-
-    const { sub: userId } = payload
+    const { sub: userId } = util.extractJwtPayload(sessionStorage.token)
 
     return userId
 

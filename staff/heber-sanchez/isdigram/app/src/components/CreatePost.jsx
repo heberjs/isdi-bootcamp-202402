@@ -12,7 +12,7 @@ import { useContext } from '../context'
 function CreatePost(props) {
   logger.debug('CreatePost')
 
-  const { showFeedback } = useContext
+  const { showFeedback } = useContext()
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -29,10 +29,10 @@ function CreatePost(props) {
 
           props.onPostCreated()
         })
-        .catch(error=> showFeedback(error.message, 'error'))
+        .catch(error=> showFeedback(error, 'error'))
         
     } catch (error) {
-      showFeedback(error.message)
+      showFeedback(error)
     }
   }
 

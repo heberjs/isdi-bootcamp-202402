@@ -26,10 +26,13 @@ function EditPost(props) {
 
         try {
             logic.modifyPost(props.post.id, text)
+            .then(()=>{
+                form.reset()
 
-            form.reset()
+                props.onPostEdited()
+            })
+            .catch(error=> showFeedback(error), 'error')
 
-            props.onPostEdited()
         } catch (error) {
             showFeedback(error)
         }

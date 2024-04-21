@@ -3,6 +3,7 @@ import {logger} from '../utils'
 import logic from '../logic/logic'
 
 import {useState, useEffect} from 'react'
+
 import Post from './Post'
 
 import { useContext } from '../context'
@@ -22,11 +23,11 @@ function PostList({stamp, onEditPostClick}) {
         try {
             logic.retrievePosts()
             .then(setPosts)
-            .catch(error=>showFeedback(error.message, 'error'))
+            .catch(error=>showFeedback(error, 'error'))
 
 
         } catch (error) {
-            showFeedback(error.message)
+            showFeedback(error)
 
         }
     }

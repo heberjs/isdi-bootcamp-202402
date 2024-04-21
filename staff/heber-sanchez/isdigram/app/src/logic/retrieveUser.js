@@ -1,6 +1,7 @@
 import { validate, errors } from 'com'
 
 function retrieveUser() {
+    validate.token(sessionStorage.token)
 
     const [, payloadB64] = sessionStorage.token.split('.')
 
@@ -10,7 +11,7 @@ function retrieveUser() {
 
     const { sub: userId } = payload
 
-    return fetch(`http://localhost:8080/users/${userId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

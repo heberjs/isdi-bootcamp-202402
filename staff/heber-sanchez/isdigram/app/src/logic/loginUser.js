@@ -8,7 +8,7 @@ function loginUser(username, password) {
 
     const json = JSON.stringify(user)
 
-    return fetch('http://localhost:8080/users/auth', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

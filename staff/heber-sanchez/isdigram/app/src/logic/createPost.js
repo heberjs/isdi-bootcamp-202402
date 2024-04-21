@@ -8,7 +8,7 @@ function createPost(image, text) {
 
     const json = JSON.stringify(post)
 
-    return fetch('http://localhost:8080/posts', {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${sessionStorage.token}`,

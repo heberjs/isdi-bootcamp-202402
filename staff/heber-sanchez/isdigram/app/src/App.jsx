@@ -1,28 +1,30 @@
 import {logger} from './utils'
-import logic from './logic/logic'
 
+import logic from './logic/logic'
 
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 // import Chat from './pages/Chat'
 import {Routes, Route, Navigate, useNavigate} from 'react-router-dom'
-import FeedBack from './components/Feedback'
+import Feedback from './components/Feedback'
 import { useState } from 'react'
 import {Context} from './context'
 import Confirm from './components/Confirm'
+
+import { errors } from 'com'
+
+const { UnauthorizedError } = errors
 
 
 function App() {
     logger.debug('App')
 
-    const [FeedBack, setFeedBack] = useState(null)
+  const [feedBack, setFeedBack] = useState(null)
 
-    const [confirm, setConfirm] = useState(null)
+  const [confirm, setConfirm] = useState(null)
 
-    const navigate = useNavigate()
-
-
+  const navigate = useNavigate()
 
   const goTologin = () => navigate('/login')
 
@@ -34,7 +36,18 @@ function App() {
 
   const handleUserLoggedOut = ()=> goTologin()
 
-  const handleFeedback = (message, level = 'warn') => setFeedback({ message, level })
+  const handleFeedbackAcceptClick = () => setFeedBack(null)
+
+  const handleFeedback = (error, level = 'warn') => {
+    if (error instanceof UnauthorizedError) {
+      logic.logoutUser()
+
+      level = 'error'
+
+      goTologin()
+    }
+    setFeedBack({message: error.message, level})
+  }
 
   const handleConfirm = (message, callback) => setConfirm({message, callback})
 
@@ -65,7 +78,8 @@ function App() {
      </Routes>
      </Context.Provider>
 
-     {feedback && <FeedBack message={feedback.message} level = {feedback.level} onAcceptClick={handleFeedbackAcceptClick} />}
+     {feedback && <Feedback message={feedback.message} level = {feedback.level} onAcceptClick={handleFeedbackAcceptClick} />}
+     {confirm && <Confirm message="hola confirm" onCancelclick={handleConfirmCancelclick} onAcceptClick={handleConfirmAcceptClick} />}
 
      </>   
 }

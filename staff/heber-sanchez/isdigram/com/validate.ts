@@ -1,11 +1,11 @@
-import { ContentError } from "./errors";
+import { ContentError, UnauthorizedError } from './errors'
+import util from './util';
 
 
-const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
-const EMAIL_REGEX =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[A-Za-z])[A-Za-z0-9]+$/;
-const URL_REGEX = /^(http|https):\/\//;
+const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/
+const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[A-Za-z])[A-Za-z0-9]+$/
+const URL_REGEX = /^(http|https):\/\//
 
 // helpers
 
@@ -45,17 +45,16 @@ const validate = {
     callback(callback: Function, explain: string = "callback") {
         if (typeof callback !== "function")
             throw new TypeError(`${explain} is not a function`)
+    },
+
+    token(token, explain = 'token') {
+        if (typeof token !== 'string') throw new TypeError(`${explain} is not a string`)
+
+        const { exp } = util.extractJwtPayload(token)
+
+        if (exp * 1000 < Date.now()) throw new UnauthorizedError('session expired')
+
     }
 }
-
-
-// export {
-//     validateText,
-//     validateDate,
-//     validateEmail,
-//     validatePassword,
-//     validateUrl,
-//     validateCallback
-// }
 
 export default validate
