@@ -6,7 +6,6 @@ function getLoggedInUserId() {
     const { sub: userId } = util.extractJwtPayload(sessionStorage.token)
 
     return userId
-
 }
 
 export default getLoggedInUserId

@@ -5,6 +5,6 @@ function extractJwtPayload(token) {
     return payload;
 }
 const util = {
-    extractJwtPayload,
+    extractJwtPayload
 };
 export default util;

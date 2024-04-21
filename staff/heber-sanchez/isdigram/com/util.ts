@@ -9,7 +9,7 @@ function extractJwtPayload(token) {
 }
 
 const util = {
-    extractJwtPayload,
+    extractJwtPayload
 }
 
 export default util
