@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npx tsx index.ts",
     "inspect": "npx tsx --inspect-brk index.ts",
-    "test": "npx mocha --timeout 10000",
+    "test": "npx mocha",
     "test-inspect": "npx mocha --inspect-brk",
     "populate": "tsx data/populate.ts"
   },
@@ -26,6 +26,8 @@
     "ts-node": "^10.9.2"
   },
   "dependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
     "colors": "^1.4.0",
     "com": "file:../com",
     "cors": "^2.8.5",

@@ -4,104 +4,159 @@ const { Schema, model } = mongoose
 
 const { Types: { ObjectId } } = Schema
 
+enum UserRole {
+    Player = "player",
+    Manager = "manager",
+    Root = "root"
+}
+
+enum UserStatus {
+    Default = 0,
+    Approved = 1
+}
+
 type UserType = {
     fullname: string,
     email: string,
-    password: string
+    password: string,
+    avatar?: string,
+    role: UserRole,
+    status: UserStatus
 }
 
 const user = new Schema({
     fullname: {
         type: String,
-        require: true
+        required: true
     },
 
     email: {
         type: String,
-        require: true,
+        required: true,
         unique: true
     },
     password: {
         type: String,
-        require: true
+        required: true
+    },
+    avatar: {
+        type: String
+    },
+    role: {
+        type: String,
+        required: true,
+        enum: [UserRole.Player, UserRole.Manager, UserRole.Root]
+    },
+    status: {
+        type: Number,
+        required: true,
+        enum: [UserStatus.Default, UserStatus.Approved]
     }
 })
 
-type AdminType = {
-    name: string,
-    email: string,
-    location: string,
-    password: string
+
+type PointType = {
+    type: string,
+    coordinates: [number, number]
 }
 
-const admin = new Schema({
-    name: {
+const point = new Schema({
+    type: {
         type: String,
-        require: true,
-        unique: true
+        enum: ['Point'],
+        required: true
     },
-    email: {
+    coordinates: {
+        type: [Number],
+        required: true
+    }
+});
+
+type FieldType = {
+    manager: ObjectId,
+    title: string,
+    addres: string,
+    location: PointType
+}
+
+const field = new Schema({
+
+    title: {
         type: String,
-        require: true,
-        unique: true
+        required: true
+    },
+
+    manager: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+
+    },
+    address: {
+        type: String,
+        required: true
     },
     location: {
-        type: String,
-        require: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        require: true
-
+        type: point,
+        required: true
     }
 })
+
 
 type MatchType = {
     title: string,
-    description: string,
+    description?: string,
     location: string,
     date: Date,
-    players: string[]
+    players: ObjectId[]
+    field: ObjectId
 }
 
 const match = new Schema({
     title: {
         type: String,
-        require: true
+        required: true
     },
     description: {
-        type: String,
-        require: true,
+        type: String
     },
     location: {
         type: String,
-        require: true,
+        required: true,
     },
     date: {
         type: Date,
-        require: true,
+        required: true,
         unique: true
     },
     players: [{
         type: ObjectId,
         ref: 'User'
-    }]
+    }],
+    field: {
+        type: ObjectId,
+        ref: 'Field',
+        required: true
+    }
 
 })
 
-
-
 const User = model<UserType>('User', user)
-const Admin = model<AdminType>('Admin', admin)
+const Field = model<FieldType>('Field', field)
+const Point = model<PointType>('Point', point)
 const Match = model<MatchType>('Match', match)
+
 
 export {
     UserType,
-    user,
-    AdminType,
-    admin,
+    User,
     MatchType,
-    match
+    Match,
+    PointType,
+    Point,
+    FieldType,
+    Field,
+    UserRole,
+    UserStatus,
 }
 

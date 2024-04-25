@@ -1,0 +1,1 @@
+curl -H "Authorization: Bearer <Token>" http://localhost:8080/users/targetuserid -v
