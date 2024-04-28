@@ -16,13 +16,15 @@ const DuplicityError = buildErrorClass('DuplicityError');
 const CredentialsError = buildErrorClass('CredentialsError');
 const NotFoundError = buildErrorClass('NotFoundError');
 const UnauthorizedError = buildErrorClass('UnauthorizedError');
+const AuthError = buildErrorClass('AuthError');
 const errors = {
     ContentError,
     SystemError,
     DuplicityError,
     CredentialsError,
     NotFoundError,
-    UnauthorizedError
+    UnauthorizedError,
+    AuthError
 };
-export { ContentError, SystemError, DuplicityError, CredentialsError, NotFoundError, UnauthorizedError };
+export { ContentError, SystemError, DuplicityError, CredentialsError, NotFoundError, UnauthorizedError, AuthError };
 export default errors;

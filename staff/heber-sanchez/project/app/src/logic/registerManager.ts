@@ -1,14 +1,18 @@
+//@ts-nocheck
+
 import { validate, errors } from 'com'
 
-function loginUser(email, password) {
+function registerManager(fullname: string, email: string, password: string) {
+    validate.text(fullname)
     validate.email(email)
     validate.password(password)
 
-    const user = { email, password }
+
+    const user = { fullname, email, password }
 
     const json = JSON.stringify(user)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/managers`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -16,9 +20,7 @@ function loginUser(email, password) {
         body: json
     })
         .then(res => {
-            if (res.status === 200)
-                return res.json()
-                    .then(token => { sessionStorage.token = token })
+            if (res.status === 201) return
 
             return res.json()
                 .then(body => {
@@ -31,5 +33,4 @@ function loginUser(email, password) {
         })
 }
 
-
-export default loginUser
+export default registerManager

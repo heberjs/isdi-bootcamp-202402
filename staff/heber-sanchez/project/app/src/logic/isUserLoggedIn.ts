@@ -8,6 +8,7 @@ function isUserLoggedIn() {
     } catch (error) {
         return false
     }
+
 }
 
 export default isUserLoggedIn

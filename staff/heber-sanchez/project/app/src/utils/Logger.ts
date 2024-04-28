@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 class Logger {
     static DEBUG = 0
     static INFO = 1

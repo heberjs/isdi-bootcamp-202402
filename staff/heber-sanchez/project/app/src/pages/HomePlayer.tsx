@@ -1,5 +1,5 @@
-
-function HomePlayer(){
+//@ts-nocheck
+function HomePlayer() {
 
 
     return <h1>hello Player</h1>

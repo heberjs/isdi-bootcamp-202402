@@ -1,14 +1,16 @@
 import registerPlayer from './registerPlayer.ts'
 import authenticateUser from './authenticateUser.ts'
-import retrieveUser from './retrieveUser.ts'
 import registerManager from './registerManager.ts'
+import retrievePlayer from './retrievePlayer.ts'
+import retrieveManager from './retrieveManager.ts'
 
 
 const logic = {
     registerPlayer,
     registerManager,
     authenticateUser,
-    retrieveUser
+    retrievePlayer,
+    retrieveManager,
 }
 
 export default logic

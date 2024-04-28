@@ -1,16 +1,16 @@
+//@ts-nocheck
+import { logger } from '../utils/index.ts'
+import logic from '../logic/index.ts'
 
-import { logger } from '../utils'
-import logic from '../logic/logic.js'
-
-import { useContext } from '../context'
+// import { Context, useContext } from '../context.js'
 
 
 
-function Login(onUserLoggedIn, onRegisterClick) {
+function Login({ onUserLoggedIn, onRegisterClick }) {
     logger.debug('Login')
-    const { showFeedBack } = useContext()
+    // const { showFeedBack } = useContext()
 
-    const handleSubmit = event =>{
+    const handleSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -21,19 +21,19 @@ function Login(onUserLoggedIn, onRegisterClick) {
         logger.debug('Login -> handleSubmit')
 
         try {
-            logic.LoginUser(email, password)
-            .then(()=>{
-                form.reset()
+            logic.loginUser(email, password)
+                .then(() => {
+                    form.reset()
 
-                onUserLoggedIn()
-            })
-            .catch(error=> showFeedBack(error, 'error'))
+                    onUserLoggedIn()
+                })
+                .catch(error => alert(error))
         } catch (error) {
-            showFeedBack(error)
+            alert(error)
         }
     }
 
-    const handleRegisterClick = event=>{
+    const handleRegisterClick = event => {
         event.preventDefault()
         onRegisterClick()
     }

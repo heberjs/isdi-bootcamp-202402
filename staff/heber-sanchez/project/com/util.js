@@ -1,6 +1,6 @@
 import validate from "./validate.js";
 function extractJwtPayload(token) {
-    validate.token(token);
+
     const [, payloadB64] = token.split('.');
     const payLoadJSON = atob(payloadB64);
     const payload = JSON.parse(payLoadJSON);

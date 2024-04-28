@@ -19,7 +19,7 @@ function registerManager(fullname: string, email: string, password: string): Pro
                 email: email,
                 password: password,
                 role: UserRole.Manager,
-                status: 0
+                status: 1
             }
 
             return User.create(user)

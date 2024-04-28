@@ -14,7 +14,7 @@ dotenv.config()
 
 
 
-describe('registerManager', () => {
+describe('Register Player', () => {
     before(() => mongoose.connect(process.env.MONGODB_TEST_URL))
 
     it('succeeds a new player', () =>

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import RoundButton from './RoundButton'
 
 function CancelButton(props) {

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { createContext, useContext as useReactContext } from 'react'
 
 export const Context = createContext()

@@ -4,12 +4,8 @@ import { User } from '../data/index.ts'
 
 const { SystemError, CredentialsError, NotFoundError } = errors
 
-type UserIdAndRole = {
-    userId: string
-    role: string
-}
 
-function authenticateUser(email: string, password: string): Promise<UserIdAndRole> {
+function authenticateUser(email: string, password: string): Promise<{ userId: string, role: string }> {
     validate.email(email)
     validate.password(password)
 

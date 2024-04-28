@@ -1,3 +1,4 @@
+//@ts-nocheck
 import RoundButton from './library/RoundButton'
 import { logger } from '../utils'
 

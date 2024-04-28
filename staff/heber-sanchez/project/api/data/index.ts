@@ -75,23 +75,23 @@ const point = new Schema({
 type FieldType = {
     manager: ObjectId,
     title: string,
-    addres: string,
+    address: string,
     location: PointType
 }
 
 const field = new Schema({
+
+    manager: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
 
     title: {
         type: String,
         required: true
     },
 
-    manager: {
-        type: ObjectId,
-        ref: 'User',
-        required: true
-
-    },
     address: {
         type: String,
         required: true
@@ -106,10 +106,9 @@ const field = new Schema({
 type MatchType = {
     title: string,
     description?: string,
-    location: string,
     date: Date,
-    players: ObjectId[]
-    field: ObjectId
+    field: ObjectId,
+    players?: ObjectId[]
 }
 
 const match = new Schema({
@@ -120,24 +119,21 @@ const match = new Schema({
     description: {
         type: String
     },
-    location: {
-        type: String,
-        required: true,
-    },
     date: {
         type: Date,
         required: true,
         unique: true
     },
-    players: [{
-        type: ObjectId,
-        ref: 'User'
-    }],
     field: {
         type: ObjectId,
         ref: 'Field',
         required: true
-    }
+    },
+    players: [{
+        type: ObjectId,
+        ref: 'User'
+    }]
+
 
 })
 

@@ -1,7 +1,8 @@
+//@ts-nocheck
 import { logger, Logger } from './utils'
-import React from 'react'
+// import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import App from './App'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 

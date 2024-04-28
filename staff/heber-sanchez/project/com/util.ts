@@ -1,7 +1,6 @@
 import validate from "./validate"
 
 function extractJwtPayload(token) {
-    validate.token(token)
 
     const [, payloadB64] = token.split('.')
 

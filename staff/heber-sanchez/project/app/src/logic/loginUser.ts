@@ -1,17 +1,15 @@
+//@ts-nocheck
 import { validate, errors } from 'com'
 
-
-function registerUser(fullname, email, password, role) {
-    validate.text(fullname)
+function loginUser(email: string, password: string) {
     validate.email(email)
     validate.password(password)
-    validate.text(role)
 
-    const user = { fullname, email, password, role }
+    const user = { email, password }
 
     const json = JSON.stringify(user)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/user/auth`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -19,7 +17,9 @@ function registerUser(fullname, email, password, role) {
         body: json
     })
         .then(res => {
-            if (res.status === 201) return
+            if (res.status === 200)
+                return res.json()
+                    .then(token => { sessionStorage.token = token })
 
             return res.json()
                 .then(body => {
@@ -32,4 +32,5 @@ function registerUser(fullname, email, password, role) {
         })
 }
 
-export default registerUser
+
+export default loginUser

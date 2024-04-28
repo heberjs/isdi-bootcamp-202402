@@ -104,7 +104,7 @@ mongoose.connect(MONGODB_TEST_URL)
         })
 
         //AUTHENTICATE USER
-        api.post('/users/auth', jsonBodyParser, (req, res) => {
+        api.post('/user/auth', jsonBodyParser, (req, res) => {
             try {
                 const { email, password } = req.body
 
@@ -144,8 +144,8 @@ mongoose.connect(MONGODB_TEST_URL)
             }
         })
 
-        //retrieveUser
-        api.get('/users/:targetUserId', (req, res) => {
+        //retrievePlayer
+        api.get('/user/:targetUserId', (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -155,7 +155,7 @@ mongoose.connect(MONGODB_TEST_URL)
 
                 const { targetUserId } = req.params
 
-                logic.retrieveUser(userId as string, targetUserId)
+                logic.retrievePlayer(userId as string, targetUserId)
                     .then(user => res.json(user))
                     .catch(error => {
                         if (error instanceof SystemError) {

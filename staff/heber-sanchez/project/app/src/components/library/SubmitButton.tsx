@@ -1,3 +1,4 @@
+//@ts-nocheck
 import RoundButton from './RoundButton'
 
 function SubmitButton(props) {

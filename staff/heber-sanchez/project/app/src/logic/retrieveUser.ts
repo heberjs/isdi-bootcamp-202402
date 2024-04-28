@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { validate, errors } from 'com'
 
 function retrieveUser() {
