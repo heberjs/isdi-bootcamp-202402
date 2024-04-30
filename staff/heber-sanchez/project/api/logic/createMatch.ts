@@ -1,12 +1,11 @@
-import { MatchType, Match, User, UserType, Field, FieldType } from '../data'
-import { Schema } from 'mongoose'
 
+import { validate, errors } from 'com'
+import { User, Field, Match, MatchType } from '../data/index.ts'
+import mongoose from 'mongoose'
 
-import { validate } from "com";
-import { PointType } from "../data";
-import { DuplicityError, NotFoundError, SystemError, AuthError } from 'com/errors';
+const { DuplicityError, NotFoundError, SystemError, AuthError } = errors
 
-const { Types: { ObjectId } } = Schema
+const { Types: { ObjectId } } = mongoose
 
 
 function createMatch(managerId: string, fieldId: string, title: string, description: string, date: string): Promise<void> {
@@ -19,7 +18,6 @@ function createMatch(managerId: string, fieldId: string, title: string, descript
         .catch(error => { throw new SystemError(error.message) })
         .then(manager => {
             if (manager.role !== 'manager') throw new NotFoundError('manager not found')
-
             return Field.findById(fieldId)
                 .catch(error => { throw new SystemError(error.message) })
         })
@@ -40,6 +38,7 @@ function createMatch(managerId: string, fieldId: string, title: string, descript
                         description: description,
                         date: matchDate,
                         field: new ObjectId(fieldId),
+                        manager: new ObjectId(managerId)
                     }
 
                     return Match.create(newMatch)

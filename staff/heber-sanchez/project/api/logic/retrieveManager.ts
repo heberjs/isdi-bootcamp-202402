@@ -12,7 +12,7 @@ const { AuthError, SystemError } = errors
 function retrieveManager(userId: string): Promise<{ fullname: string }> {
     validate.text(userId, 'userId', true)
 
-    return User.findById(userId).select('fullname role').lean()
+    return User.findById(userId).lean().exec()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (user.role !== 'manager') throw new AuthError('Permission denied')

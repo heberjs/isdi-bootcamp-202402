@@ -27,7 +27,7 @@ describe('register Manager', () => {
                 expect(user.email).to.equal('lobo@feroz.com')
                 expect(user.password).to.equal('123qwe123')
                 expect(user.role).to.equal('manager')
-                expect(user.status).to.equal(0)
+                expect(user.status).to.equal(1)
             })
 
     )

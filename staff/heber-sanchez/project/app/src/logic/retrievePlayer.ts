@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { validate, errors } from 'com'
 
-function retrieveUser() {
+function retrievePlayer() {
     validate.token(sessionStorage.token)
 
     const [, payloadB64] = sessionStorage.token.split('.')
@@ -11,7 +11,7 @@ function retrieveUser() {
 
     const { sub: userId } = payload
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/players/${userId}`, {
         headers: {
             authorization: `Bearer ${sessionStorage.token}`
         }
@@ -32,4 +32,4 @@ function retrieveUser() {
         })
 }
 
-export default retrieveUser
+export default retrievePlayer

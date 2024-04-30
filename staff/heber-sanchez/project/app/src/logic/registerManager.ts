@@ -12,7 +12,7 @@ function registerManager(fullname: string, email: string, password: string) {
 
     const json = JSON.stringify(user)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/managers`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/manager`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

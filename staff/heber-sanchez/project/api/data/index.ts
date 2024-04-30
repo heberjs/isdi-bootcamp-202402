@@ -24,7 +24,7 @@ type UserType = {
     status: UserStatus
 }
 
-const user = new Schema({
+const user = new Schema<UserType>({
     fullname: {
         type: String,
         required: true
@@ -60,7 +60,7 @@ type PointType = {
     coordinates: [number, number]
 }
 
-const point = new Schema({
+const point = new Schema<PointType>({
     type: {
         type: String,
         enum: ['Point'],
@@ -74,20 +74,19 @@ const point = new Schema({
 
 type FieldType = {
     manager: ObjectId,
-    title: string,
+    name: string,
     address: string,
-    location: PointType
+    // location: PointType
 }
 
-const field = new Schema({
-
+const field = new Schema<FieldType>({
     manager: {
         type: ObjectId,
         ref: 'User',
         required: true
     },
 
-    title: {
+    name: {
         type: String,
         required: true
     },
@@ -95,11 +94,11 @@ const field = new Schema({
     address: {
         type: String,
         required: true
-    },
-    location: {
-        type: point,
-        required: true
     }
+    /* location: {
+         type: point,
+         required: true
+     }*/
 })
 
 
@@ -108,10 +107,12 @@ type MatchType = {
     description?: string,
     date: Date,
     field: ObjectId,
-    players?: ObjectId[]
+    players?: ObjectId[],
+    manager: ObjectId
+
 }
 
-const match = new Schema({
+const match = new Schema<MatchType>({
     title: {
         type: String,
         required: true
@@ -132,7 +133,11 @@ const match = new Schema({
     players: [{
         type: ObjectId,
         ref: 'User'
-    }]
+    }],
+    manager: {
+        type: ObjectId,
+        ref: 'User'
+    }
 
 
 })

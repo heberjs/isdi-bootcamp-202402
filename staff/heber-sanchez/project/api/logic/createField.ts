@@ -1,18 +1,17 @@
 
 import { validate, errors } from 'com'
-import { Field, FieldType, PointType, User, UserType } from '../data/index.ts'
+import { Field, FieldType, User, UserType } from '../data/index.ts'
 import { ObjectId, Schema } from 'mongoose'
 const { Types: { ObjectId } } = Schema
 const { SystemError, DuplicityError, NotFoundError } = errors
 
 
-function registerField(managerId: string, title: string, address: string, location: PointType): Promise<void> {
+function createField(managerId: string, name: string, address: string): Promise<void> {
     validate.text(managerId, 'managerId', true)
-    validate.text(title)
+    validate.text(name)
     validate.text(address)
-    validate.coords(location)
 
-    return Field.findOne({ $or: [{ title }, { location }] })
+    return Field.findOne({ $or: [{ name }] })
         .catch(error => { throw new SystemError(error.message) })
         .then((field: FieldType) => {
             if (field) throw new DuplicityError('field already exists')
@@ -22,11 +21,12 @@ function registerField(managerId: string, title: string, address: string, locati
                 .then(manager => {
                     if (!manager) throw new NotFoundError('manager not found')
 
+
                     field = {
                         manager: manager.id,
-                        title: title.trim(),
+                        name: name.trim(),
                         address: address.trim(),
-                        location: location
+
                     }
 
                     return Field.create(field)
@@ -36,4 +36,4 @@ function registerField(managerId: string, title: string, address: string, locati
         })
 }
 
-export default registerField
+export default createField

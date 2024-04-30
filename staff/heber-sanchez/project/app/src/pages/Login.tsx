@@ -39,20 +39,30 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
     }
 
     logger.debug('Login -> render')
-    return <main>
-        <h1>FutNow</h1>
+    return <main className='flex flex-col justify-center items-center h-screen bg-[#1A2902]'>
 
-        <form onSubmit={handleSubmit}>
+        <div className='flex justify-center items-center'><img className='w-[200px] absolute top-20' src="../../public/pelota-logo-fino-blanco.png" alt="" /></div>
 
-            <label htmlFor='email'>E-mail</label>
-            <input id='email' />
+        <form onSubmit={handleSubmit} className='flex flex-col items-center mt-8'>
 
-            <label htmlFor="password">Password</label>
-            <input type="password" id='password' />
+            <div className='flex flex-col mb-4'>
+                <label htmlFor='email' className='text-white font-semibold'>E-mail</label>
+                <input id='email' className='rounded-lg px-2 py-1' />
+            </div>
 
-            <button type='submit'>Login</button>
+            <div className='flex flex-col mb-4'>
+                <label htmlFor="password" className='text-white font-semibold'>Password</label>
+                <input type="password" id='password' className='rounded-lg px-2 py-1' />
+
+                <a href="" className='text-white text-xs mt-2'>Forgot password?</a>
+
+            </div>
+            <button className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-full mt-8' type='submit'>Sign in</button>
         </form>
-        <a href="" onClick={handleRegisterClick}>Register</a>
+        <div className='fixed bottom-8'>
+            <p className='font-semibold text-white'> Not a Memeber yet? Go to <a href="" onClick={handleRegisterClick} className='text-[#F7C815]'>Sign up</a></p>
+        </div>
+
     </main>
 }
 

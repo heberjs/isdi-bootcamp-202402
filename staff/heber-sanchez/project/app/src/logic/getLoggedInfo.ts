@@ -1,9 +1,7 @@
-import { util, validate } from 'com'
+import { util } from 'com'
 
 
 function getLoggedInfo() {
-
-    validate.token(sessionStorage.token)
 
     const { sub: userId, role } = util.extractJwtPayload(sessionStorage.token)
 

@@ -1,1 +1,1 @@
-curl -H "Authorization: Bearer <Token>" http://localhost:8080/users/targetuserid -v
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjJmNTU5ZTg2MTRhMWFhNTc4MDg4NTQiLCJyb2xlIjoicGxheWVyIiwiaWF0IjoxNzE0Mzc4MzAwLCJleHAiOjE3MTQzODE5MDB9.zQMoXg2fzfh3bMz5auHd-NM7bInCNRPFaBklts5Y4Y0" http://localhost:8080/players/targetuserid -v

@@ -17,6 +17,7 @@ import Confirm from './components/Confirm'
 import isUserLoggedIn from './logic/isUserLoggedIn'
 import getLoggedInfo from './logic/getLoggedInfo'
 import HomePlayer from './pages/HomePlayer'
+import HomeManager from './pages/HomeManager'
 
 const { UnauthorizedError } = errors
 
@@ -31,7 +32,7 @@ function App() {
 
   const navigate = useNavigate()
 
-  const goToLogin = () => navigate('/')
+  const goToLogin = () => navigate('/login')
 
   //login
   const handleRegisterClick = () => navigate('/register')
@@ -42,9 +43,9 @@ function App() {
       const { role } = getLoggedInfo();
 
       if (role === 'player') {
-        navigate('/home')
+        navigate('/')
       } else if (role === 'manager') {
-        navigate('home/manager')
+        navigate('/manager')
       }
     } catch (error) {
       alert(error)
@@ -92,13 +93,15 @@ function App() {
 
     {/* <Context.Provider value={{ showFeedback: handleFeedback, showConfirm: handleConfirm }}> */}
     <Routes>
-      <Route path="/" element={isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <Navigate to="/home/manager" /> : isUserLoggedIn() && getLoggedInfo().role === 'player' ? <Navigate to="/home" /> : <Login onRegisterClick={handleRegisterClick} onUserLoggedIn={handleUserLoggedIn} />} />
+      <Route path="/login" element={isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <Navigate to="/manager" /> : isUserLoggedIn() && getLoggedInfo().role === 'player' ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterClick} onUserLoggedIn={handleUserLoggedIn} />} />
 
-      <Route path="/register" element={isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <Navigate to="/home/manager" /> : isUserLoggedIn() && getLoggedInfo().role === 'player' ? <Navigate to="/home" /> : <Register onLoginClick={handleLoginClick} onUserRegistered={handleLoginClick} />} />
+      <Route path="/register" element={isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <Navigate to="/manager" /> : isUserLoggedIn() && getLoggedInfo().role === 'player' ? <Navigate to="/" /> : <Register onLoginClick={handleLoginClick} onUserRegistered={handleLoginClick} />} />
 
-      <Route path="/register/manager" element={isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <Navigate to="/home/manager" /> : isUserLoggedIn() && getLoggedInfo().role === 'player' ? <Navigate to="/home" /> : <RegisterManager onUserRegistered={handleLoginClick} />} />
+      <Route path="/register/manager" element={isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <Navigate to="/manager" /> : isUserLoggedIn() && getLoggedInfo().role === 'player' ? <Navigate to="/" /> : <RegisterManager onUserRegistered={handleLoginClick} />} />
 
-      <Route path="/home" element={isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <Navigate to="/home/manager" /> : isUserLoggedIn() && getLoggedInfo().role === 'player' ? <HomePlayer /> : <Navigate to="/" />} />
+      <Route path="/*" element={isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <Navigate to="/manager" /> : isUserLoggedIn() && getLoggedInfo().role === 'player' ? <HomePlayer /> : <Navigate to="/login" />} />
+
+      <Route path="/manager" element={isUserLoggedIn() && getLoggedInfo().role === 'player' ? <Navigate to="/" /> : isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <HomeManager /> : <Navigate to="/login" />} />
     </Routes>
     {/* </Context.Provider> */}
 

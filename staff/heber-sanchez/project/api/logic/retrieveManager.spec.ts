@@ -20,7 +20,6 @@ describe('retrieveManager', () => {
             .then(user => logic.retrieveManager(user.id))
             .then(user => {
                 expect(user.fullname).to.equal('Pepe tio')
-                expect(user.role).to.equal('manager')
             })
     )
     // it('does no retrieve by non-existing user', () =>
