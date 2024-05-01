@@ -1,15 +1,19 @@
+
+import { Link } from 'react-router-dom'
+
 function FooterNav() {
 
 
 
 
     return <>
-        <nav className="flex justify-between bg-[#344C11] p-4">
-            <a href=""><img className='w-8 h-8 top-1' src="../../../public/search-icon.png" alt="search icon" /></a>
+        <nav className="fixed bottom-0 w-full flex justify-between items-center box-border  bg-[#344C11] p-4">
+            <Link to=""><img className='w-8 h-8 top-1' src="../../../public/search-icon.png" alt="search icon" /></Link>
 
-            <a href=""><img className='w-8 h-8 top-1' src="../../../public/home-icon.png" alt="home icon" /></a>
+            <Link to="/"><img className='w-8 h-8 top-1' src="../../../public/home-icon.png" alt="home icon" /></Link>
 
-            <a href=""><img className='w-11 h-11 top-1' src="../../../profile-icon.png" alt="profile icon" /> </a>
+            <Link to="/profile"><img className='w-11 h-11 top-1' src="../../../profile-icon.png" alt="profile icon" /></Link>
+
         </nav>
 
     </>
