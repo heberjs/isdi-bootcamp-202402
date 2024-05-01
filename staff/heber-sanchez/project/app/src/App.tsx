@@ -18,6 +18,7 @@ import isUserLoggedIn from './logic/isUserLoggedIn'
 import getLoggedInfo from './logic/getLoggedInfo'
 import HomePlayer from './pages/HomePlayer'
 import HomeManager from './pages/HomeManager'
+import Profile from './components/Profile'
 
 const { UnauthorizedError } = errors
 
@@ -102,6 +103,8 @@ function App() {
       <Route path="/*" element={isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <Navigate to="/manager" /> : isUserLoggedIn() && getLoggedInfo().role === 'player' ? <HomePlayer /> : <Navigate to="/login" />} />
 
       <Route path="/manager" element={isUserLoggedIn() && getLoggedInfo().role === 'player' ? <Navigate to="/" /> : isUserLoggedIn() && getLoggedInfo().role === 'manager' ? <HomeManager /> : <Navigate to="/login" />} />
+
+
     </Routes>
     {/* </Context.Provider> */}
 

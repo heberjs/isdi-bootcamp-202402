@@ -1,10 +1,51 @@
-import { useParams } from 'react-router-dom'
+//@ts-nocheck
+import logic from '../logic'
+import { useState, useEffect } from 'react'
+import MatchesList from './MatchesList'
+import getLoggedInfo from '../logic/getLoggedInfo'
+
+
+
 
 function Profile() {
-    const {fullname} = useParams()
+
+    const [stamp, setStamp] = useState(null)
+    const [matches, setMatches] = useState([])
+
+    const loggedUser = getLoggedInfo()
 
 
-    return <h1>hello {fullname}</h1>
+    const loadMatches = () => {
+
+        try {
+            logic.retrieveMatches()
+                .then(matches => {
+
+                    const Filteredmatches = matches.filter((match) => match.players.some(player => player._id === loggedUser.userId))
+                    setMatches(Filteredmatches)
+                })
+                .catch(error => alert(error))
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    useEffect(() => {
+        loadMatches()
+    }, [stamp])
+
+
+    return <>
+
+        <section>
+            <div>
+                <h1></h1>
+
+            </div>
+
+            <MatchesList matches={matches} stamp={stamp} />
+        </section>
+    </>
 }
 
 export default Profile

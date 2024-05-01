@@ -43,7 +43,6 @@ function Header({ onUserLoggedOut }) {
 
     return <header className='flex justify-between bg-[#344C11] p-4'>
         <div className='flex justify-center mt-2'>
-            <img className='w-8 h-8 top-1' src="../../public/iconProfile.png" alt="" />
             {user && <h1 className='text-white font-semibold ml-2'>{user.fullname}</h1>}
         </div>
 
