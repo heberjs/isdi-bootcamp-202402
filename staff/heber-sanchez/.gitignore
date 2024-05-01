@@ -1,1 +1,10 @@
 .DS_Store
+isdigram/api/node_modules
+isdigram/app/node_modules
+isdigram/com/node_modules
+
+project/api/.env
+project/app/.env
+project/api/node_modules
+project/app/node_modules
+project/com/node_modules

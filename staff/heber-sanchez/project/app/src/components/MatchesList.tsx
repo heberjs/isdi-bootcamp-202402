@@ -4,29 +4,20 @@ import logic from '../logic'
 import { useState, useEffect } from 'react'
 import Match from './Match'
 
-function MatchesList({ stamp }) {
-    const [matches, setMatches] = useState([])
+function MatchesList({ matches }) {
 
-    const loadMatches = () => {
-        logger.debug('matchList -> loadMatchs')
 
-        try {
-            logic.retrieveMatches()
-                .then(setMatches)
-                .catch(error => alert(error))
-        } catch (error) {
-            alert(error)
-        }
-    }
-
-    useEffect(() => {
-        loadMatches()
-    }, [stamp])
 
     logger.debug('MatchesList -> render')
-    return <ul className=' px-5 pt-2 flex flex-col gap-2 '>
-        {matches.map(match => <Match key={match.id} item={match} />)}
-    </ul>
+    return <>
+        <section className='flex flex-col'>
+            <h1 className='text-white font-bold px-8 pt-8 mb-'> Football Matches</h1>
+            <div className=' px-8 pt-2 flex flex-col gap-2 '>
+                {matches.map(match => <Match key={match.id} item={match} />)}
+            </div>
+
+        </section>
+    </>
 }
 
 export default MatchesList

@@ -17,11 +17,11 @@ function retrieveMatches(userId): Promise<any> {
 
             return Match.find()
                 .populate<{ field: { _id: ObjectId, name: string, address: string } }>('field', '_id name address')
-                .populate<{ players: [{ fullname: string }] }>('players', 'fullname')
+                .populate<{ players: [{ id: ObjectId, fullname: string }] }>('players', '_id fullname')
                 .lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(matches =>
-                    matches.map<{ title: string, description: string, date: Date, field: { id: ObjectId, name: string, address: string }, players: [{ fullname: string }], manager: ObjectId }>(({ title, description, date, field, players, manager }) => ({
+                    matches.map<{ title: string, description: string, date: Date, field: { id: ObjectId, name: string, address: string }, players: [{ id: ObjectId, fullname: string }], manager: ObjectId }>(({ title, description, date, field, players, manager }) => ({
                         title,
                         description,
                         date,
