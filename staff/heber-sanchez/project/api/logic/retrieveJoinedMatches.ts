@@ -7,16 +7,23 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-type MatchResponse = {
+type JoinedMatchResponse = {
     title: string,
     description: string,
     date: Date,
-    field: { id: ObjectId, name: string, address: string },
-    players: [{ id: ObjectId, fullname: string }],
+    field: {
+        id: ObjectId,
+        name: string,
+        address: string
+    },
+    players: [{
+        id: ObjectId,
+        fullname: string
+    }],
     manager: ObjectId
 }
 
-function retrieveMatches(userId): Promise<any> {
+function retrieveJoinedMatches(userId): Promise<any> {
     validate.text(userId, 'userId', true)
 
     return User.findById(userId)
@@ -24,13 +31,13 @@ function retrieveMatches(userId): Promise<any> {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Match.find()
+            return Match.find({ players: userId })
                 .populate<{ field: { _id: ObjectId, name: string, address: string } }>('field', '_id name address')
                 .populate<{ players: [{ id: ObjectId, fullname: string }] }>('players', '_id fullname')
                 .lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(matches =>
-                    matches.map<MatchResponse>(({ title, description, date, field, players, _id, manager }) => ({
+                    matches.map<JoinedMatchResponse>(({ _id, title, description, date, field, players, manager }) => ({
                         _id,
                         title,
                         description,
@@ -47,4 +54,4 @@ function retrieveMatches(userId): Promise<any> {
         })
 }
 
-export default retrieveMatches
+export default retrieveJoinedMatches

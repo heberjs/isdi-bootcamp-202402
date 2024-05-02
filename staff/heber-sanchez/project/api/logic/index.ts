@@ -7,6 +7,10 @@ import createField from './createField.ts'
 import createMatch from './createMatch.ts'
 import retrieveFields from './retrieveFields.ts'
 import retrieveMatches from './retrieveMatches.ts'
+import joinMatch from './joinMatch.ts'
+import retrieveJoinedMatches from './retrieveJoinedMatches.ts'
+import retrieveManagerMatches from './retrieveManagerMatches.ts'
+import removeMatch from './removeMatch.ts'
 
 const logic = {
     registerPlayer,
@@ -17,7 +21,11 @@ const logic = {
     createField,
     createMatch,
     retrieveFields,
-    retrieveMatches
+    retrieveMatches,
+    joinMatch,
+    retrieveJoinedMatches,
+    retrieveManagerMatches,
+    removeMatch
 
 
 }

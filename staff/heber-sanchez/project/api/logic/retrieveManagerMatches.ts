@@ -16,7 +16,7 @@ type MatchResponse = {
     manager: ObjectId
 }
 
-function retrieveMatches(userId): Promise<any> {
+function retrieveManagerMatches(userId): Promise<any> {
     validate.text(userId, 'userId', true)
 
     return User.findById(userId)
@@ -24,7 +24,7 @@ function retrieveMatches(userId): Promise<any> {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Match.find()
+            return Match.find({ manager: userId })
                 .populate<{ field: { _id: ObjectId, name: string, address: string } }>('field', '_id name address')
                 .populate<{ players: [{ id: ObjectId, fullname: string }] }>('players', '_id fullname')
                 .lean()
@@ -47,4 +47,4 @@ function retrieveMatches(userId): Promise<any> {
         })
 }
 
-export default retrieveMatches
+export default retrieveManagerMatches

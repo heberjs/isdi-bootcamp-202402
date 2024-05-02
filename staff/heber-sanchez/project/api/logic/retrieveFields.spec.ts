@@ -24,17 +24,22 @@ describe('Retrieve Fields', () => {
             Field.deleteMany({}),
             Match.deleteMany({})
         ])
-            .then(() => User.create({ fullname: 'Lola Drones', email: 'lola@drones.com', password: '123qwe123', role: 'manager', status: '1' }))
-            .then(user =>
+            .then(() => Promise.all([
+                User.create({ fullname: 'Lola Drones', email: 'lola@drones.com', password: '123qwe123', role: 'manager', status: '1' }),
+                User.create({ fullname: 'Pepo Lara', email: 'pepo@lara.com', password: '123qwe123', role: 'manager', status: '1' })
+
+            ]))
+            .then(([user1, user2]) =>
                 Promise.all([
-                    Field.create({ manager: user.id, name: 'Futbol 5', address: 'santa marta N°15' }),
-                    Field.create({ manager: user.id, name: 'Futbol 6', address: 'santa marta N°16' }),
-                    Field.create({ manager: user.id, name: 'Futbol 7', address: 'santa marta N°17' })
+                    Field.create({ manager: user1.id, name: 'Futbol 5', address: 'santa marta N°15' }),
+                    Field.create({ manager: user1.id, name: 'Futbol 6', address: 'santa marta N°16' }),
+                    Field.create({ manager: user2.id, name: 'Futbol 7', address: 'santa marta N°17' })
                 ])
 
-                    .then(([field1, field2, field3]) => logic.retrieveFields(user.id)
+                    .then(([field1, field2, field3]) => logic.retrieveFields(user1.id)
                         .then(fields => {
-                            expect(fields).to.have.lengthOf(3)
+                            console.log(fields)
+                            expect(fields).to.have.lengthOf(2)
                             // expect(field1.name).to.equal('Futbol 5')
                             // expect(field1.address).to.equal('santa marta N°15')
 

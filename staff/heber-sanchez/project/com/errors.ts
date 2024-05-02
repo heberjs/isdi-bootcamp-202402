@@ -20,6 +20,7 @@ const CredentialsError = buildErrorClass('CredentialsError')
 const NotFoundError = buildErrorClass('NotFoundError')
 const UnauthorizedError = buildErrorClass('UnauthorizedError')
 const AuthError = buildErrorClass('AuthError')
+const LimitError = buildErrorClass('LimitError')
 
 const errors = {
     ContentError,
@@ -28,7 +29,12 @@ const errors = {
     CredentialsError,
     NotFoundError,
     UnauthorizedError,
-    AuthError
+    AuthError,
+    LimitError,
+    TypeError,
+    RangeError
+
+
 
 }
 
@@ -39,7 +45,8 @@ export {
     CredentialsError,
     NotFoundError,
     UnauthorizedError,
-    AuthError
+    AuthError,
+    LimitError,
 }
 
 export default errors

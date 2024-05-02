@@ -3,7 +3,7 @@ import { Field, Match, User } from '.'
 
 
 
-mongoose.connect('mongodb://localhost:27017/test')
+mongoose.connect('mongodb://localhost:27017/project')
     .then(() => User.deleteMany())
     .then(() => Field.deleteMany())
     .then(() => Match.deleteMany())

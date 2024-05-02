@@ -41,16 +41,16 @@ describe('Retrieve Matches', () => {
                         ])
                             .then(([field1, field2, field3]) =>
                                 Promise.all([
-                                    Match.create({ field: field1._id, title: 'Sport gava', description: '5 vs 5, arquero rotativo', date: '2024-06-07T19:00:00', manager: user1.id }),
-                                    Match.create({ field: field2._id, title: 'Sport castelldefels', description: '6 vs 6, arquero rotativo', date: '2024-06-08T20:00:00', manager: user2.id }),
-                                    Match.create({ field: field3._id, title: 'Sport Viladecans', description: '7 vs 7, arquero rotativo', date: '2024-06-09T21:00:00', players: [user3.id, user2.id], manager: user1.id })
+                                    Match.create({ field: field1.id, title: 'Sport gava', description: '5 vs 5, arquero rotativo', date: '2024-06-07T19:00:00', manager: user1.id }),
+                                    Match.create({ field: field2.id, title: 'Sport castelldefels', description: '6 vs 6, arquero rotativo', date: '2024-06-08T20:00:00', manager: user2.id }),
+                                    Match.create({ field: field3.id, title: 'Sport Viladecans', description: '7 vs 7, arquero rotativo', date: '2024-06-09T21:00:00', players: [user3.id, user2.id], manager: user1.id })
                                 ])
                             )
                             .then(([match1, match2, match3]) =>
                                 User.create({ fullname: 'juador player', email: 'juegador@player.com', password: '123qwe123', role: 'player', status: '0' })
                                     .then(user => logic.retrieveMatches(user.id))
                                     .then(matches => {
-
+                                        console.log(matches)
                                         expect(matches).to.be.lengthOf(3)
                                         expect(match1.title).to.equal('Sport gava')
                                         expect(match1.description).to.equal('5 vs 5, arquero rotativo')

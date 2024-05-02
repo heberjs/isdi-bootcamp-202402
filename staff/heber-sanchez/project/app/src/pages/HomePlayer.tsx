@@ -11,14 +11,14 @@ import Profile from '../components/Profile';
 
 function HomePlayer() {
     const navigate = useNavigate()
-    // const [matches, setMatches] = useState
+
     logger.debug('Home -> render')
 
     const [stamp, setStamp] = useState(null)
     const [matches, setMatches] = useState([])
     const [view, setView] = useState(null)
 
-    const handleLoggedOut = () => navigate('/')
+    const handleLoggedOut = () => navigate('/login')
 
     const loadMatches = () => {
 
@@ -37,8 +37,13 @@ function HomePlayer() {
         loadMatches()
     }, [stamp])
 
+    const handleOnJoinedClick = (matchId) => {
+        try {
+            logic.joinMatch(matchId)
+        } catch (error) {
 
-
+        }
+    }
 
     return <>
         <Header onUserLoggedOut={handleLoggedOut} />
@@ -47,7 +52,7 @@ function HomePlayer() {
 
 
             <Routes>
-                <Route path="/" element={<MatchesList matches={matches} stamp={stamp} />} />
+                <Route path="/" element={<MatchesList matches={matches} stamp={stamp} joinOnClick={handleOnJoinedClick} />} />
                 <Route path="/profile" element={<Profile />} />
             </Routes>
 

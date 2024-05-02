@@ -7,7 +7,22 @@ import { Link } from 'react-router-dom'
 
 import { useContext, useEffect, useState } from 'react'
 
-function Match({ item: match }) {
+type MatchResponse = {
+    title: string,
+    description: string,
+    date: Date,
+    field: { id: ObjectId, name: string, address: string },
+    players: [{ id: ObjectId, fullname: string }],
+    manager: ObjectId
+}
+
+
+type MatchProps = {
+    matches: MatchResponse[],
+    handleOnClick?: (matchId: string) => void
+}
+
+function Match({ item: match, handleOnClick }: MatchProps) {
     const [view, setView] = useState('close')
 
 
@@ -28,7 +43,13 @@ function Match({ item: match }) {
                 </div>
 
                 <div>
-                    <p>date: {match.date}</p>
+                    <p><strong>Date: </strong>{new Date(match.date).toLocaleString(navigator.language, {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric'
+                    }).replace(',', '')}</p>
                 </div>
 
                 {view === 'close' && <button onClick={() => setView('open')} className='flex justify-center'> <img src="../../public/info-icon.png" alt="info icon" className='w-8 h-8' /> </button>
@@ -45,6 +66,8 @@ function Match({ item: match }) {
                         <h3>Players:</h3>
                         <ul className='flex flex-col'>{match.players.map(player => <li>{player.fullname}</li>)}</ul>
                     </div>
+
+                    <button onClick={() => handleOnClick(match._id)} className=' inline-block border-2'>Join</button>
                 </div>
                 <button onClick={() => setView('close')} className='flex justify-center'><img src="../../public/arrowUp-icon.png" alt="close arrow" className='w-8 h-8' /></button>
             </div>}

@@ -7,6 +7,9 @@ import tracer from 'tracer'
 import colors from 'colors'
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
+import { log } from 'console'
+import { AuthError } from 'com/errors.ts'
+
 
 dotenv.config()
 
@@ -29,10 +32,11 @@ const {
     DuplicityError,
     NotFoundError,
     CredentialsError,
-    UnauthorizedError
+    UnauthorizedError,
+    LimitError
 } = errors
 
-mongoose.connect(MONGODB_TEST_URL)
+mongoose.connect(MONGODB_URL)
     .then(() => {
         const api = express()
 
@@ -103,17 +107,6 @@ mongoose.connect(MONGODB_TEST_URL)
                 }
             }
         })
-
-        // api.post('/create/field', jsonBodyParser, (req, res)=>{
-        //     try {
-        //         const {name, address} = req.body
-
-        //         logic.createField(name, address)
-
-        //     } catch (error) {
-
-        //     }
-        // })
 
         //AUTHENTICATE USER
         api.post('/user/auth', jsonBodyParser, (req, res) => {
@@ -236,8 +229,51 @@ mongoose.connect(MONGODB_TEST_URL)
             }
         })
 
+        //create fields
+        api.post('/fields/create', jsonBodyParser, (req, res) => {
+            try {
+
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                const { name, address } = req.body
+
+                logic.createField(userId as string, name, address)
+                    .then(() => res.status(201).send)
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof NotFoundError) {
+                            logger.warn(error.message)
+
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        }
+                    })
+
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message)
+
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
+
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+            }
+        })
+
         //retrieveFields
-        api.get('/managers/:targetuserId', (req, res) => {
+        api.get('/managers', (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -245,7 +281,6 @@ mongoose.connect(MONGODB_TEST_URL)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-                const { targetuserId } = req.params
 
                 logic.retrieveFields(userId as string)
                     .then(fields => res.json(fields))
@@ -322,6 +357,94 @@ mongoose.connect(MONGODB_TEST_URL)
             }
         })
 
+        // retrieve Joined matches
+        api.get('/matches/joined', (req, res) => {
+
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                logic.retrieveJoinedMatches(userId as string)
+                    .then(matches => {
+
+                        res.json(matches)
+                    })
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                        } else if (error instanceof NotFoundError) {
+                            logger.warn(error.message)
+
+                            res.status(404).json({ error: NotFoundError.name, message: error.message })
+                        }
+                    })
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message)
+
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
+
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+            }
+        })
+
+        //retrieve manager matches
+
+        api.get('/matches/manager', (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                logic.retrieveManagerMatches(userId as string)
+                    .then(matches => {
+                        res.json(matches)
+                    })
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                        } else if (error instanceof NotFoundError) {
+                            logger.warn(error.message)
+
+                            res.status(404).json({ error: NotFoundError.name, message: error.message })
+                        }
+                    })
+
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message)
+
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
+
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+
+            }
+
+        })
+
         // create match
         api.post('/matches', jsonBodyParser, (req, res) => {
             try {
@@ -333,7 +456,7 @@ mongoose.connect(MONGODB_TEST_URL)
 
                 const { fieldId, title, description, date } = req.body
 
-                logic.createMatch(userId as string, fieldId, title, description, date)
+                logic.createMatch(userId as string, fieldId as string, title, description, date)
                     .then(() => res.status(201).send())
                     .catch(error => {
                         if (error instanceof SystemError) {
@@ -355,9 +478,106 @@ mongoose.connect(MONGODB_TEST_URL)
                 } else if (error instanceof TokenExpiredError) {
                     logger.warn(error.message)
 
-                    res.status(498).json()
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+
+                    res.status(500).json({ error: SystemError.name, message: error.message })
                 }
             }
+        })
+
+        //remove match
+        api.delete('/matches/:id', (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                const matchId = req.params.id
+
+                logic.removeMatch(userId as string, matchId as string)
+                    .then(() => res.status(200).json())
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof NotFoundError) {
+                            logger.warn(error.message)
+
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof AuthError) {
+                            logger.warn(error.message)
+
+                            res.status(401).json({ error: error.constructor.name, message: error.message })
+                        }
+                    })
+
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message);
+                    res.status(406).json({ error: error.constructor.name, message: error.message });
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message);
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' });
+                } else {
+                    logger.warn(error.message);
+                    res.status(500).json({ error: SystemError.name, message: error.message });
+                }
+            }
+        })
+
+        //join matches
+        api.put('/matches/join/:matchId', (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                const { matchId } = req.params
+
+                logic.joinMatch(matchId as string, userId as string).then(() => res.status(202).send())
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof NotFoundError) {
+                            logger.warn(error.message)
+
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof DuplicityError) {
+                            logger.warn(error.message)
+
+                            res.status(406).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof LimitError) {
+                            logger.warn(error.message)
+
+                            res.status(406).json({ error: error.constructor.name, message: error.message })
+                        }
+                    })
+
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message)
+
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
+
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+            }
+
         })
 
 

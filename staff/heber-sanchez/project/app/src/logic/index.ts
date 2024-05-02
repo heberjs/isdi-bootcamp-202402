@@ -7,6 +7,13 @@ import isUserLoggedIn from './isUserLoggedIn'
 import retrievePlayer from './retrievePlayer'
 import retrieveManager from './retrieveManager'
 import retrieveMatches from './retrieveMatches'
+import retrieveJoinedMatches from './retrieveJoinedMatches'
+import joinMatch from './joinMatch'
+import retrieveManagerMatches from './retrieveManagerMatches'
+import retrieveFields from './retrieveFields'
+import createField from './createField'
+import createMatch from './createMatch'
+import removeMatch from './removeMatch'
 
 
 
@@ -20,7 +27,14 @@ const logic = {
     getLoggedInfo,
     isUserLoggedIn,
     logoutUser,
-    retrieveMatches
+    retrieveMatches,
+    retrieveJoinedMatches,
+    joinMatch,
+    retrieveManagerMatches,
+    retrieveFields,
+    createField,
+    createMatch,
+    removeMatch
 }
 
 export default logic

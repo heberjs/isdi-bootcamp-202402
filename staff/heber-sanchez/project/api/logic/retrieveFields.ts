@@ -1,5 +1,5 @@
 
-import { Field, FieldType, User } from '../data/index.ts'
+import { Field, User } from '../data/index.ts'
 
 import { validate, errors } from 'com'
 
@@ -14,7 +14,8 @@ function retrieveFields(managerId: string): Promise<[{ name: string, address: st
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Field.find().lean().exec()
+            return Field.find({ manager: managerId }).lean().exec()
+                .catch(error => { throw new SystemError(error.message) })
         })
         .catch(error => { throw new SystemError(error.message) })
 }

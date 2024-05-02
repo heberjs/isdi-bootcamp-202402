@@ -17,6 +17,7 @@ const CredentialsError = buildErrorClass('CredentialsError');
 const NotFoundError = buildErrorClass('NotFoundError');
 const UnauthorizedError = buildErrorClass('UnauthorizedError');
 const AuthError = buildErrorClass('AuthError');
+const LimitError = buildErrorClass('LimitError');
 const errors = {
     ContentError,
     SystemError,
@@ -24,7 +25,10 @@ const errors = {
     CredentialsError,
     NotFoundError,
     UnauthorizedError,
-    AuthError
+    AuthError,
+    LimitError,
+    TypeError,
+    RangeError
 };
-export { ContentError, SystemError, DuplicityError, CredentialsError, NotFoundError, UnauthorizedError, AuthError };
+export { ContentError, SystemError, DuplicityError, CredentialsError, NotFoundError, UnauthorizedError, AuthError, LimitError, };
 export default errors;
