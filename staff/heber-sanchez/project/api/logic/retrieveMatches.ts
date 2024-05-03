@@ -31,7 +31,7 @@ function retrieveMatches(userId): Promise<any> {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(matches =>
                     matches.map<MatchResponse>(({ title, description, date, field, players, _id, manager }) => ({
-                        _id,
+                        id: _id.toString(),
                         title,
                         description,
                         date,

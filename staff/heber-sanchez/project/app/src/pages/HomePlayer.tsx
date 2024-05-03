@@ -16,7 +16,6 @@ function HomePlayer() {
 
     const [stamp, setStamp] = useState(null)
     const [matches, setMatches] = useState([])
-    const [view, setView] = useState(null)
 
     const handleLoggedOut = () => navigate('/login')
 

@@ -5,6 +5,6 @@
         "ts"
     ],
     "spec": [
-        "logic/retrieveFields.spec.*"
+        "logic/.spec.*"
     ]
 }

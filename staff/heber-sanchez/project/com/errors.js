@@ -30,5 +30,5 @@ const errors = {
     TypeError,
     RangeError
 };
-export { ContentError, SystemError, DuplicityError, CredentialsError, NotFoundError, UnauthorizedError, AuthError, LimitError, };
+export { ContentError, SystemError, DuplicityError, CredentialsError, NotFoundError, UnauthorizedError, AuthError, LimitError };
 export default errors;
