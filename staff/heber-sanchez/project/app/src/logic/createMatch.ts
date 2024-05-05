@@ -2,12 +2,11 @@
 import { validate, errors } from 'com'
 
 
-function createMatch(userId, fieldId, title, description, date) {
-    validate.text(userId, 'userId', true)
-    validate.text(fieldId, 'fieldId', true)
+function createMatch(title, description, date, fieldId) {
     validate.text(title)
     validate.text(description)
     validate.text(date)
+    validate.text(fieldId, 'fieldId', true)
     validate.token(sessionStorage.token)
 
     const match = { fieldId, title, description, date }

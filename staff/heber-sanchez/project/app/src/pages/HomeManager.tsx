@@ -7,6 +7,9 @@ import Header from '../components/Header'
 import FooterNav from '../components/FooterNav'
 import MatchesList from '../components/MatchesList'
 import FieldList from '../components/FieldList'
+import CreateMatch from '../components/CreateMatch'
+import CreateField from '../components/CreateField'
+import EditMatch from '../components/EditMatch'
 
 
 function HomeManager() {
@@ -14,44 +17,68 @@ function HomeManager() {
 
     logger.debug('HomeManager -> Render')
 
-    const [stamp, setStamp] = useState(null)
-    const [matches, setMatches] = useState([])
-    const [view, setView] = useState(null)
 
+    const [match, setMatch] = useState(null)
+    const [view, setView] = useState(null)
+    const [stamp, setStamp] = useState(null)
+
+
+    const clearView = () => setView(null)
     const handleLoggedOut = () => navigate('/login')
 
-    const loadMatches = () => {
-        try {
-            logic.retrieveManagerMatches()
-                .then(matches => {
-                    setMatches(matches)
-                })
-                .catch(error => alert(error))
-        } catch (error) {
-            alert(error)
-        }
+
+
+    const handleOnMatchCreated = () => {
+        clearView()
+        setStamp(Date.now)
     }
 
-    useEffect(() => {
-        loadMatches()
-    }, [stamp])
+    const handleOnFieldCreated = () => {
+        clearView()
+        setStamp(Date.now)
+    }
+
+    const handleOnClickedCreateForm = () => setView('create form')
 
 
+    const handleOnCancelClicked = () => setView(null)
+
+    const handleEditMatchFormClick = match => {
+        setView('edit-match')
+        setMatch(match)
+    }
+    const handleOnMatchEdited = () => {
+        clearView()
+        setStamp(Date.now())
+        setMatch(null)
+    }
 
     logger.debug('Home/Manager -> render')
     return <>
         <Header onUserLoggedOut={handleLoggedOut} />
 
+
         <main className='flex flex-col h-screen bg-[#1A2902]'>
 
             <Routes>
-                <Route path="/" element={<MatchesList matches={matches} stamp={stamp} />} />
-                <Route path="/fields" element={<FieldList />} />
+
+                <Route path="/*" element={<MatchesList stamp={stamp} onEditMatchFormClick={handleEditMatchFormClick} />} />
+
+                <Route path="/fields" element={<FieldList stamp={stamp} />} />
+
             </Routes>
+
+            {view === 'create form' && <CreateMatch onMatchCreated={handleOnMatchCreated} onCancelClick={handleOnCancelClicked} />}
+
+            {view === 'create-field' && <CreateField onFieldCreated={handleOnFieldCreated} onCancelClickField={handleOnCancelClicked} />}
+
+            {view === 'edit-match' && < EditMatch match={match} onMatchEdited={handleOnMatchEdited} />}
+
+
+
         </main >
 
-        <FooterNav />
+        <FooterNav onCreateFormClick={handleOnClickedCreateForm} />
     </>
 }
-
 export default HomeManager

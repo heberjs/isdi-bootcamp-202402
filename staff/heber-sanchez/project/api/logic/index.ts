@@ -13,6 +13,7 @@ import retrieveManagerMatches from './retrieveManagerMatches.ts'
 import removeMatch from './removeMatch.ts'
 import removeField from './removeField.ts'
 import editMatch from './editMatch.ts'
+import editField from './editField.ts'
 
 
 const logic = {
@@ -30,7 +31,8 @@ const logic = {
     retrieveManagerMatches,
     removeMatch,
     removeField,
-    editMatch
+    editMatch,
+    editField
 
 
 }

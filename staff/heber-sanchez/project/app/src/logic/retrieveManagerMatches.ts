@@ -12,7 +12,7 @@ function retrieveManagerMatches() {
 
     const { sub: userId } = payload
 
-    return fetch(`${import.meta.env.VITE_API_URL}/matches/manager`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/manager/matches`, {
         headers: {
             authorization: `Bearer ${sessionStorage.token}`
         }

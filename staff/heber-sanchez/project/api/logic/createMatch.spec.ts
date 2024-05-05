@@ -9,6 +9,7 @@ import { User, Field, Match } from '../data/index.ts'
 
 
 import chaiAsPromised from 'chai-as-promised'
+import { log } from 'util'
 
 dotenv.config()
 use(chaiAsPromised)
@@ -33,6 +34,8 @@ describe('Create Match', () => {
                 )
                 .then(() => Match.findOne({ title: 'Futbol 5' }))
                 .then(match => {
+                    console.log(match);
+
                     expect(match.title).to.equal('Futbol 5')
                     expect(match.description).to.equal('5 vs 5, outdoor')
 

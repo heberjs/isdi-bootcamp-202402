@@ -7,24 +7,28 @@ import { Link } from 'react-router-dom'
 
 import { useContext, useEffect, useState } from 'react'
 
-type MatchResponse = {
-    title: string,
-    description: string,
-    date: Date,
-    field: { id: ObjectId, name: string, address: string },
-    players: [{ id: ObjectId, fullname: string }],
-    manager: ObjectId
-}
+// type MatchResponse = {
+//     title: string,
+//     description: string,
+//     date: Date,
+//     field: { id: ObjectId, name: string, address: string },
+//     players: [{ id: ObjectId, fullname: string }],
+//     manager: ObjectId
+// }
 
 
-type MatchProps = {
-    matches: MatchResponse[],
-    handleOnClick?: (matchId: string) => void
-}
+// type MatchProps = {
+//     matches: MatchResponse[],
+//     handleOnJoinClick?: (matchId: string) => void
+//     onUpdateClick?: (match: string) => void
+// }
 
-function Match({ item: match, handleOnClick }: MatchProps) {
+function Match({ item: match, handleOnJoinClick, onEditMatchClick }: MatchProps) {
     const [view, setView] = useState('close')
 
+
+
+    const handleEditMatchClick = match => onEditMatchClick(match)
 
 
 
@@ -33,13 +37,13 @@ function Match({ item: match, handleOnClick }: MatchProps) {
         <article className='border-black border-2 flex flex-col bg-[#AEC09A] px-2 rounded-lg max-w-screen-lg '>
             <div className='flex flex-col text-black font-semibold p-2'>
 
-                <h3>{match.title}</h3>
+                <h3><strong>{match.title}</strong></h3>
 
                 <div>
-                    <p>Field: {match.field.name}</p>
+                    <p><strong>Field:</strong> {match.field.name}</p>
                 </div>
                 <div>
-                    <p>description: {match.description}</p>
+                    <p><strong>description:</strong> {match.description}</p>
                 </div>
 
                 <div>
@@ -52,7 +56,7 @@ function Match({ item: match, handleOnClick }: MatchProps) {
                     }).replace(',', '')}</p>
                 </div>
 
-                {view === 'close' && <button onClick={() => setView('open')} className='flex justify-center'> <img src="../../public/info-icon.png" alt="info icon" className='w-8 h-8' /> </button>
+                {view === 'close' && <button onClick={() => setView('open')} className='flex justify-center'> <img src="/public/info-icon.png" alt="info icon" className='w-8 h-8' /> </button>
                 }
             </div>
 
@@ -63,13 +67,22 @@ function Match({ item: match, handleOnClick }: MatchProps) {
                     </div>
 
                     <div>
-                        <h3>Players:</h3>
+                        <h3><strong>Players:</strong></h3>
                         <ul className='flex flex-col'>{match.players.map(player => <li>{player.fullname}</li>)}</ul>
                     </div>
 
-                    <button onClick={() => handleOnClick(match._id)} className=' inline-block border-2'>Join</button>
+                    {logic.getLoggedInfo().role === 'manager' ?
+                        <>
+                            <button className='mt-2 flex items-center' onClick={() => handleEditMatchClick(match)}><img src="/public/update-icon.png" alt="update icon" className='w-6 h-6' /><p className='p-1'><strong>Update</strong></p></button>
+
+                            <button className='mt-2 flex items-center' onClick={() => handleOnDeleteClick(match.id)}><img src="/public/delete-icon.png" alt="delete icon" className='w-6 h-6' /><p className='p-1'><strong>Delete</strong></p></button>
+                        </> :
+                        logic.getLoggedInfo().role === 'player' ? (<button className='mt-2 flex items-center' onClick={() => handleOnJoinClick(match.id)}><img src="/public/join.png" alt="join icon" className='w-6 h-6' /><p className='p-1'><strong>Join me</strong></p></button>) : <Navigate to="/login" />}
+
+
                 </div>
-                <button onClick={() => setView('close')} className='flex justify-center'><img src="../../public/arrowUp-icon.png" alt="close arrow" className='w-8 h-8' /></button>
+
+                <button onClick={() => setView('close')} className='flex justify-center'><img src="/public/arrowUp-icon.png" alt="close arrow" className='w-8 h-8' /></button>
             </div>}
 
 

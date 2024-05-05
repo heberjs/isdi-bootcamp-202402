@@ -49,7 +49,6 @@ function HomePlayer() {
 
         <main className='flex flex-col h-[100vh] bg-[#1A2902]'>
 
-
             <Routes>
                 <Route path="/" element={<MatchesList matches={matches} stamp={stamp} joinOnClick={handleOnJoinedClick} />} />
                 <Route path="/profile" element={<Profile />} />

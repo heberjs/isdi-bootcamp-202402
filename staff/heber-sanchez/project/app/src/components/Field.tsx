@@ -14,12 +14,12 @@ function Field({ item: field }) {
 
 
     logger.debug('Field -> render')
-    return <article>
+    return <article className='border-black border-2 flex flex-col bg-[#AEC09A] px-2 rounded-lg max-w-screen-lg text-black font-semibold p-2'>
         <div>
-            <h3>{field.title}</h3>
+            <h3><strong>Field:</strong>{field.name}</h3>
         </div>
         <div>
-            <p>Address: {field.address}</p>
+            <p><strong>Address:</strong> {field.address}</p>
         </div>
     </article>
 }

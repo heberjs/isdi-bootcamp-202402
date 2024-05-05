@@ -11,19 +11,20 @@ function FieldList() {
 
     const loadFields = () => {
 
-        try {
-            logic.retrieveFields()
-                .then(fields => {
-                    setFields(fields)
-                })
-        } catch (error) {
-            alert(error)
-        }
+
+        logic.retrieveFields()
+            .then(fields => {
+                setFields(fields)
+                console.log(fields)
+            })
+            .catch(error => console.log(error))
+
     }
+
 
     useEffect(() => {
         loadFields()
-    }, [stamp])
+    }, [])
 
 
     return <>
@@ -32,7 +33,7 @@ function FieldList() {
             <article className='flex flex-col'>
 
                 <div className=' px-8 pt-2 flex flex-col gap-2 '>
-                    {fields.map(match => <Field key={field._id} item={field} />)}
+                    {fields.map(field => <Field key={field._id} item={field} />)}
                 </div>
 
             </article>

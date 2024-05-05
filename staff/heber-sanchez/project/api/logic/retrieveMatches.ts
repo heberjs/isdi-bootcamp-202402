@@ -16,7 +16,7 @@ type MatchResponse = {
     manager: ObjectId
 }
 
-function retrieveMatches(userId): Promise<any> {
+function retrieveMatches(userId: string): Promise<any> {
     validate.text(userId, 'userId', true)
 
     return User.findById(userId)

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { ObjectId, Schema } from 'mongoose'
 const { Types: { ObjectId } } = Schema
 
@@ -16,7 +17,7 @@ type MatchResponse = {
     manager: ObjectId
 }
 
-function retrieveManagerMatches(userId): Promise<any> {
+function retrieveManagerMatches(userId: string): Promise<any> {
     validate.text(userId, 'userId', true)
 
     return User.findById(userId)
@@ -31,7 +32,7 @@ function retrieveManagerMatches(userId): Promise<any> {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(matches =>
                     matches.map<MatchResponse>(({ title, description, date, field, players, _id, manager }) => ({
-                        _id,
+                        id: _id.toString(),
                         title,
                         description,
                         date,

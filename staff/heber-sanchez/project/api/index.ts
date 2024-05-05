@@ -272,7 +272,7 @@ mongoose.connect(MONGODB_URL)
         })
 
         //retrieveFields
-        api.get('/managers', (req, res) => {
+        api.get('/fields', (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -401,7 +401,7 @@ mongoose.connect(MONGODB_URL)
 
         //retrieve manager matches
 
-        api.get('/matches/manager', (req, res) => {
+        api.get('/manager/matches', (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -445,7 +445,7 @@ mongoose.connect(MONGODB_URL)
         })
 
         // create match
-        api.post('/matches', jsonBodyParser, (req, res) => {
+        api.post('/matches/create', jsonBodyParser, (req, res) => {
             try {
                 const { authorization } = req.headers
 
