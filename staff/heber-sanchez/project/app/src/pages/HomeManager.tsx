@@ -76,7 +76,6 @@ function HomeManager() {
     const handleOnDeleteMatchClick = () => loadMatches()
 
 
-
     logger.debug('Home/Manager -> render')
     return <>
         <Header onUserLoggedOut={handleLoggedOut} />
@@ -88,12 +87,14 @@ function HomeManager() {
 
                 <Route path="/*" element={<MatchesList matches={matches} stamp={stamp} onEditMatchFormClick={handleEditMatchFormClick} onDeleteMatchClick={handleOnDeleteMatchClick} />} />
 
-                <Route path="/fields" element={<FieldList stamp={stamp} onCreateFieldForm={() => setView('create-field')} />} />
+                <Route path="/fields" element={<FieldList stamp={stamp} />} />
 
             </Routes>
 
+
             {view === 'create-match' && <CreateMatch onMatchCreated={handleOnMatchCreated} onCancelClick={handleOnCancelClicked} />}
 
+            {view === 'create-field' && <CreateField />}
 
             {view === 'edit-match' && < EditMatch match={match} onMatchEdited={handleOnMatchEdited} onCancelEditClick={handleOnCancelClicked} />}
 
@@ -105,3 +106,5 @@ function HomeManager() {
     </>
 }
 export default HomeManager
+
+// onFieldCreated={handleOnFieldCreated} onCancelClickField={handleOnCanceledClicked}

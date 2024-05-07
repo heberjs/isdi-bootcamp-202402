@@ -13,38 +13,38 @@
 - Create events (field reservation)
 - Join events (football matches)
 - Search for football fields
-- Filter by proximity
 
 v.0.1
 
+- Filter by proximity
 - Create tournaments: Users will be able to create tournaments, allowing them to organize and manage competitive events.
 - Chat: Users can communicate with each other through a built-in chat feature, facilitating coordination and discussion among participants.
-
-### User Stories
-
-As manager
-
 - i can register in special url for managers (and wait for acceptance from root)
 - once accepted, i can register the field (only once)
-- i can create matches with calendar
-- i can update field
-
-As root
-
+- As root:
 - i can login
 - i can list registered managers
 - i can accept a manager
 - i can disable a manager
 - i can delete a manager
+- i can create matches with calendar
+- i can list matches with calendar in field
+
+### User Stories
+
+As manager
+
+- i can register in special url for manager
+- i can register the field (only once)
+- i can update field
 
 As player
 
 - i can register
 - i can login
-- i can search fields
-- i can list matches with calendar in field
+- i can scroll matches
 - i can enroll a match (if not full)
-- i can leave a match (15h before it starts)
+- i can leave a match
 
 ### UI Design
 
@@ -77,8 +77,8 @@ User
 - email (string, required)
 - password (string, required)
 - avatar (string, optional)
-- role (string, required, enum: player|manager|root)
-- status(number, required,  enum: 0|1|2, default 0)
+- role (string, required, enum: player|manager)
+- status(number, required,  enum: 0|1)
 
 Field
 

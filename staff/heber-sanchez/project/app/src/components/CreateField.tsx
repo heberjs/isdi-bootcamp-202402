@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { logger } from '../utils'
 import logic from '../logic'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 
 function CreateField({ onCancelClickField, onFieldCreated }) {

@@ -1,20 +1,21 @@
+//@ts-nocheck
 import { ObjectId, Schema } from 'mongoose'
 const { Types: { ObjectId } } = Schema
 
 
-import { Match, User } from '../data/index.ts'
+import { Match, MatchType, User } from '../data/index.ts'
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-type MatchResponse = {
-    title: string,
-    description: string,
-    date: Date,
-    field: { id: ObjectId, name: string, address: string },
-    players: [{ id: ObjectId, fullname: string }],
-    manager: ObjectId
-}
+// type MatchResponse = {
+//     title: string,
+//     description: string,
+//     date: Date,
+//     field: { id: ObjectId, name: string, address: string },
+//     players: players.map=>(player=>([{ id: ObjectId, fullname: string }])),
+//     manager: ObjectId
+// }
 
 function retrieveMatches(userId: string): Promise<any> {
     validate.text(userId, 'userId', true)
@@ -30,7 +31,7 @@ function retrieveMatches(userId: string): Promise<any> {
                 .lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(matches =>
-                    matches.map<MatchResponse>(({ title, description, date, field, players, _id, manager }) => ({
+                    matches.map<MatchType>(({ title, description, date, field, players, _id, manager }) => ({
                         id: _id.toString(),
                         title,
                         description,
@@ -40,7 +41,10 @@ function retrieveMatches(userId: string): Promise<any> {
                             name: field.name,
                             address: field.address
                         },
-                        players,
+                        players: players.map(player => ({
+                            id: player._id.toString(),
+                            fullname: player.fullname
+                        })),
                         manager
                     }))
                 )

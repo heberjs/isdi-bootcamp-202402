@@ -81,7 +81,7 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
 
     logger.debug('Match -> render')
     return <>
-        <article className='border-black border-2 flex flex-col bg-[#AEC09A] px-2 rounded-lg max-w-screen-lg '>
+        <article className='border-black border-2 flex flex-col bg-[#AEC09A] px-2 rounded-lg max-w-screen mt-4'>
             <div className='flex flex-col text-black font-semibold p-2'>
 
                 <h3><strong>{match.title}</strong></h3>

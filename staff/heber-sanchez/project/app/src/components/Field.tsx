@@ -43,7 +43,7 @@ function Field({ item: field, onEditFieldClick, onDeleteFieldClick }) {
         <div className='flex'>
             <button className='mt-2 flex items-center' onClick={() => handleEditFieldClick(field)}><img src="/public/update-icon.png" alt="update icon" className='w-6 h-6' /><p className='p-1'><strong>Update</strong></p></button>
 
-            <button className='mt-2 flex items-center' onClick={() => handleDeleteClick(field._id)}><img src="/public/delete-icon.png" alt="delete icon" className='w-6 h-6' /><p className='p-1'><strong>Delete</strong></p></button>
+            <button className='mt-2 flex items-center' onClick={() => handleDeleteClick(field.id)}><img src="/public/delete-icon.png" alt="delete icon" className='w-6 h-6' /><p className='p-1'><strong>Delete</strong></p></button>
         </div>
     </article >
 }

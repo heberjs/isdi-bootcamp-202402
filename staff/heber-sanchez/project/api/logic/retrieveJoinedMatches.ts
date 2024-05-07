@@ -1,27 +1,28 @@
+//@ts-nocheck
 import { ObjectId, Schema } from 'mongoose'
 const { Types: { ObjectId } } = Schema
 
 
-import { Match, User } from '../data/index.ts'
+import { Match, MatchType, User } from '../data/index.ts'
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-type JoinedMatchResponse = {
-    title: string,
-    description: string,
-    date: Date,
-    field: {
-        id: ObjectId,
-        name: string,
-        address: string
-    },
-    players: [{
-        id: ObjectId,
-        fullname: string
-    }],
-    manager: ObjectId
-}
+// type JoinedMatchResponse = {
+//     title: string,
+//     description: string,
+//     date: Date,
+//     field: {
+//         id: ObjectId,
+//         name: string,
+//         address: string
+//     },
+//     players: [{
+//         id: ObjectId,
+//         fullname: string
+//     }],
+//     manager: ObjectId
+// }
 
 function retrieveJoinedMatches(userId): Promise<any> {
     validate.text(userId, 'userId', true)
@@ -37,8 +38,8 @@ function retrieveJoinedMatches(userId): Promise<any> {
                 .lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(matches =>
-                    matches.map<JoinedMatchResponse>(({ _id, title, description, date, field, players, manager }) => ({
-                        _id,
+                    matches.map<MatchType>(({ _id, title, description, date, field, players, manager }) => ({
+                        id: _id.toString(),
                         title,
                         description,
                         date,
@@ -47,7 +48,11 @@ function retrieveJoinedMatches(userId): Promise<any> {
                             name: field.name,
                             address: field.address
                         },
-                        players,
+                        players: players.map(player => ({
+
+                            id: player._id.toString(),
+                            fullname: player.fullname
+                        })),
                         manager
                     }))
                 )

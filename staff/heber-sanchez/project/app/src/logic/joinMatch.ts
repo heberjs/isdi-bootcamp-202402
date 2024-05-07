@@ -20,7 +20,7 @@ function joinMatch(matchId: string) {
         }
     })
         .then(res => {
-            if (res.status === 200) return
+            if (res.status === 202) return
 
             return res.json()
                 .then(body => {

@@ -54,7 +54,7 @@ function HomePlayer() {
     return <>
         <Header onUserLoggedOut={handleLoggedOut} />
 
-        <main className='flex flex-col h-screen bg-[#1A2902]'>
+        <main className='flex flex-col h-full bg-[#1A2902]'>
 
             <Routes>
                 <Route path="/" element={<MatchesList matches={matches} stamp={stamp} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />} />
