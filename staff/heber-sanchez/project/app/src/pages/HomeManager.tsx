@@ -11,6 +11,7 @@ import CreateMatch from '../components/CreateMatch'
 import CreateField from '../components/CreateField'
 import EditMatch from '../components/EditMatch'
 
+import { useContext } from '../context.ts'
 
 function HomeManager() {
     const navigate = useNavigate()
@@ -21,10 +22,33 @@ function HomeManager() {
     const [match, setMatch] = useState(null)
     const [view, setView] = useState(null)
     const [stamp, setStamp] = useState(null)
+    const [matches, setMatches] = useState([])
+
+    const { showFeedback } = useContext()
 
 
     const clearView = () => setView(null)
     const handleLoggedOut = () => navigate('/login')
+
+    const loadMatches = () => {
+
+        try {
+
+            logic.retrieveManagerMatches()
+
+                .then(matches => {
+                    setMatches(matches)
+                })
+                .catch(error => showFeedback(error, 'error'))
+        } catch (error) {
+            showFeedback(error)
+        }
+
+    }
+
+    useEffect(() => {
+        loadMatches()
+    }, [stamp])
 
 
 
@@ -33,13 +57,9 @@ function HomeManager() {
         setStamp(Date.now)
     }
 
-    const handleOnFieldCreated = () => {
-        clearView()
-        setStamp(Date.now)
-    }
 
-    const handleOnClickedCreateForm = () => setView('create form')
 
+    const handleOnClickedCreateForm = () => setView(`create-match`)
 
     const handleOnCancelClicked = () => setView(null)
 
@@ -53,6 +73,10 @@ function HomeManager() {
         setMatch(null)
     }
 
+    const handleOnDeleteMatchClick = () => loadMatches()
+
+
+
     logger.debug('Home/Manager -> render')
     return <>
         <Header onUserLoggedOut={handleLoggedOut} />
@@ -62,23 +86,22 @@ function HomeManager() {
 
             <Routes>
 
-                <Route path="/*" element={<MatchesList stamp={stamp} onEditMatchFormClick={handleEditMatchFormClick} />} />
+                <Route path="/*" element={<MatchesList matches={matches} stamp={stamp} onEditMatchFormClick={handleEditMatchFormClick} onDeleteMatchClick={handleOnDeleteMatchClick} />} />
 
-                <Route path="/fields" element={<FieldList stamp={stamp} />} />
+                <Route path="/fields" element={<FieldList stamp={stamp} onCreateFieldForm={() => setView('create-field')} />} />
 
             </Routes>
 
-            {view === 'create form' && <CreateMatch onMatchCreated={handleOnMatchCreated} onCancelClick={handleOnCancelClicked} />}
+            {view === 'create-match' && <CreateMatch onMatchCreated={handleOnMatchCreated} onCancelClick={handleOnCancelClicked} />}
 
-            {view === 'create-field' && <CreateField onFieldCreated={handleOnFieldCreated} onCancelClickField={handleOnCancelClicked} />}
 
-            {view === 'edit-match' && < EditMatch match={match} onMatchEdited={handleOnMatchEdited} />}
+            {view === 'edit-match' && < EditMatch match={match} onMatchEdited={handleOnMatchEdited} onCancelEditClick={handleOnCancelClicked} />}
 
 
 
         </main >
 
-        <FooterNav onCreateFormClick={handleOnClickedCreateForm} />
+        <FooterNav onCreateFormClick={handleOnClickedCreateForm} onCreateFieldForm={() => setView('create-field')} />
     </>
 }
 export default HomeManager

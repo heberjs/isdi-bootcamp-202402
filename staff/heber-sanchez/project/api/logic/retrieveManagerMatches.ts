@@ -25,7 +25,7 @@ function retrieveManagerMatches(userId: string): Promise<any> {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Match.find({ manager: userId })
+            return Match.find({ manager: userId }).sort({ date: 1 })
                 .populate<{ field: { _id: ObjectId, name: string, address: string } }>('field', '_id name address')
                 .populate<{ players: [{ id: ObjectId, fullname: string }] }>('players', '_id fullname')
                 .lean()

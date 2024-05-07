@@ -14,7 +14,7 @@ function retrieveManagerMatches() {
 
     return fetch(`${import.meta.env.VITE_API_URL}/manager/matches`, {
         headers: {
-            authorization: `Bearer ${sessionStorage.token}`
+            'Authorization': `Bearer ${sessionStorage.token}`
         }
     })
 

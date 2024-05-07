@@ -15,7 +15,7 @@ function retrieveFields() {
 
     return fetch(`${import.meta.env.VITE_API_URL}/fields`, {
         headers: {
-            authorization: `Bearer ${sessionStorage.token}`
+            'Authorization': `Bearer ${sessionStorage.token}`
         }
     })
 

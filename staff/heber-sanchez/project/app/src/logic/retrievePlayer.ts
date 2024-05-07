@@ -13,14 +13,12 @@ function retrievePlayer() {
 
     return fetch(`${import.meta.env.VITE_API_URL}/players/${userId}`, {
         headers: {
-            authorization: `Bearer ${sessionStorage.token}`
+            Authorization: `Bearer ${sessionStorage.token}`
         }
     })
 
         .then(res => {
-            if (res.status === 200)
-                return res.json()
-
+            if (res.status === 200) return
             return res.json()
                 .then(body => {
                     const { error, message } = body

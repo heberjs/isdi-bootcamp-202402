@@ -14,6 +14,7 @@ import removeMatch from './removeMatch.ts'
 import removeField from './removeField.ts'
 import editMatch from './editMatch.ts'
 import editField from './editField.ts'
+import unJoinMatch from './unJoinMatch.ts'
 
 
 const logic = {
@@ -32,7 +33,8 @@ const logic = {
     removeMatch,
     removeField,
     editMatch,
-    editField
+    editField,
+    unJoinMatch
 
 
 }

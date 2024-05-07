@@ -13,7 +13,7 @@ function retrieveMatches() {
 
     return fetch(`${import.meta.env.VITE_API_URL}/matches`, {
         headers: {
-            authorization: `Bearer ${sessionStorage.token}`
+            'Authorization': `Bearer ${sessionStorage.token}`
         }
     })
 
@@ -25,7 +25,7 @@ function retrieveMatches() {
                 .then(body => {
                     const { error, message } = body
 
-                    const constructor = errors[error]
+                    const constructor = error[error]
 
                     throw new constructor(message)
                 })

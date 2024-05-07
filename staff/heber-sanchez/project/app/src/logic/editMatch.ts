@@ -18,7 +18,7 @@ function editMatch(matchId: string, title: string, description: string, date: st
     return fetch(`${import.meta.env.VITE_API_URL}/matches/edit/${matchId}`, {
         method: 'PUT',
         headers: {
-            authorization: `Bearer ${sessionStorage.token}`,
+            'Authorization': `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
         body: json

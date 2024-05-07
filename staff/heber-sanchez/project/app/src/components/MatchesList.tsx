@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { logger } from '../utils'
-import logic from '../logic'
-import { useState, useEffect } from 'react'
+// import logic from '../logic'
+// import { useState, useEffect } from 'react'
 import Match from './Match'
 
 // type MatchResponse = {
@@ -20,37 +20,22 @@ import Match from './Match'
 //     joinOnClick?: (matchId: string) => void
 // }
 
-function MatchesList({ stamp, joinOnClick, onEditMatchFormClick }) {
+function MatchesList({ matches, onEditMatchFormClick, onDeleteMatchClick, onJoinedClick, onUnJoinedClick }) {
     logger.debug('MatchesList -> render')
 
-    const [matches, setMatches] = useState([])
-
-    const loadMatches = () => {
-
-        try {
-            logic.retrieveManagerMatches()
-
-                .then(matches => {
-                    setMatches(matches)
-                })
-                .catch(error => alert(error))
-        } catch (error) {
-            alert(error)
-        }
-
-    }
-
-    useEffect(() => {
-        loadMatches()
-    }, [stamp])
+    const handleOnJoinClick = match => onJoinedClick(match)
 
     const handleEditMatchClick = match => onEditMatchFormClick(match)
 
+    const handleOnDeleteClick = match => onDeleteMatchClick(match)
+
+    const handleUnJoinedMatch = match => onUnJoinedClick(match)
+
     return <>
-        <section className='flex flex-col'>
+        <section className='flex-grow'>
 
             <div className=' px-8 pt-2 flex flex-col gap-2 '>
-                {matches.map(match => <Match key={match.id} item={match} handleOnJoinClick={joinOnClick} onEditMatchClick={handleEditMatchClick} />)}
+                {matches.map(match => <Match key={match.id} item={match} onJoinClick={handleOnJoinClick} onEditMatchClick={handleEditMatchClick} onDeleteMatchClick={handleOnDeleteClick} UnJoinedMatch={handleUnJoinedMatch} />)}
             </div>
 
         </section>

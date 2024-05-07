@@ -5,6 +5,6 @@
         "ts"
     ],
     "spec": [
-        "logic/createMatch.spec.*"
+        "logic/.spec.*"
     ]
 }

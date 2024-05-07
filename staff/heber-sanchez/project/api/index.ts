@@ -312,6 +312,99 @@ mongoose.connect(MONGODB_URL)
             }
         })
 
+        //edit field
+
+        api.put('/fields/edit/:fieldId', jsonBodyParser, (req, res) => {
+            try {
+
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                const { fieldId } = req.params
+
+                const { name, address } = req.body
+
+                logic.editField(userId as string, fieldId as string, name, address)
+                    .then(() => res.status(200).send())
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof NotFoundError) {
+                            logger.warn(error.message)
+
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof AuthError) {
+                            logger.warn(error.message)
+
+                            res.status(401).json({ error: error.constructor.name, message: error.message })
+                        }
+                    })
+
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message)
+
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
+
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+            }
+        })
+
+        //remove field
+        api.delete('/fields/:id', (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                const fieldId = req.params.id
+
+                logic.removeField(userId as string, fieldId as string)
+                    .then(() => res.status(200).json())
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof NotFoundError) {
+                            logger.warn(error.message)
+
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof AuthError) {
+                            logger.warn(error.message)
+
+                            res.status(401).json({ error: error.constructor.name, message: error.message })
+                        }
+                    })
+
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message);
+                    res.status(406).json({ error: error.constructor.name, message: error.message });
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message);
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' });
+                } else {
+                    logger.warn(error.message);
+                    res.status(500).json({ error: SystemError.name, message: error.message });
+                }
+            }
+        })
+
         // retrieveMatches
         api.get('/matches', (req, res) => {
 
@@ -367,10 +460,7 @@ mongoose.connect(MONGODB_URL)
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
                 logic.retrieveJoinedMatches(userId as string)
-                    .then(matches => {
-
-                        res.json(matches)
-                    })
+                    .then(matches => res.json(matches))
                     .catch(error => {
                         if (error instanceof SystemError) {
                             logger.error(error.message)
@@ -609,6 +699,54 @@ mongoose.connect(MONGODB_URL)
                             res.status(406).json({ error: error.constructor.name, message: error.message })
                         }
                     })
+
+            } catch (error) {
+                if (error instanceof TypeError || error instanceof ContentError) {
+                    logger.warn(error.message)
+
+                    res.status(406).json({ error: error.constructor.name, message: error.message })
+                } else if (error instanceof TokenExpiredError) {
+                    logger.warn(error.message)
+
+                    res.status(498).json({ error: UnauthorizedError.name, message: 'session expired' })
+                } else {
+                    logger.warn(error.message)
+
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+            }
+
+        })
+
+        //unJoinMatch
+
+        api.put('/matches/unJoin/:matchId', (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                const { matchId } = req.params
+
+                logic.unJoinMatch(userId as string, matchId as string).then(() => res.status(200).send())
+                    .catch(error => {
+                        if (error instanceof SystemError) {
+                            logger.error(error.message)
+
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        } else if (error instanceof NotFoundError) {
+                            logger.warn(error.message)
+
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        } else {
+                            logger.warn(error.message)
+
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                        }
+                    })
+
 
             } catch (error) {
                 if (error instanceof TypeError || error instanceof ContentError) {

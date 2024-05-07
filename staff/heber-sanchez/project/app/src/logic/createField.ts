@@ -16,7 +16,7 @@ function createField(name: string, address: string) {
 
         headers: {
 
-            Authorization: `Bearer ${sessionStorage.token}`,
+            'Authorization': `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
         body: json

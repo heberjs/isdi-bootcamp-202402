@@ -3,7 +3,7 @@ import { logger } from '../utils'
 import logic from '../logic'
 import { useEffect, useState } from 'react'
 
-function EditMatch({ match, onMatchEdited, onCancelClick }) {
+function EditMatch({ match, onMatchEdited, onCancelEditClick }) {
 
 
 
@@ -21,7 +21,7 @@ function EditMatch({ match, onMatchEdited, onCancelClick }) {
         logger.debug('edit-match -> handleSubmit', title, description, date)
 
         try {
-            debugger
+
             logic.editMatch(match.id, title, description, date)
                 .then(() => {
                     form.reset()
@@ -34,13 +34,14 @@ function EditMatch({ match, onMatchEdited, onCancelClick }) {
         }
     }
 
-    const handleCancelClick = () => oncancelClick()
+    const handleCancelClick = () => onCancelEditClick()
 
     const currentDate = new Date()
     const minDate = currentDate.toISOString().slice(0, 16)
 
     logger.debug('Edit-Match Form -> Render')
-    return <section className='flex flex-col justify-center items-center h-screen bg-[#1A2902]'>
+    // return <section className='flex flex-col justify-center items-center h-screen bg-[#1A2902]'>
+    return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 '>
 
         <form onSubmit={handleSubmit} className='flex flex-col items-center mt-8'>
 
@@ -61,7 +62,7 @@ function EditMatch({ match, onMatchEdited, onCancelClick }) {
 
             <button type='submit' className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-full mt-4'>Save</button>
         </form>
-        <button className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-full mt-4' onClick={handleCancelClick}>Cancel</button>
+        <button className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-[210px] mt-4' onClick={handleCancelClick}>Cancel</button>
     </section>
 
 

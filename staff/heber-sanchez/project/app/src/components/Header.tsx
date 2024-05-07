@@ -14,14 +14,14 @@ function Header({ onUserLoggedOut }) {
     useEffect(() => {
 
         try {
-            if (logic.getLoggedInfo().role === 'manager') {
-                logic.retrieveManager()
+            if (logic.getLoggedInfo().role === 'player') {
+                logic.retrievePlayer()
 
                     .then(setUser)
                     .catch(error => alert(error))
 
-            } else if (logic.getLoggedInfo().role === 'player') {
-                logic.retrievePlayer()
+            } else if (logic.getLoggedInfo().role === 'manager') {
+                logic.retrieveManager()
 
                     .then(setUser)
                     .catch(error => alert(error))

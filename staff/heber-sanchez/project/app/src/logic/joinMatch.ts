@@ -15,12 +15,12 @@ function joinMatch(matchId: string) {
     return fetch(`${import.meta.env.VITE_API_URL}/matches/join/${matchId}`, {
         method: 'PUT',
         headers: {
-            authorization: `Bearer ${sessionStorage.token}`
+            'Authorization': `Bearer ${sessionStorage.token}`,
+
         }
     })
         .then(res => {
-            if (res.status === 200)
-                return res.json()
+            if (res.status === 200) return
 
             return res.json()
                 .then(body => {

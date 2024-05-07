@@ -33,13 +33,6 @@ describe('Join a Match', () => {
                             Promise.all([
                                 User.create({ fullname: 'Lobo Feroz', email: 'lobo@feroz.com', password: '123qwe123', role: 'player', status: 0 }),
                                 User.create({ fullname: 'Andres Perez', email: 'andres@perez.com', password: '123qwe123', role: 'player', status: 0 }),
-                                // User.create({ fullname: 'Pere Hernandez', email: 'pere@hernandez.com', password: '123qwe123', role: 'player', status: 0 }),
-                                // User.create({ fullname: 'Juan Trota', email: 'juan@trota.com', password: '123qwe123', role: 'player', status: 0 }),
-                                // User.create({ fullname: 'Xavi Gonzalez', email: 'xavi@gonzalez.com', password: '123qwe123', role: 'player', status: 0 }),
-                                // User.create({ fullname: 'David House', email: 'david@house.com', password: '123qwe123', role: 'player', status: 0 }),
-                                // User.create({ fullname: 'Miquel Guevara', email: 'miquel@guevara.com', password: '123qwe123', role: 'player', status: 0 }),
-                                // User.create({ fullname: 'Pau Julian', email: 'pau@julian.com', password: '123qwe123', role: 'player', status: 0 }),
-                                // User.create({ fullname: 'Adrian Sosa', email: 'adrian@sosa.com', password: '123qwe123', role: 'player', status: 0 }),
 
                             ])
                                 .then(([user1, user2]) =>

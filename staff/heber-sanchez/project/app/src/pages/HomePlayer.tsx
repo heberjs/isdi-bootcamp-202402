@@ -7,6 +7,7 @@ import Header from '../components/Header'
 import FooterNav from '../components/FooterNav';
 import MatchesList from '../components/MatchesList';
 import Profile from '../components/Profile';
+import { useContext } from '../context.ts';
 
 
 function HomePlayer() {
@@ -16,19 +17,22 @@ function HomePlayer() {
 
     const [stamp, setStamp] = useState(null)
     const [matches, setMatches] = useState([])
+    const [view, setView] = useState(null)
 
+
+    const { showFeedback } = useContext()
+    const clearView = () => setView(null)
     const handleLoggedOut = () => navigate('/login')
 
     const loadMatches = () => {
-
         try {
             logic.retrieveMatches()
                 .then(matches => {
                     setMatches(matches)
                 })
-                .catch(error => alert(error))
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
-            alert(error)
+            showFeedback(error)
         }
     }
 
@@ -36,21 +40,24 @@ function HomePlayer() {
         loadMatches()
     }, [stamp])
 
-    const handleOnJoinedClick = (matchId) => {
-        try {
-            logic.joinMatch(matchId)
-        } catch (error) {
+    const handleOnJoinedClick = () => {
 
-        }
+        clearView()
+        setStamp(Date.now())
+    }
+
+    const handleOnUnJoinedClick = () => {
+        clearView()
+        setStamp(Date.now())
     }
 
     return <>
         <Header onUserLoggedOut={handleLoggedOut} />
 
-        <main className='flex flex-col h-[100vh] bg-[#1A2902]'>
+        <main className='flex flex-col h-screen bg-[#1A2902]'>
 
             <Routes>
-                <Route path="/" element={<MatchesList matches={matches} stamp={stamp} joinOnClick={handleOnJoinedClick} />} />
+                <Route path="/" element={<MatchesList matches={matches} stamp={stamp} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />} />
                 <Route path="/profile" element={<Profile />} />
             </Routes>
 

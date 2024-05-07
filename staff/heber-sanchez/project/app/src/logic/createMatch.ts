@@ -16,7 +16,7 @@ function createMatch(title, description, date, fieldId) {
     return fetch(`${import.meta.env.VITE_API_URL}/matches/create`, {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`,
+            'Authorization': `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
         body: json

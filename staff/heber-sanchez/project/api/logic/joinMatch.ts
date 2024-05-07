@@ -27,8 +27,6 @@ function joinMatch(matchId, userId) {
                 })
 
         })
-
-
 }
 
 export default joinMatch

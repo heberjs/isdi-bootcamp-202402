@@ -15,6 +15,9 @@ import createField from './createField'
 import createMatch from './createMatch'
 import removeMatch from './removeMatch'
 import editMatch from './editMatch'
+import editField from './editField'
+import removeField from './removeField'
+import unJoinMatch from './unJoinMatch'
 
 
 
@@ -36,7 +39,10 @@ const logic = {
     createField,
     createMatch,
     removeMatch,
-    editMatch
+    editMatch,
+    editField,
+    removeField,
+    unJoinMatch
 }
 
 export default logic

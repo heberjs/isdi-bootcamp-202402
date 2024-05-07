@@ -21,7 +21,8 @@ describe('retrievePlayer', () => {
                 User.create({ fullname: 'Papa nicolao', email: 'papa@nicolao.com', password: '123qwe123', role: 'player', status: 0 })
                     .then(user2 => logic.retrievePlayer(user.id, user2.id))
                     .then(user => {
-                        debugger
+                        console.log(user);
+
                         expect(user.fullname).to.equal('Papa nicolao')
                     })
             )
