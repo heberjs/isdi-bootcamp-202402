@@ -3,10 +3,8 @@ import { validate, errors } from 'com'
 import { User, Field, Match, MatchType } from '../data/index.ts'
 import mongoose from 'mongoose'
 
-const { DuplicityError, NotFoundError, SystemError, AuthError } = errors
-
 const { Types: { ObjectId } } = mongoose
-
+const { DuplicityError, NotFoundError, SystemError, AuthError } = errors
 
 function createMatch(managerId: string, fieldId: string, title: string, description: string, date: string): Promise<void> {
     validate.text(managerId, 'managerId', true)

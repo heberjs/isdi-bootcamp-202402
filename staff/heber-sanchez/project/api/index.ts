@@ -229,7 +229,7 @@ mongoose.connect(MONGODB_URL)
         })
 
         //create fields
-        api.post('/fields/create', jsonBodyParser, (req, res) => {
+        api.post('/fields', jsonBodyParser, (req, res) => {
             try {
 
                 const { authorization } = req.headers
@@ -241,7 +241,7 @@ mongoose.connect(MONGODB_URL)
                 const { name, address } = req.body
 
                 logic.createField(userId as string, name, address)
-                    .then(() => res.status(201).send)
+                    .then(() => res.status(201).send())
                     .catch(error => {
                         if (error instanceof SystemError) {
                             logger.error(error.message)
@@ -535,7 +535,7 @@ mongoose.connect(MONGODB_URL)
         })
 
         // create match
-        api.post('/matches/create', jsonBodyParser, (req, res) => {
+        api.post('/matches', jsonBodyParser, (req, res) => {
             try {
                 const { authorization } = req.headers
 

@@ -1,6 +1,6 @@
 import { validate, errors } from "com"
 import { text } from "stream/consumers"
-import { User, Field } from '../data/index.ts'
+import { User, Field, Match } from '../data/index.ts'
 const { NotFoundError, SystemError, AuthError } = errors
 
 function removeField(userId, fieldId) {
@@ -19,6 +19,7 @@ function removeField(userId, fieldId) {
                     if (!field) throw new NotFoundError('field not found')
 
                     if (field.manager.toString() !== userId) throw new AuthError('user not allowed')
+
 
                     return Field.findByIdAndDelete(fieldId)
                 })

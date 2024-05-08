@@ -75,6 +75,10 @@ function HomeManager() {
 
     const handleOnDeleteMatchClick = () => loadMatches()
 
+    const handleCreateFieldCancelled = () => clearView()
+
+    const handleCreateFieldAccepted = () => clearView()
+
 
     logger.debug('Home/Manager -> render')
     return <>
@@ -94,7 +98,8 @@ function HomeManager() {
 
             {view === 'create-match' && <CreateMatch onMatchCreated={handleOnMatchCreated} onCancelClick={handleOnCancelClicked} />}
 
-            {view === 'create-field' && <CreateField />}
+            {view === 'create-field' && <CreateField onFieldCreated={handleCreateFieldAccepted} onCancelClickField={handleCreateFieldCancelled} />}
+            {/* onFieldCreated={handleOnFieldCreated} onCancelClickField={handleOnCanceledClicked} */}
 
             {view === 'edit-match' && < EditMatch match={match} onMatchEdited={handleOnMatchEdited} onCancelEditClick={handleOnCancelClicked} />}
 
@@ -107,4 +112,3 @@ function HomeManager() {
 }
 export default HomeManager
 
-// onFieldCreated={handleOnFieldCreated} onCancelClickField={handleOnCanceledClicked}

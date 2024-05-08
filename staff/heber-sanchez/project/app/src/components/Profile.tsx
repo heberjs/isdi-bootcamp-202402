@@ -3,11 +3,14 @@
 import logic from '../logic'
 import { useState, useEffect } from 'react'
 import MatchesList from './MatchesList'
+import { useContext } from '../context.ts'
 
 function Profile() {
     const [matches, setMatches] = useState([])
     const [stamp, setStamp] = useState([])
     const [view, setView] = useState(null)
+
+    const { showFeedback } = useContext()
 
     const clearView = () => setView(null)
 
@@ -18,9 +21,9 @@ function Profile() {
                 .then(matches => {
                     setMatches(matches)
                 })
-                .catch(error => alert(error))
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
-            alert(error)
+            showFeedback(error)
         }
     }
 
@@ -40,7 +43,7 @@ function Profile() {
     }
 
     return <>
-        <section className='flex flex-col justify-center items-center vh-screen'>
+        <section className='px-8 pt-2 flex flex-col gap-2'>
 
             <h1 className='text-white text-3xl font-bold p-4'>Your matches:</h1>
 

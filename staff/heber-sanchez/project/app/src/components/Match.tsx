@@ -135,7 +135,7 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
 
                 </div>
 
-                <button onClick={() => setView('close')} className='flex justify-center'><img src="/public/arrowUp-icon.png" alt="close arrow" className='w-8 h-8' /></button>
+                <button onClick={() => setView('close')} className='flex justify-center'><img src="/public/arrow-up-icon.png" alt="close arrow" className='w-8 h-8' /></button>
             </div>}
 
 

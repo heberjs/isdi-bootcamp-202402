@@ -26,11 +26,15 @@ describe('Create a Field', () => {
         ])
             .then(() => User.create({ fullname: 'Lola Drones', email: 'lola@drones.com', password: '123qwe123', role: 'manager', status: '1' }))
 
-            .then(manager => logic.createField(manager.id, 'Futbol 5', 'santa marta N°15'))
+            .then(manager => {
+                return logic.createField(manager.id, 'Futbol 5', 'santa marta N°15')
+            })
 
             .then(() => Field.findOne({}))
 
             .then(field => {
+                console.log(field);
+
                 expect(!!field).to.be.true
                 expect(field.manager).to.be.instanceOf(ObjectId)
                 expect(field.name).to.equal('Futbol 5')

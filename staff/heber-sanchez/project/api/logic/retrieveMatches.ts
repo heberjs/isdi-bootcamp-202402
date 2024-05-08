@@ -8,14 +8,6 @@ import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
 
-// type MatchResponse = {
-//     title: string,
-//     description: string,
-//     date: Date,
-//     field: { id: ObjectId, name: string, address: string },
-//     players: players.map=>(player=>([{ id: ObjectId, fullname: string }])),
-//     manager: ObjectId
-// }
 
 function retrieveMatches(userId: string): Promise<any> {
     validate.text(userId, 'userId', true)

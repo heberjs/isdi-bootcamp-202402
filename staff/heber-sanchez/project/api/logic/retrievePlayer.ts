@@ -18,12 +18,12 @@ function retrievePlayer(userId: string, targetUserId: string): Promise<{ fullnam
         .then(user => {
             if (user.role !== 'player') throw new NotFoundError('player not found')
 
-            return User.findById(targetUserId).select('fullname role').lean().exec()
+            return User.findById(targetUserId).select(' _id fullname role').lean().exec()
         })
         .then(targetUser => {
             if (targetUser.role !== 'player') throw new NotFoundError('target user not found')
 
-            return { fullname: targetUser.fullname }
+            return { id: targetUser._id, fullname: targetUser.fullname }
         })
 }
 

@@ -13,7 +13,7 @@ function createMatch(title, description, date, fieldId) {
 
     const json = JSON.stringify(match)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/matches/create`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/matches`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${sessionStorage.token}`,

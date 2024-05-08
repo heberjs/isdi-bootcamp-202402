@@ -1,13 +1,12 @@
 //@ts-nocheck
-
 import logic from '../logic'
 import { useState, useEffect } from 'react'
-
+import { useContext } from '../context.ts';
 
 
 
 function Header({ onUserLoggedOut }) {
-
+    const { showFeedback } = useContext()
 
     const [user, setUser] = useState(null)
 
@@ -15,19 +14,20 @@ function Header({ onUserLoggedOut }) {
 
         try {
             if (logic.getLoggedInfo().role === 'player') {
+
                 logic.retrievePlayer()
 
                     .then(setUser)
-                    .catch(error => alert(error))
+                    .catch(error => showFeedback(error))
 
             } else if (logic.getLoggedInfo().role === 'manager') {
                 logic.retrieveManager()
 
                     .then(setUser)
-                    .catch(error => alert(error))
+                    .catch(error => showFeedback(error))
             }
         } catch (error) {
-            alert(error)
+            showFeedback(error)
         }
     }, [])
 

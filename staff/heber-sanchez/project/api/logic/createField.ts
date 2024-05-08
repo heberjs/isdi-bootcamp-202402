@@ -1,8 +1,8 @@
 
 import { validate, errors } from 'com'
 import { Field, FieldType, User, UserType } from '../data/index.ts'
-import { ObjectId, Schema } from 'mongoose'
-const { Types: { ObjectId } } = Schema
+import mongoose from 'mongoose'
+const { Types: { ObjectId } } = mongoose
 const { SystemError, DuplicityError, NotFoundError } = errors
 
 
@@ -22,18 +22,19 @@ function createField(managerId: string, name: string, address: string): Promise<
                     if (!manager) throw new NotFoundError('manager not found')
 
 
-                    field = {
-                        manager: manager.id,
-                        name: name.trim(),
-                        address: address.trim(),
-
+                    const newfield = {
+                        manager: new ObjectId(managerId),
+                        name: name,
+                        address: address
                     }
 
-                    return Field.create(field)
+                    return Field.create(newfield)
                         .catch(error => { throw new SystemError(error.message) })
-                        .then(field => { })
+
                 })
+                .then(field => { })
         })
+
 }
 
 export default createField

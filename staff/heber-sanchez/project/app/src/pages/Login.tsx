@@ -2,19 +2,17 @@
 import { logger } from '../utils/index.ts'
 import logic from '../logic/index.ts'
 
-// import { Context, useContext } from '../context.js'
-
-
+import { useContext } from '../context.ts'
 
 function Login({ onUserLoggedIn, onRegisterClick }) {
+
     logger.debug('Login')
-    // const { showFeedBack } = useContext()
+    const { showFeedback } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
 
         const form = event.target
-
         const email = form.email.value
         const password = form.password.value
 
@@ -27,9 +25,9 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
 
                     onUserLoggedIn()
                 })
-                .catch(error => alert(error))
+                .catch(error => showFeedback(error))
         } catch (error) {
-            alert(error)
+            showFeedback(error)
         }
     }
 
@@ -41,7 +39,7 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
     logger.debug('Login -> render')
     return <main className='flex flex-col justify-center items-center h-screen bg-[#1A2902]'>
 
-        <div className='flex justify-center items-center'><img className='w-[200px] absolute top-20' src="../../public/pelota-logo-fino-blanco.png" alt="" /></div>
+        <div className='flex justify-center items-center'><img className='w-[300px] absolute top-20 animate-fade-down animate-duration-[1000ms] animate-ease-linear' src="/public/pelota-logo-fino-blanco.png" alt="" /></div>
 
         <form onSubmit={handleSubmit} className='flex flex-col items-center mt-8'>
 

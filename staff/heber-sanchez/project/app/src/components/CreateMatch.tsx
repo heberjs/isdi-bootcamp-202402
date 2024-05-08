@@ -2,10 +2,13 @@
 import { logger } from '../utils'
 import logic from '../logic'
 import { useEffect, useState } from 'react'
+import { useContext } from '../context.ts'
 
 function CreateMatch({ onCancelClick, onMatchCreated }) {
     const [fields, setFields] = useState([])
     const [selectedField, setSelectedField] = useState([])
+
+    const { showFeedback } = useContext()
 
 
     //me traigo los fields, para poder usarlos en el form y los seteo para q me aparezcan
@@ -14,9 +17,9 @@ function CreateMatch({ onCancelClick, onMatchCreated }) {
 
             logic.retrieveFields()
                 .then(fields => setFields(fields))
-                .catch(error => console.error(error))
+                .catch(error => showFeedBack(error, 'error'))
         } catch (error) {
-            alert(error)
+            showFeedback(error, 'error')
         }
 
     }, [])
@@ -32,7 +35,7 @@ function CreateMatch({ onCancelClick, onMatchCreated }) {
 
         const date = form.date.value
 
-        const fieldId = selectedField ? selectedField._id : null
+        const fieldId = selectedField ? selectedField.id : null
 
 
         try {
@@ -43,15 +46,15 @@ function CreateMatch({ onCancelClick, onMatchCreated }) {
 
                     onMatchCreated()
                 })
-                .catch(error => alert(error))
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
-            alert(error)
+            showFeedback(error)
         }
     }
 
     const handleFieldChange = event => {
         const selectedFieldId = event.target.value;
-        const field = fields.find(field => field._id === selectedFieldId);
+        const field = fields.find(field => field.id === selectedFieldId);
         setSelectedField(field);
     }
 
@@ -67,8 +70,8 @@ function CreateMatch({ onCancelClick, onMatchCreated }) {
     return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 '>
 
         {/* <div className='border p-10 rounded-xl bg-[#1A2902]'> */}
-        <div className='border p-10 rounded-xl bg-[#1A2902] transition-opacity duration-500 opacity-100'>
-            <form onSubmit={handleSubmit} className='flex flex-col items-center mt-8'>
+        <div className='border p-8 rounded-xl bg-[#1A2902] transition-opacity duration-500 opacity-100'>
+            <form onSubmit={handleSubmit}>
 
                 <div className='flex flex-col mb-4'>
                     <label htmlFor="title" className='text-white font-semibold'>Title</label>
@@ -91,7 +94,7 @@ function CreateMatch({ onCancelClick, onMatchCreated }) {
                     <select id="field" className='rounded-lg px-2 py-1' onChange={handleFieldChange} value={selectedField ? selectedField._id : ''}>
                         <option value="">Select a field</option>
                         {fields.map(field => (
-                            <option key={field._id} value={field._id}>{field.name} - {field.address}</option>
+                            <option key={field.id} value={field.id}>{field.name} - {field.address}</option>
                         ))}
                     </select>
 
@@ -100,8 +103,9 @@ function CreateMatch({ onCancelClick, onMatchCreated }) {
 
                 <button type='submit' className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-full mt-4'>Create Match</button>
             </form>
-            <button className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-[300px] mt-4' onClick={handleCancelClick}>Cancel</button>
+            <button className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-[320px] mt-4' onClick={handleCancelClick}>Cancel</button>
         </div>
+
     </section >
 
 

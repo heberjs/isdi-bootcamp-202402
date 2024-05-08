@@ -1,0 +1,1 @@
+curl -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjNhOTliOThjMzI2ODZmYTA4YjRjMDAiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTcxNTE2NTUzNiwiZXhwIjoxNzE1MTY5MTM2fQ.UDbM5GueXyG6oWELN2UJrN_kN3Os8F1YalfG9I-_Qdg" -d '{"name":"Sport Viladecans", "address":"Santa Marta 24, Viladecans"}'  http://localhost:8080/fields -v

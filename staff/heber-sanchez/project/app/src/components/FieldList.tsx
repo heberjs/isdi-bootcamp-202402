@@ -11,7 +11,7 @@ import { useContext } from '../context.ts'
 function FieldList({ onCreateFieldForm }) {
     logger.debug('Field List -> Render')
 
-    const { showFeedback, showConfirm } = useContext
+    const { showFeedback, showConfirm } = useContext()
 
     const [fields, setFields] = useState([])
     const [view, setView] = useState(null)
@@ -22,14 +22,16 @@ function FieldList({ onCreateFieldForm }) {
 
 
     const loadFields = () => {
+        try {
+            logic.retrieveFields()
+                .then(fields => {
+                    setFields(fields)
 
-
-        logic.retrieveFields()
-            .then(fields => {
-                setFields(fields)
-                console.log(fields)
-            })
-            .catch(error => console.log(error))
+                })
+                .catch(error => showFeedBack(error, 'error'))
+        } catch (error) {
+            showFeedback(error)
+        }
 
     }
 
@@ -53,18 +55,18 @@ function FieldList({ onCreateFieldForm }) {
         setField(field)
     }
 
-    const handleOnFieldCreated = () => {
-        clearView()
-        setStamp(Date.now)
-    }
+    // const handleOnFieldCreated = () => {
+    //     clearView()
+    //     setStamp(Date.now)
+    // }
 
-    const handleOnCanceledClicked = () => clearView()
+    // const handleOnCanceledClicked = () => clearView()
     return <>
         <section>
             <h1 className='text-white font-semibold items-start ml-8 mt-2 mb-2'>Your Fields :</h1>
             <article className='flex flex-col'>
 
-                <div className=' px-8 pt-2 flex flex-col gap-2 '>
+                <div className=' px-8 pt-2 flex flex-col gap-2'>
                     {fields.map(field => <Field key={field.id} item={field} stamp={stamp} onDeleteFieldClick={handleOnDeletedfieldClick} onEditFieldClick={handleonEditFormClick} />)}
                 </div>
 
@@ -73,7 +75,6 @@ function FieldList({ onCreateFieldForm }) {
 
         {view === 'edit-field' && < EditField field={field} onCancelFormEditClick={handleCanceledFormEdit} onFieldEdited={handleOnFieldEdited} />}
 
-        {/* {view === 'create-field' && <CreateField onFieldCreated={handleOnFieldCreated} onCancelClickField={handleOnCanceledClicked} />} */}
 
     </>
 }

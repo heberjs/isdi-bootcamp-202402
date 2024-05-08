@@ -2,11 +2,11 @@
 import { logger } from '../utils'
 import logic from '../logic/index.js'
 
-// import { useContext } from '../context.ts'
+import { useContext } from '../context.ts'
 
 
 function Register({ onUserRegistered, onLoginClick }) {
-    // const { showFeedBack } = useContext()
+    const { showFeedBack } = useContext()
 
 
     const handleSubmit = event => {
@@ -25,9 +25,9 @@ function Register({ onUserRegistered, onLoginClick }) {
 
                     onUserRegistered()
                 })
-                .catch(error => alert(error))
+                .catch(error => showFeedBack(error, 'error'))
         } catch (error) {
-            alert(error)
+            showFeedBack(error)
         }
 
     }
@@ -41,27 +41,27 @@ function Register({ onUserRegistered, onLoginClick }) {
 
     return <main className='flex flex-col justify-center items-center h-screen bg-[#1A2902]'>
 
-        <div className='flex justify-center items-center'><img className='w-[200px] absolute top-20' src="../../public/pelota-logo-fino-blanco.png" alt="" />
+        <div className='flex justify-center items-center '><img className='w-[300px] absolute top-20 animate-fade-down animate-duration-[2000ms] animate-ease-linear' src="/public/pelota-logo-fino-blanco.png" alt="" />
         </div>
 
         <form className='flex flex-col items-center mt-8' onSubmit={handleSubmit}>
             <div className='flex flex-col mb-4'>
                 <label htmlFor="fullname" className='text-white font-semibold'>Full name</label>
-                <input type="text" id="fullname" className='rounded-lg px-2 py-1' />
+                <input type="text" id="fullname" className='rounded-lg px-2 py-1' required />
             </div>
 
             <div className='flex flex-col mb-4'>
                 <label htmlFor="email" className='text-white'>E-mail</label>
-                <input type="email" id="email" className='rounded-lg px-2 py-1' />
+                <input type="email" id="email" className='rounded-lg px-2 py-1' required />
             </div>
 
             <div className='flex flex-col mb-4'>
                 <label htmlFor="password" className='text-white'>Password</label>
-                <input type="passsword" id="password" className='rounded-lg px-2 py-1' />
+                <input type="password" id="password" className='rounded-lg px-2 py-1' required />
             </div>
 
             <div className='flex mb-4'>
-                <input type="checkbox" id="terms" />
+                <input type="checkbox" id="terms" required />
                 <label htmlFor="terms" className='text-white text-xs ml-2'>Agree to the Terms and Conditions</label>
             </div>
 

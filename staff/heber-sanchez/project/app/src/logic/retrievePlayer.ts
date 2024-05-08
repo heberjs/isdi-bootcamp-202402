@@ -13,7 +13,7 @@ function retrievePlayer() {
 
     return fetch(`${import.meta.env.VITE_API_URL}/players/${userId}`, {
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`
+            'Authorization': `Bearer ${sessionStorage.token}`
         }
     })
 

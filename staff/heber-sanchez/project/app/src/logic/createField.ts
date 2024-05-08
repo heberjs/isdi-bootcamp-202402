@@ -5,15 +5,13 @@ import { validate, errors } from 'com'
 function createField(name: string, address: string) {
     validate.text(name)
     validate.text(address)
-    validate.token(sessionStorage.token)
 
     const field = { name, address }
 
     const json = JSON.stringify(field)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/fields/create`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/fields`, {
         method: 'POST',
-
         headers: {
 
             'Authorization': `Bearer ${sessionStorage.token}`,
