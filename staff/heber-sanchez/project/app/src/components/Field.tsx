@@ -33,7 +33,7 @@ function Field({ item: field, onEditFieldClick, onDeleteFieldClick }) {
     }
 
     logger.debug('Field -> render')
-    return <article className='border-black border-2 flex flex-col bg-[#AEC09A] px-2 rounded-lg max-w-screen-lg text-black font-semibold p-2'>
+    return <article className='border-black border-2 flex-grow bg-[#AEC09A] px-2 rounded-lg max-w-screen text-black font-semibold p-2'>
         <div>
             <h3><strong>Field:</strong>{field.name}</h3>
         </div>

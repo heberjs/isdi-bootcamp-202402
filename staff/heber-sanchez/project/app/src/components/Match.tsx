@@ -7,29 +7,17 @@ import { Link } from 'react-router-dom'
 
 import { useEffect, useState } from 'react'
 import { useContext } from '../context.ts'
-
-// type MatchResponse = {
-//     title: string,
-//     description: string,
-//     date: Date,
-//     field: { id: ObjectId, name: string, address: string },
-//     players: [{ id: ObjectId, fullname: string }],
-//     manager: ObjectId
-// }
-
-
-// type MatchProps = {
-//     matches: MatchResponse[],
-//     handleOnJoinClick?: (matchId: string) => void
-//     onUpdateClick?: (match: string) => void
-// }
+import getLoggedInfo from '../logic/getLoggedInfo.ts'
 
 
 
-function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick, UnJoinedMatch }: MatchProps) {
+
+function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick, UnJoinedMatch }) {
     const { showFeedback, showConfirm } = useContext()
 
     const [view, setView] = useState('close')
+    const [isPlayerJoined, setIsPlayerJoined] = useState(false)
+
 
 
 
@@ -76,6 +64,11 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
             }
         })
 
+    useEffect(() => {
+        const PlayerJoined = match.players.some(players => players.id === getLoggedInfo().userId)
+        setIsPlayerJoined(PlayerJoined)
+    }, [match])
+
 
 
 
@@ -115,7 +108,7 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
 
                     <div>
                         <h3><strong>Players:</strong></h3>
-                        <ul className='flex flex-col'>{match.players.map(player => <li key={player._id}>{player.fullname}</li>)}</ul>
+                        <ul className='flex flex-col'>{match.players.map(player => <li key={player.id}>{player.fullname}</li>)}</ul>
                     </div>
 
                     {logic.getLoggedInfo().role === 'manager' ?
@@ -124,13 +117,10 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
 
                             <button className='mt-2 flex items-center' onClick={() => handleDeleteClick(match.id)}><img src="/public/delete-icon.png" alt="delete icon" className='w-6 h-6' /><p className='p-1'><strong>Delete</strong></p></button>
                         </> :
-                        logic.getLoggedInfo().role === 'player' ?
-                            <>
-                                <button className='mt-2 flex items-center' onClick={() => handleJoinClick(match.id)}><img src="/public/join.png" alt="join icon" className='w-6 h-6' /><p className='p-1'><strong>Join me</strong></p></button>
+                        (logic.getLoggedInfo().role === 'player' && !isPlayerJoined) ?
 
-                                <button className='mt-2 flex items-center' onClick={() => handleUnJoinClick(match.id)}><img src="/public/unJoin-icon.png" alt="Unjoin icon" className='w-6 h-6' /><p className='p-1'><strong>Leave</strong></p></button>
-                            </>
-                            : <Navigate to="/login" />}
+                            <button className='mt-2 flex items-center' onClick={() => handleJoinClick(match.id)}><img src="/public/join.png" alt="join icon" className='w-6 h-6' /><p className='p-1'><strong>Join me</strong></p></button> :
+                            <button className='mt-2 flex items-center' onClick={() => handleUnJoinClick(match.id)}><img src="/public/unJoin-icon.png" alt="Unjoin icon" className='w-6 h-6' /><p className='p-1'><strong>Leave</strong></p></button>}
 
 
                 </div>

@@ -4,21 +4,7 @@ import { logger } from '../utils'
 // import { useState, useEffect } from 'react'
 import Match from './Match'
 
-// type MatchResponse = {
-//     _id: string,
-//     title: string,
-//     description: string,
-//     date: Date,
-//     field: { id: ObjectId, name: string, address: string },
-//     players: [{ id: ObjectId, fullname: string }],
-//     manager: ObjectId
-// }
 
-
-// type MatchedListProps = {
-//     matches: MatchResponse[],
-//     joinOnClick?: (matchId: string) => void
-// }
 
 function MatchesList({ matches, onEditMatchFormClick, onDeleteMatchClick, onJoinedClick, onUnJoinedClick }) {
     logger.debug('MatchesList -> render')

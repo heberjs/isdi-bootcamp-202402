@@ -7,7 +7,6 @@ import { useContext } from '../context.ts'
 
 function Profile() {
     const [matches, setMatches] = useState([])
-    const [stamp, setStamp] = useState([])
     const [view, setView] = useState(null)
 
     const { showFeedback } = useContext()
@@ -29,17 +28,17 @@ function Profile() {
 
     useEffect(() => {
         loadMatches()
-    }, [stamp])
+    }, [])
 
     const handleOnJoinedClick = () => {
 
         clearView()
-        setStamp(Date.now())
+        loadMatches()
     }
 
     const handleOnUnJoinedClick = () => {
         clearView()
-        setStamp(Date.now())
+        loadMatches()
     }
 
     return <>
@@ -47,7 +46,7 @@ function Profile() {
 
             <h1 className='text-white text-3xl font-bold p-4'>Your matches:</h1>
 
-            <MatchesList matches={matches} stamp={stamp} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />
+            <MatchesList matches={matches} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />
         </section>
     </>
 }

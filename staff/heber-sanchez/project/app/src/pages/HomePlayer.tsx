@@ -40,17 +40,17 @@ function HomePlayer() {
 
     useEffect(() => {
         loadMatches()
-    }, [stamp])
+    }, [])
 
     const handleOnJoinedClick = () => {
 
         clearView()
-        setStamp(Date.now())
+        loadMatches()
     }
 
     const handleOnUnJoinedClick = () => {
         clearView()
-        setStamp(Date.now())
+        loadMatches()
     }
 
     return <>
@@ -58,7 +58,7 @@ function HomePlayer() {
 
         <main className='flex flex-col h-screen bg-[#1A2902]'>
             <Routes>
-                <Route path="/" element={<MatchesList matches={matches} stamp={stamp} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />} />
+                <Route path="/" element={<MatchesList matches={matches} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />} />
                 <Route path="/profile" element={<Profile />} />
             </Routes>
 

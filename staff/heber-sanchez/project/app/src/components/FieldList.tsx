@@ -55,16 +55,11 @@ function FieldList({ stamp, onCreateFieldForm }) {
         setField(field)
     }
 
-    // const handleOnFieldCreated = () => {
-    //     clearView()
-    //     setStamp(Date.now)
-    // }
 
-    // const handleOnCanceledClicked = () => clearView()
     return <>
-        <section>
+        <section className='flex flex-col h-screen'>
             <h1 className='text-white font-semibold items-start ml-8 mt-2 mb-2'>Your Fields :</h1>
-            <article className='flex flex-col'>
+            <article className='flex-grow'>
 
                 <div className=' px-8 pt-2 flex flex-col gap-2'>
                     {fields.map(field => <Field key={field.id} item={field} stamp={stamp} onDeleteFieldClick={handleOnDeletedfieldClick} onEditFieldClick={handleonEditFormClick} />)}
