@@ -41,7 +41,10 @@ function retrieveManagerMatches(userId: string): Promise<any> {
                             name: field.name,
                             address: field.address
                         },
-                        players,
+                        players: players.map(player => ({
+                            id: player._id.toString(),
+                            fullname: player.fullname
+                        })),
                         manager
                     }))
                 )
