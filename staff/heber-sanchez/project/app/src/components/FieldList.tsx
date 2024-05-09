@@ -8,7 +8,7 @@ import { useContext } from '../context.ts'
 
 
 
-function FieldList({ onCreateFieldForm }) {
+function FieldList({ stamp, onCreateFieldForm }) {
     logger.debug('Field List -> Render')
 
     const { showFeedback, showConfirm } = useContext()
@@ -16,7 +16,7 @@ function FieldList({ onCreateFieldForm }) {
     const [fields, setFields] = useState([])
     const [view, setView] = useState(null)
     const [field, setField] = useState([])
-    const [stamp, setStamp] = useState(null)
+
 
     const clearView = () => setView(null)
 

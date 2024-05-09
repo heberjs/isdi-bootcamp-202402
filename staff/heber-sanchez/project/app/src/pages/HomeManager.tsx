@@ -48,28 +48,28 @@ function HomeManager() {
 
     useEffect(() => {
         loadMatches()
-    }, [stamp])
+    }, [])
 
 
 
-    const handleOnMatchCreated = () => {
+    const handleMatchCreated = () => {
         clearView()
-        setStamp(Date.now)
+        loadMatches()
     }
 
 
 
-    const handleOnClickedCreateForm = () => setView(`create-match`)
+    const handleClickedCreateForm = () => setView(`create-match`)
 
-    const handleOnCancelClicked = () => setView(null)
+    const handleCancelClicked = () => setView(null)
 
     const handleEditMatchFormClick = match => {
         setView('edit-match')
         setMatch(match)
     }
-    const handleOnMatchEdited = () => {
+    const handleMatchEdited = () => {
         clearView()
-        setStamp(Date.now())
+        loadMatches()
         setMatch(null)
     }
 
@@ -77,7 +77,11 @@ function HomeManager() {
 
     const handleCreateFieldCancelled = () => clearView()
 
-    const handleCreateFieldAccepted = () => clearView()
+    const handleCreateFieldAccepted = () => {
+
+        setStamp(Date.now())
+        clearView()
+    }
 
 
     logger.debug('Home/Manager -> render')
@@ -96,18 +100,18 @@ function HomeManager() {
             </Routes>
 
 
-            {view === 'create-match' && <CreateMatch onMatchCreated={handleOnMatchCreated} onCancelClick={handleOnCancelClicked} />}
+            {view === 'create-match' && <CreateMatch onMatchCreated={handleMatchCreated} onCancelClick={handleCancelClicked} />}
 
             {view === 'create-field' && <CreateField onFieldCreated={handleCreateFieldAccepted} onCancelClickField={handleCreateFieldCancelled} />}
             {/* onFieldCreated={handleOnFieldCreated} onCancelClickField={handleOnCanceledClicked} */}
 
-            {view === 'edit-match' && < EditMatch match={match} onMatchEdited={handleOnMatchEdited} onCancelEditClick={handleOnCancelClicked} />}
+            {view === 'edit-match' && < EditMatch match={match} onMatchEdited={handleMatchEdited} onCancelEditClick={handleCancelClicked} />}
 
 
 
         </main >
 
-        <FooterNav onCreateFormClick={handleOnClickedCreateForm} onCreateFieldForm={() => setView('create-field')} />
+        <FooterNav onCreateFormClick={handleClickedCreateForm} onCreateFieldForm={() => setView('create-field')} />
     </>
 }
 export default HomeManager
