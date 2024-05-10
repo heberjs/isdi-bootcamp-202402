@@ -18,7 +18,7 @@ function MatchesList({ matches, onEditMatchFormClick, onDeleteMatchClick, onJoin
     const handleUnJoinedMatch = match => onUnJoinedClick(match)
 
     return <>
-        <section className='flex-grow'>
+        <section className='pt-[90px] pb-[140px] max-w-screen-lg  flex-grow'>
 
             <div className=' px-8 pt-2 flex flex-col gap-2 '>
                 {matches.map(match => <Match key={match.id} item={match} onJoinClick={handleOnJoinClick} onEditMatchClick={handleEditMatchClick} onDeleteMatchClick={handleOnDeleteClick} UnJoinedMatch={handleUnJoinedMatch} />)}

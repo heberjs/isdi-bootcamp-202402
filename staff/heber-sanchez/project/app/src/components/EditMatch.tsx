@@ -3,6 +3,7 @@ import { logger } from '../utils'
 import logic from '../logic'
 import { useState } from 'react'
 import { useContext } from '../context.ts'
+import moment from 'moment'
 
 function EditMatch({ match, onMatchEdited, onCancelEditClick }) {
 
@@ -38,7 +39,8 @@ function EditMatch({ match, onMatchEdited, onCancelEditClick }) {
     const handleCancelClick = () => onCancelEditClick()
 
     const currentDate = new Date()
-    const minDate = currentDate.toISOString().slice(0, 16)
+    const minDate = currentDate.toLocaleDateString('es-ES').slice(0, 16)
+
 
     logger.debug('Edit-Match Form -> Render')
 
@@ -58,7 +60,7 @@ function EditMatch({ match, onMatchEdited, onCancelEditClick }) {
 
                 <div className='flex flex-col mb-4'>
                     <label htmlFor="date" className='text-white'>Date time</label>
-                    <input type="datetime-local" defaultValue={match.date ? new Date(match.date).toISOString().slice(0, 16) : ''} id="date" min="2024-04-30T00:00" min={minDate} max="2024-12-31T23:59" className='rounded-lg px-2 py-1' />
+                    <input type="datetime-local" defaultValue={match.date ? moment(match.date).format('YYYY-MM-DDTHH:mm') : ''} id="date" min={minDate} max="2024-12-31T23:59" className='rounded-lg px-2 py-1' />
                 </div>
 
                 <button type='submit' className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-full mt-4'>Save</button>

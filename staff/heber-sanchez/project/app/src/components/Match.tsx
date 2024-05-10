@@ -4,7 +4,7 @@ import { logger } from '../utils'
 import logic from '../logic'
 
 import { Link } from 'react-router-dom'
-
+import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { useContext } from '../context.ts'
 import getLoggedInfo from '../logic/getLoggedInfo.ts'
@@ -87,13 +87,14 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
                 </div>
 
                 <div>
-                    <p><strong>Date: </strong>{new Date(match.date).toLocaleString(navigator.language, {
+                    {/* <p><strong>Date: </strong>{new Date(match.date).toLocaleString(navigator.language, {
                         year: 'numeric',
                         month: 'numeric',
                         day: 'numeric',
                         hour: 'numeric',
                         minute: 'numeric'
-                    }).replace(',', '')}</p>
+                    }).replace(',', '')}</p> */}
+                    <p><strong>Date: </strong>{moment(match.date).format('h:mm a, MMMM Do')}</p>
                 </div>
 
                 {view === 'close' && <button onClick={() => setView('open')} className='flex justify-center'> <img src="/public/info-icon.png" alt="info icon" className='w-8 h-8' /> </button>

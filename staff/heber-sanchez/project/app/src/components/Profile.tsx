@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import MatchesList from './MatchesList'
 import { useContext } from '../context.ts'
 
-function Profile() {
+function Profile({ setStamp }) {
     const [matches, setMatches] = useState([])
     const [view, setView] = useState(null)
 
@@ -39,6 +39,7 @@ function Profile() {
     const handleOnUnJoinedClick = () => {
         clearView()
         loadMatches()
+        setStamp(Date.now())
     }
 
     return <>
