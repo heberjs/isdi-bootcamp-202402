@@ -5,7 +5,7 @@ import { UserType, User, UserRole } from '../data/index.ts'
 const { SystemError, DuplicityError } = errors
 
 function registerManager(fullname: string, email: string, password: string): Promise<void> {
-    validate.text(fullname, 'name')
+    validate.text(fullname, 'fullname')
     validate.email(email)
     validate.password(password)
 

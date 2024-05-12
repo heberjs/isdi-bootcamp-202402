@@ -15,8 +15,7 @@ function Header({ onUserLoggedOut }) {
         try {
             if (logic.getLoggedInfo().role === 'player') {
 
-                logic.retrievePlayer()
-
+                logic.retrieveOwnPlayer()
                     .then(setUser)
                     .catch(error => showFeedback(error))
 

@@ -37,10 +37,10 @@ describe('Retrieve Fields', () => {
                 ])
 
                     .then(([field1, field2, field3]) => {
-                        debugger
+
                         logic.retrieveFields(user1.id)
                             .then(fields => {
-                                console.log(fields)
+
                                 expect(fields).to.have.lengthOf(2)
                                 // expect(field1.name).to.equal('Futbol 5')
                                 // expect(field1.address).to.equal('santa marta N°15')

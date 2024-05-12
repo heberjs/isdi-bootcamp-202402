@@ -9,8 +9,8 @@ const { DuplicityError, NotFoundError, SystemError, AuthError } = errors
 function createMatch(managerId: string, fieldId: string, title: string, description: string, date: string): Promise<void> {
     validate.text(managerId, 'managerId', true)
     validate.text(fieldId, 'fieldId', true)
-    validate.text(title)
-    validate.text(description)
+    validate.text(title, 'title')
+    validate.text(description, 'description')
 
     return User.findById(managerId)
         .catch(error => { throw new SystemError(error.message) })

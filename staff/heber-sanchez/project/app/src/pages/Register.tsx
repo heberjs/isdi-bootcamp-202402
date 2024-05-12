@@ -1,12 +1,14 @@
 //@ts-nocheck
-import { logger } from '../utils'
+import { logger } from '../utils/index.ts'
 import logic from '../logic/index.js'
 
 import { useContext } from '../context.ts'
 
 
 function Register({ onUserRegistered, onLoginClick }) {
-    const { showFeedBack } = useContext()
+
+    logger.debug('Register')
+    const { showFeedback } = useContext()
 
 
     const handleSubmit = event => {
@@ -25,9 +27,9 @@ function Register({ onUserRegistered, onLoginClick }) {
 
                     onUserRegistered()
                 })
-                .catch(error => showFeedBack(error, 'error'))
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
-            showFeedBack(error)
+            showFeedback(error)
         }
 
     }

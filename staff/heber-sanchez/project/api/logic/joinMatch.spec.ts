@@ -45,7 +45,7 @@ describe('Join a Match', () => {
                                                 .then(() => Match.findOne({ title: 'Futbol 5' }))
                                                 .then(updatedMatch => {
 
-                                                    console.log('updated', updatedMatch);
+
 
                                                     expect(!!updatedMatch).to.be.true
                                                 })

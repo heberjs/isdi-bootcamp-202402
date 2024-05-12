@@ -15,6 +15,7 @@ import removeField from './removeField.ts'
 import editMatch from './editMatch.ts'
 import editField from './editField.ts'
 import unJoinMatch from './unJoinMatch.ts'
+import retrieveOwnPlayer from './retrieveOwnPlayer.ts'
 
 
 const logic = {
@@ -22,6 +23,7 @@ const logic = {
     registerManager,
     authenticateUser,
     retrievePlayer,
+    retrieveOwnPlayer,
     retrieveManager,
     createField,
     createMatch,

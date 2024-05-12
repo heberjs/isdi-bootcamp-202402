@@ -30,11 +30,9 @@ describe('Remove field', () => {
 
                         .then(() => Field.findOne({ name: 'Futbol 5' }))
                         .then(field => {
-                            debugger
+
                             return logic.removeField(user.id, field.id)
                                 .then(field => {
-                                    console.log(field.id)
-
 
                                 })
 

@@ -8,8 +8,8 @@ const { SystemError, DuplicityError, NotFoundError } = errors
 
 function createField(managerId: string, name: string, address: string): Promise<void> {
     validate.text(managerId, 'managerId', true)
-    validate.text(name)
-    validate.text(address)
+    validate.text(name, 'name')
+    validate.text(address, 'address')
 
     return Field.findOne({ $or: [{ name }] })
         .catch(error => { throw new SystemError(error.message) })

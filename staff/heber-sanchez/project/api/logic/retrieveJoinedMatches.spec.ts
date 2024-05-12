@@ -54,11 +54,9 @@ describe('Retrieves owned Matches', () => {
 
                                 logic.retrieveJoinedMatches(userp4.id)
                                     .then(matches => {
-                                        console.log(userp4)
-                                        console.log(matches)
+
                                         expect(!!match2).to.be.true
                                     })
-
 
                             )
 

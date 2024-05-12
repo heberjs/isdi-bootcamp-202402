@@ -36,9 +36,7 @@ describe('Edit Match', () => {
                                         .then(() => Match.findById({ _id: match.id }))
                                         .then(updatedMatch => {
 
-                                            console.log('updated', updatedMatch)
-
-                                            expect(updatedMatch.title).to.equal('Futbol 11')
+                                            expect(updatedMatch.title).to.equal('Futbol 5')
                                         })
                                 })
                         )

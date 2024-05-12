@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 
-import { User } from '../data/index.ts'
+import { User, Field, Match } from '../data/index.ts'
 
 import logic from './index.ts'
 import { expect } from 'chai'
@@ -45,6 +45,35 @@ describe('authenticateUser', () => {
                 expect(error.message).to.equal('user not found')
             })
     )
+    it('fails on existing user and incorrect email', () =>
+        Promise.all([
+            User.deleteMany({}),
+            Field.deleteMany({}),
+            Match.deleteMany({})
+        ])
+            .then(() => User.create({ fullname: 'Pepe tio', email: 'pepe@tio.com', password: '123qwe123', role: 'player', status: 0 }))
+
+            .then(() => logic.authenticateUser('pep@tio.com', '123qwe123qwe'))
+            .catch(error => {
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('user not found')
+            })
+    )
+    it('fails on non-existing user an correct inputs', () =>
+        Promise.all([
+            User.deleteMany({}),
+            Field.deleteMany({}),
+            Match.deleteMany({})
+        ])
+            .then(() => User.create({ fullname: 'Pepe tio', email: 'pepe@tio.com', password: '123qwe123', role: 'player', status: 0 }))
+
+            .then(() => logic.authenticateUser('juan@delasota.com', '123qwe123'))
+            .catch(error => {
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('user not found')
+            })
+    )
+
 
     after(() => mongoose.disconnect())
 })

@@ -65,6 +65,7 @@ function HomePlayer() {
         </main >
 
         <FooterNav />
+
     </>
 }
 

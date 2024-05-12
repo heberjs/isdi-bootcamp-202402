@@ -43,7 +43,7 @@ function Profile({ setStamp }) {
     }
 
     return <>
-        <section className='px-8 pt-2 flex flex-col gap-2'>
+        <section className='px-8 pt-2 flex flex-col gap-2 h-full'>
 
             <h1 className='text-white text-3xl font-bold p-4'>Your matches:</h1>
 

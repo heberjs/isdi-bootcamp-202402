@@ -35,12 +35,11 @@ describe('Unjoin a Match', () => {
 
                                     Match.create({ manager: manager.id, field: field.id, title: 'Futbol 5', description: '5 vs 5, outdoor', date: '2024-06-07T19:00:00', players: [user1._id, user2._id] })
                                         .then(match => {
-                                            console.log(match)
                                             return logic.unJoinMatch(user2.id, match.id)
                                                 .then(() => Match.findOne({ title: 'Futbol 5' }))
                                                 .then(updatedMatch => {
                                                     expect(!!updatedMatch).to.be.true
-                                                    console.log('updated', updatedMatch);
+
 
                                                 })
                                         })

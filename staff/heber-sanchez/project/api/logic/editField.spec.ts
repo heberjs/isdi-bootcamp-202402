@@ -27,14 +27,13 @@ describe('Edit Field', () => {
                 .then(manager =>
                     Field.create({ manager: manager.id, name: 'Futbol 5', address: 'santa marta N°15' })
                         .then(field => {
-                            debugger
+
                             return logic.editField(manager.id, field.id, 'Campo Gava', 'riviera maya 5')
 
                                 .then(() => Field.findById({ _id: field.id }))
 
                                 .then(updatedField => {
 
-                                    console.log('updated', updatedField)
 
                                     expect(updatedField.name).to.equal('Campo Gava')
                                 })

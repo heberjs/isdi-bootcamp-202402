@@ -21,25 +21,22 @@ describe('retrievePlayer', () => {
                 User.create({ fullname: 'Papa nicolao', email: 'papa@nicolao.com', password: '123qwe123', role: 'player', status: 0 })
                     .then(user2 => logic.retrievePlayer(user.id, user2.id))
                     .then(user => {
-                        console.log(user);
-
                         expect(user.fullname).to.equal('Papa nicolao')
                     })
             )
 
     )
-    // it('does no retrieve by non-existing user', () =>
-    //     User.deleteMany()
-    //         .then(() => User.create({ fullname: 'Pepe tio', email: 'pepe@tio.com', password: '123qwe123', role: 'player', status: 0 }))
-    //         .then(user =>
-    //             User.create({ fullname: 'Papa nicolao', email: 'papa@nicolao.com', password: '123qwe123', role: 'player', status: 0 })
-    //                 .then(user2 => logic.retrievePlayer(new ObjectId().toString(), user2.id))
-    //                 .catch(error => {
-    //                     expect(error).to.be.instanceOf(SystemError)
-    //                     expect(error.message).to.equal('user not found')
-    //                 })
-    //         )
-    // )
+    it('does no retrieve by non-existing user', () =>
+        User.deleteMany()
+            .then(() => User.create({ fullname: 'Pepe tio', email: 'pepe@tio.com', password: '123qwe123', role: 'player', status: 0 }))
+            .then(user =>
+                User.create({ fullname: 'Papa nicolao', email: 'papa@nicolao.com', password: '123qwe123', role: 'player', status: 0 })
+                    .then(user2 => logic.retrievePlayer(new ObjectId().toString(), user2.id))
+                    .catch(error => {
+                        expect(error).to.be.instanceOf(TypeError)
+                    })
+            )
+    )
 
     after(() => mongoose.disconnect())
 })

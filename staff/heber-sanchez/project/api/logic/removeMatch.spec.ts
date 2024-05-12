@@ -31,7 +31,7 @@ describe('Remove match', () => {
 
                                 .then(() => Match.findOne({ title: 'Futbol 5' }))
                                 .then(match => {
-                                    debugger
+
                                     return logic.removeMatch(user.id, match.id)
                                         .then(match1 => {
 

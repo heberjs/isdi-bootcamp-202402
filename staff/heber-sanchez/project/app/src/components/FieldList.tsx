@@ -57,7 +57,7 @@ function FieldList({ stamp, onCreateFieldForm }) {
 
 
     return <>
-        <section className='flex flex-col h-screen'>
+        <section className='flex flex-col h-full'>
             <h1 className='text-white font-semibold items-start ml-8 mt-2 mb-2'>Your Fields :</h1>
             <article className='flex-grow'>
 

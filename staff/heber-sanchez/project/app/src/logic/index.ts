@@ -18,6 +18,7 @@ import editMatch from './editMatch'
 import editField from './editField'
 import removeField from './removeField'
 import unJoinMatch from './unJoinMatch'
+import retrieveOwnPlayer from './retrieveOwnPlayer'
 
 
 
@@ -42,7 +43,8 @@ const logic = {
     editMatch,
     editField,
     removeField,
-    unJoinMatch
+    unJoinMatch,
+    retrieveOwnPlayer
 }
 
 export default logic

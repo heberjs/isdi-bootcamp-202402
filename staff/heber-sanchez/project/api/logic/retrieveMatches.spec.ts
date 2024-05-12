@@ -50,9 +50,8 @@ describe('Retrieve Matches', () => {
                                 User.create({ fullname: 'juador player', email: 'juegador@player.com', password: '123qwe123', role: 'player', status: '0' })
                                     .then(user => logic.retrieveMatches(user.id))
                                     .then(matches => {
-                                        console.log(matches)
                                         expect(matches).to.be.lengthOf(3)
-                                        expect(match1.title).to.equal('Sport gva')
+                                        expect(match1.title).to.equal('Sport gava')
                                         expect(match1.description).to.equal('5 vs 5, arquero rotativo')
                                         expect(match1.date).to.instanceOf(Date)
 
@@ -67,7 +66,6 @@ describe('Retrieve Matches', () => {
                             )
 
                     )
-
             )
     )
     after(() => mongoose.disconnect())
