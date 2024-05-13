@@ -76,7 +76,7 @@ type FieldType = {
     manager: ObjectId,
     name: string,
     address: string,
-    // location: PointType
+    location: PointType
 }
 
 const field = new Schema<FieldType>({
@@ -94,11 +94,11 @@ const field = new Schema<FieldType>({
     address: {
         type: String,
         required: true
+    },
+    location: {
+        type: point,
+        required: true
     }
-    /* location: {
-         type: point,
-         required: true
-     }*/
 })
 
 

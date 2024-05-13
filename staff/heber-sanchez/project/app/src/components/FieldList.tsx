@@ -8,7 +8,7 @@ import { useContext } from '../context.ts'
 
 
 
-function FieldList({ stamp, onCreateFieldForm }) {
+function FieldList({ onCreateFieldForm, onFieldEdited }) {
     logger.debug('Field List -> Render')
 
     const { showFeedback, showConfirm } = useContext()
@@ -16,6 +16,7 @@ function FieldList({ stamp, onCreateFieldForm }) {
     const [fields, setFields] = useState([])
     const [view, setView] = useState(null)
     const [field, setField] = useState([])
+    const [stamp, setStamp] = useState(null)
 
 
     const clearView = () => setView(null)
@@ -53,6 +54,7 @@ function FieldList({ stamp, onCreateFieldForm }) {
         clearView()
         setStamp(Date.now())
         setField(field)
+        onFieldEdited()
     }
 
 

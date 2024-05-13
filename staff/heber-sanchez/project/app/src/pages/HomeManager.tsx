@@ -48,7 +48,7 @@ function HomeManager() {
 
     useEffect(() => {
         loadMatches()
-    }, [])
+    }, [stamp])
 
 
 
@@ -83,6 +83,10 @@ function HomeManager() {
         clearView()
     }
 
+    const handleFieldEdited = () => {
+        setStamp(Date.now())
+    }
+
 
     logger.debug('Home/Manager -> render')
     return <>
@@ -95,7 +99,7 @@ function HomeManager() {
 
                 <Route path="/*" element={<MatchesList matches={matches} stamp={stamp} onEditMatchFormClick={handleEditMatchFormClick} onDeleteMatchClick={handleOnDeleteMatchClick} />} />
 
-                <Route path="/fields" element={<FieldList stamp={stamp} />} />
+                <Route path="/fields" element={<FieldList stamp={stamp} onFieldEdited={handleFieldEdited} />} />
 
             </Routes>
 
@@ -103,7 +107,7 @@ function HomeManager() {
             {view === 'create-match' && <CreateMatch onMatchCreated={handleMatchCreated} onCancelClick={handleCancelClicked} />}
 
             {view === 'create-field' && <CreateField onFieldCreated={handleCreateFieldAccepted} onCancelClickField={handleCreateFieldCancelled} />}
-            {/* onFieldCreated={handleOnFieldCreated} onCancelClickField={handleOnCanceledClicked} */}
+
 
             {view === 'edit-match' && < EditMatch match={match} onMatchEdited={handleMatchEdited} onCancelEditClick={handleCancelClicked} />}
 
