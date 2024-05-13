@@ -35,10 +35,10 @@ function Field({ item: field, onEditFieldClick, onDeleteFieldClick }) {
     logger.debug('Field -> render')
     return <article className='border-black border-2 flex-grow bg-[#AEC09A] px-2 rounded-lg max-w-screen text-black font-semibold p-2'>
         <div>
-            <h3><strong>Field:</strong>{field.name}</h3>
+            <h3><strong>Field: </strong>{field.name}</h3>
         </div>
         <div>
-            <p><strong>Address:</strong> {field.address}</p>
+            <p><strong>Address: </strong>{field.address}</p>
         </div>
         <div className='flex'>
             <button className='mt-2 flex items-center' onClick={() => handleEditFieldClick(field)}><img src="/public/update-icon.png" alt="update icon" className='w-6 h-6' /><p className='p-1'><strong>Update</strong></p></button>

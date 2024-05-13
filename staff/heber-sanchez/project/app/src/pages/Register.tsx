@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { logger } from '../utils/index.ts'
-import logic from '../logic/index.js'
+import logic from '../logic'
 
 import { useContext } from '../context.ts'
 

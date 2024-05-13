@@ -42,14 +42,12 @@ function Profile({ setStamp }) {
         setStamp(Date.now())
     }
 
-    return <>
-        <section className='px-8 pt-2 flex flex-col gap-2 h-full'>
+    return <section className='px-8 pt-2 flex flex-col gap-2 min-h-screen max-h-full'>
 
-            <h1 className='text-white text-3xl font-bold p-4'>Your matches:</h1>
 
-            <MatchesList matches={matches} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />
-        </section>
-    </>
+        <MatchesList matches={matches} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />
+    </section>
+
 }
 
 export default Profile

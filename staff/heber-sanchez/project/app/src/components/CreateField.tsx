@@ -38,8 +38,8 @@ function CreateField({ onCancelClickField, onFieldCreated }) {
 
     logger.debug('Create-field -> Render')
 
-    return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 '>
-        <div className='border p-8 rounded-xl bg-[#1A2902] transition-opacity duration-500 opacity-100'>
+    return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-70 '>
+        <div className='border p-8 rounded-xl bg-[#1A2902] animate-jump-in animate-once'>
             <form onSubmit={handleSubmit} className='flex flex-col items-center'>
 
                 <div className='flex flex-col mb-4'>
@@ -54,7 +54,7 @@ function CreateField({ onCancelClickField, onFieldCreated }) {
 
                 <button type='submit' className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-full mt-4'>Create Field</button>
             </form>
-            <button className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-full mt-4' onClick={handleCancelClick}>Cancel</button>
+            <button className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-[200px] mt-4 animate-jump-in animate-once' onClick={handleCancelClick}>Cancel</button>
         </div>
     </section>
 

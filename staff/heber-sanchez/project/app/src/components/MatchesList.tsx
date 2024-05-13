@@ -17,15 +17,14 @@ function MatchesList({ matches, onEditMatchFormClick, onDeleteMatchClick, onJoin
 
     const handleUnJoinedMatch = match => onUnJoinedClick(match)
 
-    return <>
-        <section className='pt-[90px] pb-[140px] max-w-screen-lg  flex-grow'>
+    return <section className='pt-[90px] pb-[140px] h-full  flex-grow'>
 
-            <div className=' px-8 pt-2 flex flex-col gap-2 '>
-                {matches.map(match => <Match key={match.id} item={match} onJoinClick={handleOnJoinClick} onEditMatchClick={handleEditMatchClick} onDeleteMatchClick={handleOnDeleteClick} UnJoinedMatch={handleUnJoinedMatch} />)}
-            </div>
+        <div className=' px-8 pt-2 flex flex-col gap-2'>
+            {matches.map(match => <Match key={match.id} item={match} onJoinClick={handleOnJoinClick} onEditMatchClick={handleEditMatchClick} onDeleteMatchClick={handleOnDeleteClick} UnJoinedMatch={handleUnJoinedMatch} />)}
+        </div>
 
-        </section>
-    </>
+    </section>
+
 }
 
 export default MatchesList

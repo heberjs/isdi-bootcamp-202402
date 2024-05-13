@@ -108,7 +108,7 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
                     </div>
 
                     <div>
-                        <h3><strong>Players:</strong></h3>
+                        <h3><strong>Players: </strong></h3>
                         <ul className='flex flex-col'>{match.players.map(player => <li key={player.id}>{player.fullname}</li>)}</ul>
                     </div>
 

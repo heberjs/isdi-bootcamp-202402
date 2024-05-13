@@ -89,7 +89,7 @@ function HomeManager() {
         <Header onUserLoggedOut={handleLoggedOut} />
 
 
-        <main className='flex flex-col h-full bg-[#1A2902]'>
+        <main className='flex flex-col min-h-screen max-h-full bg-[#1A2902]'>
 
             <Routes>
 

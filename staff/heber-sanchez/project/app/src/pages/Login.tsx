@@ -39,18 +39,18 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
     logger.debug('Login -> render')
     return <main className='flex flex-col justify-center items-center h-screen bg-[#1A2902]'>
 
-        <div className='flex justify-center items-center'><img className='w-[300px] absolute top-20 animate-fade-down animate-duration-[1000ms] animate-ease-linear' src="/public/pelota-logo-fino-blanco.png" alt="" /></div>
+        <div className='flex justify-center items-center'><img className='w-[300px] absolute top-20 animate-fade-down animate-duration-[1000ms] animate-ease-linear' src="/public/pelota-logo-fino-blanco.png" alt="logo futnow" /></div>
 
         <form onSubmit={handleSubmit} className='flex flex-col items-center mt-8'>
 
             <div className='flex flex-col mb-4'>
                 <label htmlFor='email' className='text-white font-semibold'>E-mail</label>
-                <input id='email' className='rounded-lg px-2 py-1' />
+                <input id='email' className='rounded-lg px-2 py-1' required />
             </div>
 
             <div className='flex flex-col mb-4'>
                 <label htmlFor="password" className='text-white font-semibold'>Password</label>
-                <input type="password" id='password' className='rounded-lg px-2 py-1' />
+                <input type="password" id='password' className='rounded-lg px-2 py-1' required />
 
                 <a href="" className='text-white text-xs mt-2'>Forgot password?</a>
 

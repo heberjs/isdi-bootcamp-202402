@@ -38,8 +38,8 @@ function EditField({ field, onCancelFormEditClick, onFieldEdited }) {
     }
 
     // return <section className='flex flex-col justify-center items-center h-screen bg-[#1A2902] '>
-    return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 '>
-        <div className='border p-8 rounded-xl bg-[#1A2902] transition-opacity duration-500 opacity-100'>
+    return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-70 '>
+        <div className='border p-8 rounded-xl bg-[#1A2902] animate-jump-in animate-once'>
             <form onSubmit={handleOnSubmit}>
                 <div className='flex flex-col mb-4'>
                     <label htmlFor="name" className='text-white font-semibold'>Name:</label>
