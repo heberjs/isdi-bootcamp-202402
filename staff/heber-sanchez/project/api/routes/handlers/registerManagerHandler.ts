@@ -10,12 +10,11 @@ const {
 } = errors
 
 
-//REGISTER PLAYER
 export default (req, res) => {
     try {
         const { fullname, email, password } = req.body
 
-        logic.registerPlayer(fullname, email, password)
+        logic.registerManager(fullname, email, password)
             .then(() => res.status(201).send())
             .catch(error => {
                 if (error instanceof SystemError) {

@@ -11,7 +11,7 @@ function retrieveOwnPlayer() {
 
     const { sub: userId } = payload
 
-    return fetch(`${import.meta.env.VITE_API_URL}/player`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/players`, {
         headers: {
             'Authorization': `Bearer ${sessionStorage.token}`
         }
