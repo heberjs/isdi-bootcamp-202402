@@ -13,6 +13,7 @@
 - Create events (field reservation)
 - Join events (football matches)
 - Search for football fields
+- Show matches and fields in map
 
 v.0.1
 
@@ -22,11 +23,6 @@ v.0.1
 - i can register in special url for managers (and wait for acceptance from root)
 - once accepted, i can register the field (only once)
 - As root:
-- i can login
-- i can list registered managers
-- i can accept a manager
-- i can disable a manager
-- i can delete a manager
 - i can create matches with calendar
 - i can list matches with calendar in field
 
@@ -35,8 +31,12 @@ v.0.1
 As manager
 
 - i can register in special url for manager
-- i can register the field (only once)
-- i can update field
+- i can register fields
+- i can update fields
+- i can delete fields
+- i can create matches
+- i can edit matches
+- i can delete matches
 
 As player
 
@@ -76,7 +76,6 @@ User
 - fullname(string, required)
 - email (string, required)
 - password (string, required)
-- avatar (string, optional)
 - role (string, required, enum: player|manager)
 - status(number, required,  enum: 0|1)
 
