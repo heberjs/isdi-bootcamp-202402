@@ -6,6 +6,5 @@
     ],
     "spec": [
         "logic/*.spec.*"
-        // "logic/createMatch.spec.*"
     ]
 }

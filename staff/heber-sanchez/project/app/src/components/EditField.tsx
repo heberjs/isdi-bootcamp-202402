@@ -19,11 +19,17 @@ function EditField({ field, onCancelFormEditClick, onFieldEdited }) {
 
         const address = form.address.value
 
+        const coordinates = form.location.value
+
+        const [longitude, latitude] = coordinates.split(',').map(coord => parseFloat(coord.trim()))
+
+        const location = [longitude, latitude]
+
         logger.debug('edit-field -> handlesubmit')
 
         try {
 
-            logic.editField(field.id, name, address)
+            logic.editField(field.id, name, address, location)
                 .then(() => {
                     form.reset()
 
@@ -37,7 +43,6 @@ function EditField({ field, onCancelFormEditClick, onFieldEdited }) {
 
     }
 
-    // return <section className='flex flex-col justify-center items-center h-screen bg-[#1A2902] '>
     return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-70 '>
         <div className='border p-8 rounded-xl bg-[#1A2902] animate-jump-in animate-once'>
             <form onSubmit={handleOnSubmit}>
@@ -48,6 +53,16 @@ function EditField({ field, onCancelFormEditClick, onFieldEdited }) {
                 <div className='flex flex-col mb-4'>
                     <label htmlFor="address" className='text-white font-semibold'>Address:</label>
                     <input type="text" id='address' defaultValue={field.address} className='rounded-lg px-2 py-1' />
+                </div>
+                <div className='flex flex-col mb-4'>
+                    <label htmlFor="location" className='text-white'>Location</label>
+                    <input
+                        type="text"
+                        id="location"
+                        className='rounded-lg px-2 py-1'
+                        defaultValue={`${field.location.latitude}, ${field.location.longitude}`}
+
+                    />
                 </div>
                 <button type='submit' className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-full mt-4'>Save</button>
             </form>

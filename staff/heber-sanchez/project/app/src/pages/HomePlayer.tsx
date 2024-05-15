@@ -8,6 +8,7 @@ import FooterNav from '../components/FooterNav';
 import MatchesList from '../components/MatchesList';
 import Profile from '../components/Profile';
 import { useContext } from '../context.ts';
+import retrieveMatches from '../logic/retrieveMatches.ts';
 
 
 function HomePlayer() {
@@ -30,7 +31,8 @@ function HomePlayer() {
         try {
             logic.retrieveMatches()
                 .then(matches => {
-                    setMatches(matches)
+                    const upComingMatches = matches.filter(match => new Date(match.date) > new Date())
+                    setMatches(upComingMatches)
                 })
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {

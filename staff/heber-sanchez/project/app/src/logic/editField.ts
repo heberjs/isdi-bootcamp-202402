@@ -1,6 +1,12 @@
 //@ts-nocheck
 
-function editField(fieldId: string, name: string, address: string) {
+import { validate } from "com"
+
+function editField(fieldId: string, name: string, address: string, location: [number, number]) {
+    validate.text(name, 'name')
+    validate.text(address, 'address')
+    validate.coords(location)
+
     const [, payloadB64] = sessionStorage.token.split('.')
     const payloadJSON = atob(payloadB64)
 
@@ -8,7 +14,7 @@ function editField(fieldId: string, name: string, address: string) {
 
     const { sub: userId } = payload
 
-    const field = { name, address }
+    const field = { name, address, location }
 
     const json = JSON.stringify(field)
 

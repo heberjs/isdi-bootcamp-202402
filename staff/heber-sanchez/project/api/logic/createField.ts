@@ -1,15 +1,16 @@
 
 import { validate, errors } from 'com'
-import { Field, FieldType, User, UserType } from '../data/index.ts'
+import { Field, FieldType, PointType, User, UserType } from '../data/index.ts'
 import mongoose from 'mongoose'
 const { Types: { ObjectId } } = mongoose
 const { SystemError, DuplicityError, NotFoundError } = errors
 
 
-function createField(managerId: string, name: string, address: string): Promise<void> {
+function createField(managerId: string, name: string, address: string, location: [number, number]): Promise<void> {
     validate.text(managerId, 'managerId', true)
     validate.text(name, 'name')
     validate.text(address, 'address')
+    validate.coords(location)
 
     return Field.findOne({ $or: [{ name }] })
         .catch(error => { throw new SystemError(error.message) })
@@ -21,11 +22,17 @@ function createField(managerId: string, name: string, address: string): Promise<
                 .then(manager => {
                     if (!manager) throw new NotFoundError('manager not found')
 
+                    const formattedPoint: PointType = {
+                        type: 'Point',
+                        coordinates: location
+                    }
+
 
                     const newfield = {
                         manager: new ObjectId(managerId),
                         name: name,
-                        address: address
+                        address: address,
+                        location: formattedPoint
                     }
 
                     return Field.create(newfield)

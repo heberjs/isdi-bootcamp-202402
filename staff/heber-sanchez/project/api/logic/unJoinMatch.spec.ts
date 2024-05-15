@@ -24,7 +24,12 @@ describe('Unjoin a Match', () => {
         ])
             .then(() => User.create({ fullname: 'Lola Drones', email: 'lola@drones.com', password: '123qwe123', role: 'manager', status: '1' })
                 .then(manager =>
-                    Field.create({ manager: manager.id, name: 'Futbol 5', address: 'santa marta N°15' })
+                    Field.create({
+                        manager: manager.id, name: 'Futbol 5', address: 'santa marta N°15', location: {
+                            type: 'Point',
+                            coordinates: [41.391105494415115, 2.0779961811441034]
+                        }
+                    })
                         .then(field =>
                             Promise.all([
                                 User.create({ fullname: 'Lobo Feroz', email: 'lobo@feroz.com', password: '123qwe123', role: 'player', status: 0 }),

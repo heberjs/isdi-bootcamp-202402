@@ -26,7 +26,12 @@ describe('Remove field', () => {
                 .then(user =>
 
 
-                    Field.create({ manager: user.id, name: 'Futbol 5', address: 'santa marta N°15' })
+                    Field.create({
+                        manager: user.id, name: 'Futbol 5', address: 'santa marta N°15', location: {
+                            type: 'Point',
+                            coordinates: [41.391105494415115, 2.0779961811441034]
+                        }
+                    })
 
                         .then(() => Field.findOne({ name: 'Futbol 5' }))
                         .then(field => {

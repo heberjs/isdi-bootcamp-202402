@@ -8,7 +8,7 @@ import { useContext } from '../context.ts'
 
 
 
-function FieldList({ onCreateFieldForm, onFieldEdited }) {
+function FieldList({ stamp, onCreateFieldForm, onFieldEdited }) {
     logger.debug('Field List -> Render')
 
     const { showFeedback, showConfirm } = useContext()
@@ -16,7 +16,7 @@ function FieldList({ onCreateFieldForm, onFieldEdited }) {
     const [fields, setFields] = useState([])
     const [view, setView] = useState(null)
     const [field, setField] = useState([])
-    const [stamp, setStamp] = useState(null)
+
 
 
     const clearView = () => setView(null)
@@ -29,7 +29,7 @@ function FieldList({ onCreateFieldForm, onFieldEdited }) {
                     setFields(fields)
 
                 })
-                .catch(error => showFeedBack(error, 'error'))
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
             showFeedback(error)
         }
@@ -52,14 +52,13 @@ function FieldList({ onCreateFieldForm, onFieldEdited }) {
 
     const handleOnFieldEdited = () => {
         clearView()
-        setStamp(Date.now())
         setField(field)
         onFieldEdited()
     }
 
 
     return <section className='pt-[90px] pb-[140px] min-h-screen max-h-full  flex-grow'>
-        <h1 className='text-white font-semibold items-start ml-8 mt-2 mb-2'>Your Fields :</h1>
+        <h1 className='text-white  font-semibold items-start ml-8 mt-2 mb-2 text-3xl'>Your Fields :</h1>
         <article className='flex-grow'>
 
             <div className=' px-8 pt-2 flex flex-col gap-2'>

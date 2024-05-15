@@ -12,16 +12,21 @@ function removeField(userId, fieldId) {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
             if (user.role !== 'manager') throw new AuthError('user not allowed')
-
-            return Field.findById(fieldId)
+            return Match.findOne({ field: fieldId })
                 .catch(error => { throw new SystemError(error.message) })
-                .then(field => {
-                    if (!field) throw new NotFoundError('field not found')
+                .then(match => {
+                    if (match) throw new AuthError('Cannot delete a reserved field')
 
-                    if (field.manager.toString() !== userId) throw new AuthError('user not allowed')
+                    return Field.findById(fieldId)
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then(field => {
+                            if (!field) throw new NotFoundError('field not found')
+
+                            if (field.manager.toString() !== userId) throw new AuthError('user not allowed')
 
 
-                    return Field.findByIdAndDelete(fieldId)
+                            return Field.findByIdAndDelete(fieldId)
+                        })
                 })
         })
 }

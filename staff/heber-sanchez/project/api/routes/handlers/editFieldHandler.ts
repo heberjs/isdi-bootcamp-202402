@@ -34,9 +34,9 @@ export default (req, res) => {
 
         const { fieldId } = req.params
 
-        const { name, address } = req.body
+        const { name, address, location } = req.body
 
-        logic.editField(userId as string, fieldId as string, name, address)
+        logic.editField(userId as string, fieldId as string, name, address, location)
             .then(() => res.status(200).send())
             .catch(error => {
                 if (error instanceof SystemError) {

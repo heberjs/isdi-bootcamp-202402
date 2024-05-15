@@ -67,20 +67,20 @@ function CreateMatch({ onCancelClick, onMatchCreated }) {
 
 
     logger.debug('Create-Match Form -> Render')
-    return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-70 '>
+    return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-70 p-4 md:p-8'>
 
-        {/* <div className='border p-10 rounded-xl bg-[#1A2902]'> */}
-        <div className='border p-8 rounded-xl bg-[#1A2902] animate-jump-in animate-once'>
+
+        <div className='border p-8 rounded-xl bg-[#1A2902] animate-jump-in animate-once w-full max-w-md'>
             <form onSubmit={handleSubmit}>
 
                 <div className='flex flex-col mb-4'>
                     <label htmlFor="title" className='text-white font-semibold'>Title</label>
-                    <input type="text" id="title" className='rounded-lg px-2 py-1' required />
+                    <input type="text" id="title" className='rounded-lg px-2 py-1' placeholder='Futbol 5' required />
                 </div>
 
                 <div className='flex flex-col mb-4'>
-                    <label htmlFor="description" className='text-white'>description</label>
-                    <input type="text" id="description" className='rounded-lg px-2 py-1' maxLength={120} required />
+                    <label htmlFor="description" className='text-white'>Description</label>
+                    <input type="text" id="description" className='rounded-lg px-2 py-1' maxLength={120} placeholder='About the game' required />
                 </div>
 
                 <div className='flex flex-col mb-4'>

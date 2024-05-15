@@ -29,9 +29,9 @@ export default (req, res) => {
 
         const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-        const { name, address } = req.body
+        const { name, address, location } = req.body
 
-        logic.createField(userId as string, name, address)
+        logic.createField(userId as string, name, address, location)
             .then(() => res.status(201).send())
             .catch(error => {
                 if (error instanceof SystemError) {

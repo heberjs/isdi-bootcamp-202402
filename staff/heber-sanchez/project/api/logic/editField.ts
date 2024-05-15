@@ -1,12 +1,13 @@
 import { validate, errors } from "com"
-import { User, Field } from '../data/index.ts'
+import { User, Field, Match } from '../data/index.ts'
 const { AuthError, NotFoundError, SystemError } = errors
 
-function editField(userId: string, fieldId: string, name: string, address: string) {
+function editField(userId: string, fieldId: string, name: string, address: string, location: [number, number]) {
     validate.text(userId, 'userId', true)
     validate.text(fieldId, 'fieldId', true)
     validate.text(name, 'name')
     validate.text(address, 'address')
+    validate.coords(location)
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
@@ -18,8 +19,13 @@ function editField(userId: string, fieldId: string, name: string, address: strin
             return Field.updateOne({ _id: fieldId, manager: userId }, {
                 $set: {
                     name: name,
-                    address: address
+                    address: address,
+                    location: {
+                        type: 'Point',
+                        coordinates: location
+                    }
                 }
+
             })
                 .catch(error => { throw new SystemError(error.message) })
 

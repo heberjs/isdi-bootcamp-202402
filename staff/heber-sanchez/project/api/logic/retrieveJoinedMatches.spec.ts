@@ -39,9 +39,24 @@ describe('Retrieves owned Matches', () => {
 
                     .then(([user1, user2, user3, userp1, userp2, userp3, userp4]) =>
                         Promise.all([
-                            Field.create({ manager: user1.id, name: 'Futbol 5', address: 'santa marta N°15' }),
-                            Field.create({ manager: user2.id, name: 'Futbol 6', address: 'santa marta N°16' }),
-                            Field.create({ manager: user3.id, name: 'Futbol 7', address: 'santa marta N°17' })
+                            Field.create({
+                                manager: user1.id, name: 'Futbol 5', address: 'santa marta N°15', location: {
+                                    type: 'Point',
+                                    coordinates: [41.391105494415115, 2.0779961811441034]
+                                }
+                            }),
+                            Field.create({
+                                manager: user2.id, name: 'Futbol 6', address: 'santa marta N°16', location: {
+                                    type: 'Point',
+                                    coordinates: [41.391105494415115, 2.0779961811441034]
+                                }
+                            }),
+                            Field.create({
+                                manager: user3.id, name: 'Futbol 7', address: 'santa marta N°17', location: {
+                                    type: 'Point',
+                                    coordinates: [41.391105494415115, 2.0779961811441034]
+                                }
+                            })
                         ])
                             .then(([field1, field2, field3]) => {
                                 return Promise.all([

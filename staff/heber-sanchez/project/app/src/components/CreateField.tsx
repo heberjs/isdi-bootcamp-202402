@@ -19,15 +19,21 @@ function CreateField({ onCancelClickField, onFieldCreated }) {
 
         const address = form.address.value
 
+        const coordinates = form.location.value
+
+        const [longitude, latitude] = coordinates.split(',').map(coord => parseFloat(coord.trim()))
+
+        const location = [longitude, latitude]
+
         try {
-            logic.createField(name, address)
+            logic.createField(name, address, location)
                 .then(() => {
 
                     form.reset()
 
                     onFieldCreated()
                 })
-                .catch(error => showFeedBack(error, 'error'))
+                .catch(error => showFeeback(error, 'error'))
         } catch (error) {
             showFeedback(error)
 
@@ -44,12 +50,23 @@ function CreateField({ onCancelClickField, onFieldCreated }) {
 
                 <div className='flex flex-col mb-4'>
                     <label htmlFor="name" className='text-white font-semibold'>Name</label>
-                    <input type="text" id="name" className='rounded-lg px-2 py-1' required />
+                    <input type="text" id="name" className='rounded-lg px-2 py-1' placeholder='Field name' required />
                 </div>
 
                 <div className='flex flex-col mb-4'>
                     <label htmlFor="address" className='text-white'>Address</label>
-                    <input type="text" id="address" className='rounded-lg px-2 py-1' maxLength={120} required />
+                    <input type="text" id="address" className='rounded-lg px-2 py-1' maxLength={120} placeholder='Av Barceloneta ..' required />
+                </div>
+
+                <div className='flex flex-col mb-4'>
+                    <label htmlFor="location" className='text-white'>Location</label>
+                    <input
+                        type="text"
+                        id="location"
+                        className='rounded-lg px-2 py-1'
+                        placeholder="Coordinates"
+                    />
+
                 </div>
 
                 <button type='submit' className='bg-[#AEC670] hover:bg-[#AEC09A] font-semibold py-2 px-4 rounded w-full mt-4'>Create Field</button>

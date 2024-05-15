@@ -2,11 +2,12 @@
 import { validate, errors } from 'com'
 
 
-function createField(name: string, address: string) {
+function createField(name: string, address: string, location: [number, number]) {
     validate.text(name)
     validate.text(address)
+    validate.coords(location)
 
-    const field = { name, address }
+    const field = { name, address, location }
 
     const json = JSON.stringify(field)
 

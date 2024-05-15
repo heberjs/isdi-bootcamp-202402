@@ -46,7 +46,17 @@ const validate = {
     },
     coords(coords, explain = 'coords') {
         if (!Array.isArray(coords) || coords.length !== 2 || !coords.every(coord => typeof coord === 'number')) {
-            throw new ContentError(`${explain} must be an array of two numbers`);
+            throw new ContentError(`${explain} must be two numbers`);
+        }
+
+        const [latitude, longitude] = coords;
+
+        if (latitude < -90 || latitude > 90) {
+            throw new ContentError(`${explain} latitude must be between -90 and 90`);
+        }
+
+        if (longitude < -180 || longitude > 180) {
+            throw new ContentError(`${explain} longitude must be between -180 and 180`);
         }
     }
 };

@@ -4,7 +4,7 @@ import { errors } from 'com'
 import mongoose from 'mongoose'
 import logic from './index.ts'
 import { expect, use } from 'chai'
-import { User, Field, Match } from '../data/index.ts'
+import { User, Field, Match, PointType } from '../data/index.ts'
 
 import chaiAsPromised from 'chai-as-promised'
 
@@ -29,8 +29,10 @@ describe('Create a Field', () => {
         ])
             .then(() => User.create({ fullname: 'Lola Drones', email: 'lola@drones.com', password: '123qwe123', role: 'manager', status: '1' }))
 
+
             .then(manager => {
-                return logic.createField(manager.id, 'Futbol 5', 'santa marta N°15')
+
+                return logic.createField(manager.id, 'Futbol 5', 'santa marta N°15', [41.27331892330033, 2.000524489636535])
             })
 
             .then(() => Field.findOne({}))
@@ -38,10 +40,12 @@ describe('Create a Field', () => {
             .then(field => {
 
 
+
                 expect(!!field).to.be.true
                 expect(field.manager).to.be.instanceOf(ObjectId)
                 expect(field.name).to.equal('Futbol 5')
                 expect(field.address).to.equal('santa marta N°15')
+                expect(field.location.coordinates).to.deep.equal([41.27331892330033, 2.000524489636535])
             })
     )
     it('fails on non string managerId', () =>
@@ -56,7 +60,7 @@ describe('Create a Field', () => {
 
                 try {
                     //@ts-ignore
-                    logic.createField(user._id, 'Futbol 5', 'santa marta N°15')
+                    logic.createField(user._id, 'Futbol 5', 'santa marta N°15', [41.27331892330033, 2.000524489636535])
                 } catch (error) {
                     errorThrown = error
 
@@ -79,7 +83,7 @@ describe('Create a Field', () => {
 
                 try {
                     //@ts-ignore
-                    logic.createField('', 'Futbol 5', 'santa marta N°15')
+                    logic.createField('', 'Futbol 5', 'santa marta N°15', [41.27331892330033, 2.000524489636535])
                 } catch (error) {
                     errorThrown = error
 
@@ -102,7 +106,7 @@ describe('Create a Field', () => {
 
                 try {
                     //@ts-ignore
-                    logic.createField(user.id, 123, 'santa marta N°15')
+                    logic.createField(user.id, 123, 'santa marta N°15', [41.27331892330033, 2.000524489636535])
                 } catch (error) {
                     errorThrown = error
 
@@ -125,7 +129,7 @@ describe('Create a Field', () => {
 
                 try {
                     //@ts-ignore
-                    logic.createField(user.id, '', 'santa marta N°15')
+                    logic.createField(user.id, '', 'santa marta N°15', [41.27331892330033, 2.000524489636535])
                 } catch (error) {
                     errorThrown = error
 
@@ -148,7 +152,7 @@ describe('Create a Field', () => {
 
                 try {
                     //@ts-ignore
-                    logic.createField(user.id, 'Sport Gava', 123)
+                    logic.createField(user.id, 'Sport Gava', 123, [41.27331892330033, 2.000524489636535])
                 } catch (error) {
                     errorThrown = error
 
@@ -171,7 +175,7 @@ describe('Create a Field', () => {
 
                 try {
                     //@ts-ignore
-                    logic.createField(user.id, 'Sport Gava', '')
+                    logic.createField(user.id, 'Sport Gava', '', [41.27331892330033, 2.000524489636535])
                 } catch (error) {
                     errorThrown = error
 
@@ -190,10 +194,16 @@ describe('Create a Field', () => {
         ])
             .then(() => User.create({ fullname: 'Lola Drones', email: 'lola@drones.com', password: '123qwe123', role: 'manager', status: '1' }))
             .then(user =>
-                Field.create({ manager: user.id, name: 'Sport Gava', address: 'santa marta N°15' })
+                Field.create({
+                    manager: user.id, name: 'Sport Gava', address: 'santa marta N°15', location: {
+                        type: 'Point',
+                        coordinates: [41.27331892330033, 2.000524489636535]
+                    }
+                })
                     .then(() =>
-                        logic.createField(user.id, 'Sport Gava', 'santa marta N°15'))
+                        logic.createField(user.id, 'Sport Gava', 'santa marta N°15', [41.27331892330033, 2.000524489636535]))
                     .catch(error => {
+
                         expect(error).to.be.instanceOf(DuplicityError)
                         expect(error.message).to.equal('field already exists')
 

@@ -1,6 +1,6 @@
 //@ts-nocheck
 
-import { validate } from "com"
+import { validate, errors } from "com"
 
 function removeField(fieldId) {
     validate.text(fieldId, 'fieldId', true)

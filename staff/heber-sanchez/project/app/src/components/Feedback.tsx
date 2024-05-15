@@ -21,5 +21,3 @@ function Feedback({ message, level, onAcceptClick }) {
 
 export default Feedback
 
-
-// className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-20 '

@@ -37,7 +37,8 @@ function HomeManager() {
             logic.retrieveManagerMatches()
 
                 .then(matches => {
-                    setMatches(matches)
+                    const upComingMatches = matches.filter(match => new Date(match.date) > new Date())
+                    setMatches(upComingMatches)
                 })
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {

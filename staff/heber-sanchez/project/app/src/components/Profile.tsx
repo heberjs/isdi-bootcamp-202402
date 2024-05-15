@@ -18,7 +18,8 @@ function Profile({ setStamp }) {
         try {
             logic.retrieveJoinedMatches()
                 .then(matches => {
-                    setMatches(matches)
+                    const upComingMatches = matches.filter(match => new Date(match.date) > new Date())
+                    setMatches(upComingMatches)
                 })
                 .catch(error => showFeedback(error, 'error'))
         } catch (error) {
@@ -42,12 +43,15 @@ function Profile({ setStamp }) {
         setStamp(Date.now())
     }
 
-    return <section className='px-8 pt-2 flex flex-col gap-2 min-h-screen max-h-full'>
+    return <>
+
+        <section className='px-8 pt-2 flex flex-col gap-2 min-h-screen max-h-full'>
 
 
-        <MatchesList matches={matches} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />
-    </section>
 
+            <MatchesList matches={matches} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />
+        </section>
+    </>
 }
 
 export default Profile

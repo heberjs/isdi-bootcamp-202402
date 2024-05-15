@@ -25,7 +25,12 @@ describe('Edit Match', () => {
         ])
             .then(() => User.create({ fullname: 'Lola Drones', email: 'lola@drones.com', password: '123qwe123', role: 'manager', status: '1' })
                 .then(manager =>
-                    Field.create({ manager: manager.id, name: 'Futbol 5', address: 'santa marta N°15' })
+                    Field.create({
+                        manager: manager.id, name: 'Futbol 5', address: 'santa marta N°15', location: {
+                            type: 'Point',
+                            coordinates: [41.391105494415115, 2.0779961811441034]
+                        }
+                    })
                         .then(field =>
 
                             Match.create({ manager: manager.id, field: field.id, title: 'Futbol 5', description: '5 vs 5, outdoor', date: '2024-06-07T19:00:00' })
