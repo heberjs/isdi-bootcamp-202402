@@ -4,11 +4,10 @@ import mongoose from 'mongoose'
 import logic from './index.ts'
 import { expect, use } from 'chai'
 import { User, Field, Match } from '../data/index.ts'
-const { LimitError } = errors
+const { LimitError, NotFoundError } = errors
 
 
 import chaiAsPromised from 'chai-as-promised'
-import { NotFoundError } from 'com/errors.ts'
 
 
 
