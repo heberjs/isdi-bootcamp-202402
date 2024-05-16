@@ -2,7 +2,7 @@
 
 ## Intro
 
-"FutNow simplifies the search and booking of football matches near to your location, connecting users who want to play but don't have teams, friends, or available fields. Easily find or create matches and join other football enthusiasts in a hassle-free experience."
+"FutNow simplifies the search and booking of football matches near to your city, connecting users who want to play but don't have teams, friends, or available fields. Easily find or create matches and join other football enthusiasts in a hassle-free experience."
 
 ![](https://media.giphy.com/media/usjtDKDAmOuPu/giphy.gif?cid=ecf05e47wwc0o5yu6k46s73lf3azc4qitkcg5zfzu0d3dv6e&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
