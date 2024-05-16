@@ -22,6 +22,7 @@ v.0.1
 - Chat: Users can communicate with each other through a built-in chat feature, facilitating coordination and discussion among participants.
 - i can register in special url for managers (and wait for acceptance from root)
 - once accepted, i can register the field (only once)
+- i can leave of a match 12hs before start without penalization
 - As root:
 - i can create matches with calendar
 - i can list matches with calendar in field
