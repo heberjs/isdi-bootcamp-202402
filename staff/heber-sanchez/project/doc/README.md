@@ -11,6 +11,8 @@
 ### Use Cases
 
 - Create events (field reservation)
+- Update events
+- Delete events
 - Join events (football matches)
 - Search for football fields
 - Show matches and fields in map
