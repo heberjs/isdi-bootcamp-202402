@@ -53,6 +53,11 @@ describe('Unjoin a Match', () => {
                 )
             )
     )
+    it('fails when you Unjoin a match', () => {
+
+
+    }
+    )
 
     after(() => mongoose.disconnect())
 })

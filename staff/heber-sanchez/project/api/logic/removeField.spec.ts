@@ -46,6 +46,12 @@ describe('Remove field', () => {
             )
 
     )
+    it('fails when you remove a field', () => {
+
+
+    }
+    )
+
 
     after(() => mongoose.disconnect())
 })
