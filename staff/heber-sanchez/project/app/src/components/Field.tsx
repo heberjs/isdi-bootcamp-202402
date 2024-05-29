@@ -5,14 +5,21 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useContext } from '../context.ts'
 
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+
 
 
 
 function Field({ item: field, onEditFieldClick, onDeleteFieldClick }) {
 
     const { showConfirm, showFeedback } = useContext()
+    const { view, setView } = useState(null)
 
     const handleEditFieldClick = (field) => onEditFieldClick(field)
+
+    const latitude = field.location.latitude
+    const longitude = field.location.longitude
 
 
     const handleDeleteClick = (field) => {
@@ -32,26 +39,35 @@ function Field({ item: field, onEditFieldClick, onDeleteFieldClick }) {
         })
     }
 
-    const mapUrl = `https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d14261.461455979836!2d${field.location.longitude}!3d${field.location.latitude}!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715701763805!5m2!1ses!2ses`
+    useEffect(() => {
+        const map = L.map(`map-${field.id}`, {
+            attributionControl: false,
+            zoomControl: false,
+        }).setView([latitude, longitude], 13)
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+
+
+        L.marker([latitude, longitude])
+            .addTo(map)
+            .bindPopup(`<b style="font-size: 12px">${field.name}</b>`)
+            .openPopup();
+    }, [latitude, longitude, field.id, field.name, field.address])
+
+
 
     logger.debug('Field -> render')
-    return <article className='border-black border-2 flex-grow  bg-[#AEC09A] px-2 rounded-lg max-w-screen text-black font-semibold p-2'>
-        <div className='flex justify-between'>
+    return <article className='border-black border-2 flex flex-col bg-[#AEC09A] px-2 rounded-lg max-w-screen mt-4'>
+        <div className='flex justify-between gap-2 p-2'>
             <div className=''>
-                <h3 className=' border-b-2 border-[#778D45] mr-2'><strong>Field: </strong>{field.name}</h3>
+                <h3 className=' border-b-2 border-[#778D45] mr-2'><strong>{field.name}</strong></h3>
+                <div className='pt-2'>
+                    <p ><strong>{field.address}</strong></p>
+                </div>
 
-                <p className='pt-2'><strong>Address: </strong>{field.address}</p>
             </div>
             <div className='mt-2'>
-                <iframe
-                    src={mapUrl}
-                    width="150 "
-                    height="150"
-                    style={{ border: '2px solid black' }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
+                <div id={`map-${field.id}`} style={{ height: '150px', width: '150px', border: '1px solid', zIndex: '0' }}></div>
             </div>
         </div>
         <div className='flex justify-center items-center gap-8'>

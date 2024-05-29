@@ -3,7 +3,7 @@ import { ObjectId, Schema } from 'mongoose'
 const { Types: { ObjectId } } = Schema
 
 
-import { Match, MatchType, User } from '../data/index.ts'
+import { Match, User } from '../data/index.ts'
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
@@ -12,11 +12,20 @@ type MatchResponse = {
     title: string,
     description: string,
     date: Date,
-    field: { id: ObjectId, name: string, address: string, location: [number, number] },
+    field: {
+        id: ObjectId,
+        name: string,
+        address: string,
+        location: {
+            latitude: number,
+            longitude: number
+        },
+    }
     players: [{ id: ObjectId, fullname: string }],
     manager: ObjectId
+
 }
-function retrieveJoinedMatches(userId): Promise<any> {
+function retrieveJoinedMatches(userId): Promise<void> {
     validate.text(userId, 'userId', true)
 
     return User.findById(userId)
@@ -25,7 +34,7 @@ function retrieveJoinedMatches(userId): Promise<any> {
             if (!user) throw new NotFoundError('user not found')
 
             return Match.find({ players: userId }).sort({ date: 1 })
-                .populate<{ field: { _id: ObjectId, name: string, address: string } }>('field', '_id name address location')
+                .populate<{ field: { _id: ObjectId, name: string, address: string, location: [number, number] } }>('field', '_id name address location')
                 .populate<{ players: [{ id: ObjectId, fullname: string }] }>('players', '_id fullname')
                 .lean()
                 .catch(error => { throw new SystemError(error.message) })

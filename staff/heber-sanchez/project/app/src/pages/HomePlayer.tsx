@@ -1,14 +1,15 @@
 //@ts-nocheck
-import { useNavigate, Routes, Route } from 'react-router-dom';
+import { useNavigate, Routes, Route } from 'react-router-dom'
 import { logger } from '../utils'
 import logic from '../logic'
 import { useState, useEffect } from 'react'
 import Header from '../components/Header'
-import FooterNav from '../components/FooterNav';
-import MatchesList from '../components/MatchesList';
-import Profile from '../components/Profile';
-import { useContext } from '../context.ts';
-import retrieveMatches from '../logic/retrieveMatches.ts';
+import FooterNav from '../components/FooterNav'
+import MatchesList from '../components/MatchesList'
+import Profile from '../components/Profile'
+import { useContext } from '../context.ts'
+import retrieveMatches from '../logic/retrieveMatches.ts'
+import MapComponent from '../components/SearchMap.tsx'
 
 
 function HomePlayer() {
@@ -62,6 +63,7 @@ function HomePlayer() {
             <Routes>
                 <Route path="/" element={<MatchesList matches={matches} onJoinedClick={handleOnJoinedClick} onUnJoinedClick={handleOnUnJoinedClick} />} />
                 <Route path="/profile" element={<Profile setStamp={setStamp} />} />
+                <Route path="/maps" element={<MapComponent />} />
             </Routes>
 
         </main >

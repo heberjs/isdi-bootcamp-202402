@@ -8,6 +8,8 @@ import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { useContext } from '../context.ts'
 import getLoggedInfo from '../logic/getLoggedInfo.ts'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 
 
@@ -19,8 +21,8 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
     const [isPlayerJoined, setIsPlayerJoined] = useState(false)
 
 
-    const latitude = match.field.location.latitude[0]
-    const longitude = match.field.location.longitude[1]
+    const latitude = match.field.location.latitude
+    const longitude = match.field.location.longitude
 
 
 
@@ -74,7 +76,21 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
     }, [match])
 
 
-    const mapUrl = `https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d14261.461455979836!2d${match.field.location.longitude}!3d${match.field.location.latitude}!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1715701763805!5m2!1ses!2ses`
+    useEffect(() => {
+        const map = L.map(`map-${match.field.id}`, {
+            attributionControl: false,
+            zoomControl: false,
+        }).setView([latitude, longitude], 13)
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+
+
+        L.marker([latitude, longitude])
+            .addTo(map)
+            .bindPopup(`<b style="font-size: 12px">${match.field.name}</b>`)
+            .openPopup();
+    }, [latitude, longitude, match.field.id, match.field.name, match.field.address])
+
 
     logger.debug('Match -> render')
     return <>
@@ -98,15 +114,8 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
 
                     </div>
                     <div className='mt-2'>
-                        <iframe
-                            src={mapUrl}
-                            width="150 "
-                            height="150"
-                            style={{ border: '1px solid ' }}
-                            allowFullScreen=""
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                        ></iframe>
+                        <div id={`map-${match.field.id}`} style={{ height: '150px', width: '150px', border: '1px solid', zIndex: '0' }}></div>
+
                     </div>
                 </div>
                 {view === 'close' && <button onClick={() => setView('open')} className='flex justify-center'> <img src="/public/info-icon.png" alt="info icon" className='w-8 h-8' /> </button>

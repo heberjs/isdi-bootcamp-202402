@@ -1,11 +1,16 @@
 //@ts-nocheck
 import { logger } from '../utils'
 import logic from '../logic'
-import { useState } from 'react'
+
 import { useContext } from '../context.ts'
 
+interface CreateFieldProps {
+    onCancelClickField: () => void
+    onFieldCreated: () => void
+}
 
-function CreateField({ onCancelClickField, onFieldCreated }) {
+
+function CreateField({ onCancelClickField, onFieldCreated }: CreateFieldProps) {
 
     const { showFeedback } = useContext()
 
@@ -44,7 +49,8 @@ function CreateField({ onCancelClickField, onFieldCreated }) {
 
     logger.debug('Create-field -> Render')
 
-    return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-70 '>
+    return <section className='h-screen w-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-70
+     z-50'>
         <div className='border p-8 rounded-xl bg-[#1A2902] animate-jump-in animate-once'>
             <form onSubmit={handleSubmit} className='flex flex-col items-center'>
 

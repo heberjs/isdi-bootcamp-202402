@@ -16,10 +16,10 @@
 - Join events (football matches)
 - Search for football fields
 - Show matches and fields in map
+- Filter by proximity
 
 v.0.1
 
-- Filter by proximity
 - Create tournaments: Users will be able to create tournaments, allowing them to organize and manage competitive events.
 - Chat: Users can communicate with each other through a built-in chat feature, facilitating coordination and discussion among participants.
 - i can register in special url for managers (and wait for acceptance from root)

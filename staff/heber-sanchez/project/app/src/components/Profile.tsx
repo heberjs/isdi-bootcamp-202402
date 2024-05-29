@@ -45,7 +45,7 @@ function Profile({ setStamp }) {
 
     return <>
 
-        <section className='px-8 pt-2 flex flex-col gap-2 min-h-screen max-h-full'>
+        <section className='flex flex-col min-h-screen max-h-full'>
 
 
 
