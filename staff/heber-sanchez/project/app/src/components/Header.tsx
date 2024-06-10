@@ -42,12 +42,12 @@ function Header({ onUserLoggedOut }) {
 
     return <header className='fixed top-0 w-full h-[90px] flex justify-between bg-[#344C11] px-4 py-6 z-10'>
         <div className='flex justify-center mt-2'>
-            {user && <h1 className='text-white font-semibold ml-2'>{user.fullname}</h1>}
+            {user && <h1 className='text-white font-semibold mr-10'>{user.fullname}</h1>}
         </div>
 
         <div className='flex justify-center items-center'><img className='w-[200px] top-20' src="../../public/pelota-logo-fino-blanco.png" alt="" /></div>
 
-        <button onClick={handleLogoutClick}><img src="../../public/logout-icon.png" className='w-8 h-8' alt="" /></button>
+        <button onClick={handleLogoutClick}><img src="/public/power.png" className='w-10 h-10 ml-12' alt="button logout" /></button>
     </header >
 }
 
