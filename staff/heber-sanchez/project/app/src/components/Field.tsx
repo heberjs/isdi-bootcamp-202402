@@ -15,12 +15,12 @@ function Field({ item: field, onEditFieldClick, onDeleteFieldClick }) {
 
     const { showConfirm, showFeedback } = useContext()
     const { view, setView } = useState(null)
+    const [map, setMap] = useState(null)
+
+    const { latitude, longitude } = field.location
+
 
     const handleEditFieldClick = (field) => onEditFieldClick(field)
-
-    const latitude = field.location.latitude
-    const longitude = field.location.longitude
-
 
     const handleDeleteClick = (field) => {
 
@@ -40,24 +40,33 @@ function Field({ item: field, onEditFieldClick, onDeleteFieldClick }) {
     }
 
     useEffect(() => {
-        const map = L.map(`map-${field.id}`, {
+
+        const mapInstance = L.map(`map-${field.id}`, {
             attributionControl: false,
-            zoomControl: false,
+            zoomControl: false
         }).setView([latitude, longitude], 13)
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
-
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstance)
 
         L.marker([latitude, longitude])
-            .addTo(map)
+            .addTo(mapInstance)
             .bindPopup(`<b style="font-size: 12px">${field.name}</b>`)
             .openPopup();
+
+        setMap(mapInstance)
+
+
+        return () => {
+            mapInstance.remove()
+
+
+        }
     }, [latitude, longitude, field.id, field.name, field.address])
 
 
 
     logger.debug('Field -> render')
-    return <article className='border-black border-2 flex flex-col bg-[#AEC09A] px-2 rounded-lg max-w-screen mt-4'>
+    return <article className='border-black border-2 flex-col bg-[#AEC09A] px-2 rounded-3xl mt-4'>
         <div className='flex justify-between gap-2 p-2'>
             <div className=''>
                 <h3 className=' border-b-2 border-[#778D45] mr-2'><strong>{field.name}</strong></h3>

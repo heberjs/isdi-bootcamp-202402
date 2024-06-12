@@ -13,7 +13,7 @@ function FooterNav({ onCreateFormClick, onCreateFieldForm }) {
 
     const isManagerFieldsPath = pathname === "/manager/fields"
     return <>
-        <nav className="fixed bottom-0 w-full flex justify-between items-center box-border  bg-[#344C11] p-4">
+        <nav className="fixed bottom-0 w-full flex justify-between lg:justify-around items-center box-border  bg-[#344C11] p-4">
 
             {logic.getLoggedInfo().role === 'manager' && (<Link to="/manager"><img className='w-8 h-8 top-1' src="/public/home-icon.png" alt="home icon" /></Link>)}
             {logic.getLoggedInfo().role === 'player' && (<Link to="/"><img className='w-8 h-8 top-1' src="/public/home-icon.png" alt="home icon" /></Link>)}

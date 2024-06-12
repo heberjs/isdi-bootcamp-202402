@@ -7,7 +7,7 @@ import { useContext } from '../context.ts'
 
 function RegisterManager({ onUserRegistered, onLoginClick }) {
 
-    const { showFeedBack } = useContext()
+    const { showFeedback } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -25,9 +25,9 @@ function RegisterManager({ onUserRegistered, onLoginClick }) {
 
                     onUserRegistered()
                 })
-                .catch(error => showFeedBack(error, 'error'))
+                .catch(error => showFeedback(error, 'error'))
         } catch (error) {
-            showFeedBack(error)
+            showFeedback(error)
         }
 
     }

@@ -9,7 +9,7 @@ import MatchesList from '../components/MatchesList'
 import Profile from '../components/Profile'
 import { useContext } from '../context.ts'
 import retrieveMatches from '../logic/retrieveMatches.ts'
-import MapComponent from '../components/SearchMap.tsx'
+import MapComponent from '../components/MapComponent.tsx'
 
 
 function HomePlayer() {

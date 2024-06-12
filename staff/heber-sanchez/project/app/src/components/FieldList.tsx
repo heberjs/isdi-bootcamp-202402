@@ -58,17 +58,19 @@ function FieldList({ stamp, onCreateFieldForm, onFieldEdited }) {
 
 
     return <section className='pt-[90px] pb-[140px] min-h-screen max-h-full  flex-grow'>
-        <h1 className='text-white  font-semibold items-start ml-8 mt-2 mb-2 text-3xl'>Your Fields :</h1>
+        <h1 className='rounded-2xl py-4 px-2 ml-10'><span className='inline-flex animate-text-gradient bg-gradient-to-r from-[#a4c994] via-[#8bcda4] to-[#ade8b3] bg-[200%_auto] bg-clip-text text-transparent text-4xl'>
+            Your Fields
+        </span></h1>
         <article className='flex-grow'>
 
-            <div className=' px-8 pt-2 flex flex-col gap-2'>
+            <div className=' px-8 pt-2 flex flex-col gap-2 lg:max-w-[940px] lg:m-auto'>
                 {fields.map(field => <Field key={field.id} item={field} stamp={stamp} onDeleteFieldClick={handleOnDeletedfieldClick} onEditFieldClick={handleonEditFormClick} />)}
             </div>
 
         </article>
 
         {view === 'edit-field' && < EditField field={field} onCancelFormEditClick={handleCanceledFormEdit} onFieldEdited={handleOnFieldEdited} />}
-    </section>
+    </section >
 
 }
 

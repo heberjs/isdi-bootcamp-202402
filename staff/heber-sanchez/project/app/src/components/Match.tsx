@@ -1,8 +1,6 @@
 //@ts-nocheck
 import { logger } from '../utils'
-
 import logic from '../logic'
-
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
@@ -19,10 +17,10 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
 
     const [view, setView] = useState('close')
     const [isPlayerJoined, setIsPlayerJoined] = useState(false)
+    const [map, setMap] = useState(null)
 
 
-    const latitude = match.field.location.latitude
-    const longitude = match.field.location.longitude
+    const { latitude, longitude } = match.field.location
 
 
 
@@ -77,24 +75,34 @@ function Match({ item: match, onJoinClick, onEditMatchClick, onDeleteMatchClick,
 
 
     useEffect(() => {
-        const map = L.map(`map-${match.field.id}`, {
+        const mapInstance = L.map(`map-${match.field.id}`, {
             attributionControl: false,
             zoomControl: false,
         }).setView([latitude, longitude], 13)
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstance)
 
 
         L.marker([latitude, longitude])
-            .addTo(map)
+            .addTo(mapInstance)
             .bindPopup(`<b style="font-size: 12px">${match.field.name}</b>`)
             .openPopup();
-    }, [latitude, longitude, match.field.id, match.field.name, match.field.address])
+
+        setMap(mapInstance)
+
+
+
+        return () => {
+            if (map) {
+                mapInstance.remove()
+            }
+        }
+    }, [latitude, longitude, match.field.id, match.field.name])
 
 
     logger.debug('Match -> render')
     return <>
-        <article className='border-black border-2 flex flex-col bg-[#AEC09A] px-2 rounded-lg max-w-screen mt-4'>
+        <article className='border-black border-2 flex-col bg-[#AEC09A] px-2 rounded-3xl  mt-4'>
             <div className='flex flex-col text-black font-semibold p-2'>
                 <div className='flex justify-between gap-2'>
                     <div className=''>

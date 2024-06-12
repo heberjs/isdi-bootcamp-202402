@@ -1,9 +1,9 @@
 //@ts-nocheck
 import { logger } from '../utils'
 import logic from '../logic'
-import Header from '../components/Header'
-import FooterNav from '../components/FooterNav'
-import React, { useEffect, useState } from 'react'
+import Header from './Header'
+import FooterNav from './FooterNav'
+import React, { useEffect, useState, memo } from 'react'
 import moment from 'moment'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -11,7 +11,7 @@ import { useContext } from '../context'
 
 
 
-const MapComponent = () => {
+function MapComponent() {
 
     const { showFeedback, showConfirm } = useContext()
     const [matches, setMatches] = useState([])
@@ -37,30 +37,32 @@ const MapComponent = () => {
     useEffect(() => {
         loadMatches()
 
-        const map = L.map('map').setView([41.3851, 2.1734], 13);
+        const mapInstance = L.map('map').setView([41.3851, 2.1734], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        }).addTo(mapInstance);
 
-        map.locate({ setView: true, maxZoom: 16 })
+        mapInstance.locate({ setView: true, maxZoom: 16 })
 
-        map.on('locationfound', (e) => {
+        mapInstance.on('locationfound', (e) => {
             const radius = e.accuracy / 2
 
-            const marker = L.marker(e.latlng).addTo(map)
-                .bindPopup(`you are here`)
+            L.marker(e.latlng).addTo(mapInstance).bindPopup(`you are here`)
 
-
-            L.circle(e.latlng, { radius }).addTo(map)
+            L.circle(e.latlng, { radius }).addTo(mapInstance)
 
         })
 
-        map.on('locationerror', (e) => {
+        mapInstance.on('locationerror', (e) => {
             showFeedback(e.message, 'error')
         })
 
-        setMap(map)
+        setMap(mapInstance)
+
+        return () => {
+            mapInstance.remove()
+        }
 
     }, []);
 
@@ -68,8 +70,8 @@ const MapComponent = () => {
         if (matches.length === 0 || !map) return
 
         matches.forEach(match => {
-            const latitude = match.field.location.latitude
-            const longitude = match.field.location.longitude
+            const { latitude, longitude } = match.field.location
+
             const date = moment(match.date).format('dddd, MMMM, Do, h:mm a')
             const marker = L.marker([latitude, longitude]).addTo(map)
             marker.bindPopup(`<b>${match.field.name}</b><br>${match.field.address}<br>${date}`)
